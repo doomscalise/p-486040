@@ -1,7 +1,7 @@
-
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SocialNetwork from "@/components/SocialNetwork";
 import { Mail, MessageCircle, Send, User, Phone, MapPin, ArrowRight, Clock } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
@@ -12,6 +12,7 @@ const Contatti = () => {
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -40,16 +41,21 @@ const Contatti = () => {
       });
       setFormData({ name: "", email: "", message: "" });
       setIsSubmitting(false);
+      setCurrentStep(0);
     }, 1000);
   };
 
+  const nextStep = () => {
+    if (currentStep < 2) setCurrentStep(currentStep + 1);
+  };
+
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-gambla-dark">
       <Navbar />
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="min-h-screen bg-black relative overflow-hidden">
+        <section className="py-20 bg-gambla-dark relative overflow-hidden">
           {/* Grid pattern background */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0" style={{
@@ -63,106 +69,26 @@ const Contatti = () => {
           <div className="absolute bottom-40 left-20 w-40 h-40 bg-gambla-orange/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
           <div className="absolute top-60 left-1/4 w-24 h-24 bg-gambla-yellow/20 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
 
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
-              {/* Left side - Content */}
-              <div className="space-y-8">
-                <div className="space-y-6">
-                  <div className="inline-block px-4 py-2 bg-gambla-gradient rounded-full text-white text-sm font-semibold animate-pulse-slow">
-                    💬 Contattaci
-                  </div>
-                  
-                  <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white leading-tight">
-                    Contattaci per ogni{" "}
-                    <span className="text-transparent bg-clip-text bg-gambla-gradient">
-                      Domanda
-                    </span>{" "}
-                    o{" "}
-                    <span className="text-transparent bg-clip-text bg-gambla-gradient">
-                      Collaborazione
-                    </span>
-                  </h1>
-                  
-                  <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
-                    Hai domande, suggerimenti o vuoi collaborare con noi? Scrivici e ti risponderemo il prima possibile!
-                  </p>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-4 border border-gray-700 hover:border-gambla-magenta/50 transition-all duration-300">
-                    <div className="text-2xl font-bold text-transparent bg-clip-text bg-gambla-gradient mb-2">
-                      24h
-                    </div>
-                    <div className="text-gray-400 text-sm">
-                      Tempo di Risposta
-                    </div>
-                  </div>
-                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-4 border border-gray-700 hover:border-gambla-magenta/50 transition-all duration-300">
-                    <div className="text-2xl font-bold text-transparent bg-clip-text bg-gambla-gradient mb-2">
-                      24/7
-                    </div>
-                    <div className="text-gray-400 text-sm">
-                      Supporto Attivo
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="gambla-btn-primary flex items-center justify-center group">
-                    Invia Messaggio
-                    <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                  </button>
-                  
-                  <button className="flex items-center justify-center px-6 py-3 text-white border-2 border-gray-600 rounded-full hover:border-white transition-colors">
-                    <Clock className="mr-2 w-5 h-5" />
-                    Orari di Lavoro
-                  </button>
-                </div>
-              </div>
-
-              {/* Right side - Contact Preview */}
-              <div className="relative">
-                <div className="relative z-10">
-                  <div className="bg-gambla-gradient p-8 rounded-3xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                    <div className="bg-black p-6 rounded-2xl">
-                      <h3 className="text-white font-bold text-xl mb-4 flex items-center">
-                        <MessageCircle className="mr-2 w-6 h-6 text-gambla-yellow" />
-                        Come Contattarci
-                      </h3>
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
-                          <span className="text-white flex items-center">
-                            <Mail className="mr-2 w-4 h-4 text-gambla-orange" />
-                            Email
-                          </span>
-                          <span className="text-gambla-orange font-bold">VELOCE</span>
-                        </div>
-                        <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
-                          <span className="text-white flex items-center">
-                            <MessageCircle className="mr-2 w-4 h-4 text-gambla-magenta" />
-                            Social
-                          </span>
-                          <span className="text-gambla-magenta font-bold">ATTIVO</span>
-                        </div>
-                        <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
-                          <span className="text-white flex items-center">
-                            <Phone className="mr-2 w-4 h-4 text-gambla-yellow" />
-                            Telegram
-                          </span>
-                          <span className="text-gray-400">Gruppo</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div className="container px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center max-w-4xl mx-auto mb-16">
+              <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-6 leading-tight">
+                Entra in{" "}
+                <span className="text-transparent bg-clip-text bg-gambla-gradient">
+                  Contatto
+                </span>
+              </h1>
+              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Scrivici attraverso i nostri canali di comunicazione
+              </p>
             </div>
+
+            {/* Social Network Section */}
+            <SocialNetwork />
           </div>
         </section>
 
         {/* Contact Section */}
-        <section className="py-16 bg-black">
+        <section className="py-16 bg-gambla-dark">
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Contact Info */}
@@ -262,68 +188,101 @@ const Contatti = () => {
                 </div>
               </div>
 
-              {/* Contact Form */}
+              {/* Step-by-Step Form */}
               <div className="bg-gambla-gradient p-1 rounded-3xl">
-                <div className="bg-black p-8 rounded-3xl">
-                  <h2 className="text-2xl font-display font-bold text-white mb-6">
-                    Invia un Messaggio
-                  </h2>
+                <div className="bg-gambla-dark p-8 rounded-3xl">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-display font-bold text-white">
+                      Invia un Messaggio
+                    </h2>
+                    <div className="flex space-x-2">
+                      {[0, 1, 2].map((step) => (
+                        <div
+                          key={step}
+                          className={`w-3 h-3 rounded-full transition-colors ${
+                            step <= currentStep ? 'bg-gambla-orange' : 'bg-gray-600'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Il tuo nome"
-                        className="w-full pl-12 pr-4 py-4 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300"
-                        required
-                      />
-                    </div>
+                    {currentStep === 0 && (
+                      <div className="space-y-4 animate-fade-in">
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                          <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            placeholder="Il tuo nome"
+                            className="w-full pl-12 pr-4 py-4 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300"
+                            required
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={nextStep}
+                          disabled={!formData.name}
+                          className="w-full gambla-btn-primary disabled:opacity-50"
+                        >
+                          Continua
+                        </button>
+                      </div>
+                    )}
 
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="La tua email"
-                        className="w-full pl-12 pr-4 py-4 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300"
-                        required
-                      />
-                    </div>
+                    {currentStep === 1 && (
+                      <div className="space-y-4 animate-fade-in">
+                        <div className="relative">
+                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                          <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="La tua email"
+                            className="w-full pl-12 pr-4 py-4 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300"
+                            required
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={nextStep}
+                          disabled={!formData.email}
+                          className="w-full gambla-btn-primary disabled:opacity-50"
+                        >
+                          Continua
+                        </button>
+                      </div>
+                    )}
 
-                    <div className="relative">
-                      <MessageCircle className="absolute left-3 top-4 text-gray-400 w-5 h-5" />
-                      <textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        placeholder="Il tuo messaggio"
-                        rows={5}
-                        className="w-full pl-12 pr-4 py-4 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300 resize-none"
-                        required
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full gambla-btn-tertiary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      <Send className="mr-2 w-5 h-5" />
-                      {isSubmitting ? "Invio in corso..." : "Invia Messaggio"}
-                    </button>
+                    {currentStep === 2 && (
+                      <div className="space-y-4 animate-fade-in">
+                        <div className="relative">
+                          <MessageCircle className="absolute left-3 top-4 text-gray-400 w-5 h-5" />
+                          <textarea
+                            name="message"
+                            value={formData.message}
+                            onChange={handleChange}
+                            placeholder="Il tuo messaggio"
+                            rows={5}
+                            className="w-full pl-12 pr-4 py-4 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300 resize-none"
+                            required
+                          />
+                        </div>
+                        <button
+                          type="submit"
+                          disabled={isSubmitting || !formData.message}
+                          className="w-full gambla-btn-tertiary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <Send className="mr-2 w-5 h-5" />
+                          {isSubmitting ? "Invio in corso..." : "Invia Messaggio"}
+                        </button>
+                      </div>
+                    )}
                   </form>
-
-                  <div className="mt-6 text-center">
-                    <p className="text-gray-400 text-sm">
-                      Ti risponderemo entro 24 ore. La tua privacy è importante per noi.
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
