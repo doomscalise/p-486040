@@ -15,7 +15,7 @@ const ChiSiamo = () => {
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto">
               <h1 className="section-title mb-6">
-                Chi Siamo: La Tua <span className="text-gambla-orange">Community Sportiva</span>
+                Chi Siamo: La Tua <span className="bg-gambla-magenta/20 px-4 py-2 rounded-lg text-gambla-magenta border border-gambla-magenta/30">Community Sportiva</span>
               </h1>
               <p className="section-subtitle mx-auto">
                 Gambla.it nasce dalla passione per lo sport, unendo tifosi in una community globale. 
