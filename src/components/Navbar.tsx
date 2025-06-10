@@ -41,7 +41,7 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 py-3 md:py-4 transition-all duration-300",
         isScrolled 
-          ? "bg-gambla-dark/95 backdrop-blur-md shadow-lg border-b border-gray-800" 
+          ? "bg-black/95 backdrop-blur-md shadow-lg border-b border-gray-800" 
           : "bg-transparent"
       )}
     >
@@ -54,8 +54,8 @@ const Navbar = () => {
           <div className="w-10 h-10 bg-gambla-gradient rounded-full flex items-center justify-center">
             <span className="text-white font-bold text-xl">G</span>
           </div>
-          <span className="text-2xl font-display font-bold text-white">
-            Gambla<span className="text-transparent bg-clip-text bg-gambla-gradient">.it</span>
+          <span className="text-2xl font-display font-bold text-transparent bg-clip-text bg-gambla-gradient">
+            GAMBLA
           </span>
         </Link>
 
@@ -88,7 +88,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       <div className={cn(
-        "fixed inset-0 z-40 bg-gambla-dark flex flex-col pt-16 px-6 md:hidden transition-all duration-300 ease-in-out",
+        "fixed inset-0 z-40 bg-black flex flex-col pt-16 px-6 md:hidden transition-all duration-300 ease-in-out",
         isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full pointer-events-none"
       )}>
         <nav className="flex flex-col space-y-8 items-center mt-8">

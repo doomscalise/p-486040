@@ -1,63 +1,98 @@
 
 import React from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const GamblaHero = () => {
   return (
-    <section 
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gambla-gradient"
-      style={{
-        backgroundImage: 'linear-gradient(rgba(28, 37, 38, 0.7), rgba(42, 9, 68, 0.8)), url("https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}
-    >
-      {/* Animated background elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-gambla-magenta/20 rounded-full blur-xl animate-float"></div>
-      <div className="absolute bottom-20 right-10 w-40 h-40 bg-gambla-orange/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
-      <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gambla-yellow/20 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
+    <section className="min-h-screen bg-black relative overflow-hidden">
+      {/* Grid pattern background */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+          backgroundSize: '50px 50px'
+        }}></div>
+      </div>
 
-      <div className="container px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <div className="max-w-4xl mx-auto">
-          {/* Main Hero Content */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 opacity-0 animate-fade-in">
-            <span className="text-white">Accendi la Tua</span>{" "}
-            <span className="text-transparent bg-clip-text bg-gambla-gradient">
-              Passione Sportiva
-            </span>{" "}
-            <span className="text-white">con</span>{" "}
-            <span className="text-gambla-yellow">Gambla!</span>
-          </h1>
-          
-          <p 
-            className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed opacity-0 animate-fade-in max-w-3xl mx-auto"
-            style={{ animationDelay: "0.3s" }}
-          >
-            Diventa parte di un'avventura sportiva unica! Unisciti alla nostra community per vivere emozioni live, 
-            condividere i tuoi momenti preferiti e accedere a contenuti esclusivi. 
-            Il tuo ingresso nel mondo dello sport è a un clic di distanza!
-          </p>
-          
-          <div 
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-fade-in"
-            style={{ animationDelay: "0.6s" }}
-          >
-            <button className="gambla-btn-primary flex items-center group">
-              Unisciti Ora
-              <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </button>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
+          {/* Left side - Content */}
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <div className="inline-block px-4 py-2 bg-gambla-gradient rounded-full text-white text-sm font-semibold">
+                🔥 Portale Sportivo #1 in Italia
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white leading-tight">
+                Accendi la Tua{" "}
+                <span className="text-transparent bg-clip-text bg-gambla-gradient">
+                  Passione
+                </span>{" "}
+                Sportiva
+              </h1>
+              
+              <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
+                Unisciti alla community sportiva più dinamica d'Italia. Notizie live, 
+                fantacalcio, discussioni accese e contenuti esclusivi ti aspettano.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="gambla-btn-primary flex items-center justify-center group">
+                Unisciti Ora
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </button>
+              
+              <button className="flex items-center justify-center px-6 py-3 text-white border-2 border-gray-600 rounded-full hover:border-white transition-colors">
+                <Play className="mr-2 w-5 h-5" />
+                Guarda Demo
+              </button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-6 pt-8">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-transparent bg-clip-text bg-gambla-gradient">10K+</div>
+                <div className="text-gray-400 text-sm">Utenti Attivi</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-transparent bg-clip-text bg-gambla-gradient">500+</div>
+                <div className="text-gray-400 text-sm">Articoli</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-transparent bg-clip-text bg-gambla-gradient">24/7</div>
+                <div className="text-gray-400 text-sm">Copertura Live</div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Scroll indicator */}
-        <div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 animate-fade-in"
-          style={{ animationDelay: "1s" }}
-        >
-          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-bounce"></div>
+          {/* Right side - Visual */}
+          <div className="relative">
+            <div className="relative z-10">
+              <div className="bg-gambla-gradient p-8 rounded-3xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                <div className="bg-black p-6 rounded-2xl">
+                  <h3 className="text-white font-bold text-xl mb-4">🏆 Highlights Oggi</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                      <span className="text-white">Inter vs Milan</span>
+                      <span className="text-gambla-orange font-bold">2-1</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                      <span className="text-white">Juventus vs Roma</span>
+                      <span className="text-gambla-magenta font-bold">LIVE</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                      <span className="text-white">Napoli vs Lazio</span>
+                      <span className="text-gray-400">20:45</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Floating elements */}
+            <div className="absolute top-10 right-10 w-20 h-20 bg-gambla-magenta/20 rounded-full blur-xl animate-float"></div>
+            <div className="absolute bottom-10 left-10 w-32 h-32 bg-gambla-orange/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
           </div>
         </div>
       </div>
