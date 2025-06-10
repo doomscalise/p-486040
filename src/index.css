@@ -17,7 +17,7 @@
     --popover: 28 37 38;
     --popover-foreground: 255 255 255;
 
-    --primary: 230 57 70;
+    --primary: 255 105 180;
     --primary-foreground: 255 255 255;
 
     --secondary: 44 44 44;
@@ -29,12 +29,12 @@
     --accent: 255 105 180;
     --accent-foreground: 255 255 255;
 
-    --destructive: 230 57 70;
+    --destructive: 255 105 180;
     --destructive-foreground: 255 255 255;
 
     --border: 68 68 68;
     --input: 68 68 68;
-    --ring: 230 57 70;
+    --ring: 255 105 180;
 
     --radius: 0.5rem;
   }
@@ -62,22 +62,22 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #E63946;
+    background: linear-gradient(135deg, #FF1493, #FF8C00);
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #d63031;
+    background: linear-gradient(135deg, #FF69B4, #FF7F50);
   }
 }
 
 @layer components {
   .gambla-btn-primary {
-    @apply bg-gambla-orange hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg;
+    @apply bg-gradient-to-r from-gambla-magenta to-gambla-orange hover:from-gambla-magenta-light hover:to-gambla-orange-light text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg;
   }
 
   .gambla-btn-secondary {
-    @apply bg-gambla-pink hover:bg-pink-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg;
+    @apply bg-gradient-to-r from-gambla-orange to-gambla-magenta hover:from-gambla-orange-light hover:to-gambla-magenta-light text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg;
   }
 
   .gambla-btn-tertiary {
@@ -101,7 +101,7 @@
   }
 
   .icon-grid-item {
-    @apply flex flex-col items-center text-center p-6 rounded-xl bg-gray-800/30 backdrop-blur-sm border border-gray-700 transition-all duration-300 hover:bg-gray-800/50 hover:border-gambla-orange hover:transform hover:scale-105;
+    @apply flex flex-col items-center text-center p-6 rounded-xl bg-gray-800/30 backdrop-blur-sm border border-gray-700 transition-all duration-300 hover:bg-gray-800/50 hover:border-gambla-magenta hover:transform hover:scale-105;
   }
 }
 

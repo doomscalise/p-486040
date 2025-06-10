@@ -63,11 +63,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Gambla.it color palette
+				// Gambla.it color palette - Aggiornato con magenta-arancione
 				gambla: {
 					dark: '#1C2526',
-					orange: '#E63946',
-					pink: '#FF69B4',
+					magenta: '#FF1493', // Deep Pink/Magenta
+					'magenta-light': '#FF69B4', // Hot Pink
+					orange: '#FF8C00', // Dark Orange
+					'orange-light': '#FF7F50', // Coral
 					yellow: '#F1C40F',
 					purple: '#2A0944',
 					blue: '#0A1D37',
@@ -131,7 +133,8 @@ export default {
 				'hover-scale': 'hover-scale 0.3s ease-in-out'
 			},
 			backgroundImage: {
-				'gambla-gradient': 'linear-gradient(135deg, #2A0944 0%, #0A1D37 100%)',
+				'gambla-gradient': 'linear-gradient(135deg, #FF1493 0%, #FF8C00 100%)',
+				'gambla-gradient-reverse': 'linear-gradient(135deg, #FF8C00 0%, #FF1493 100%)',
 				'hero-sports': 'linear-gradient(rgba(28, 37, 38, 0.5), rgba(28, 37, 38, 0.5)), url("https://images.unsplash.com/photo-1574629810360-7efbbe195018")',
 			},
 			fontFamily: {

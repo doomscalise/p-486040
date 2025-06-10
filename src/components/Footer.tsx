@@ -14,7 +14,7 @@ const Footer = () => {
                 <span className="text-white font-bold text-xl">G</span>
               </div>
               <span className="text-2xl font-display font-bold text-white">
-                Gambla<span className="text-gambla-orange">.it</span>
+                Gambla<span className="text-transparent bg-clip-text bg-gambla-gradient">.it</span>
               </span>
             </div>
             <p className="text-gray-400 mb-4 max-w-md">
@@ -26,7 +26,7 @@ const Footer = () => {
                 href="https://instagram.com/gambla_it" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-gambla-pink transition-colors duration-300"
+                className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300"
               >
                 Instagram
               </a>
@@ -34,7 +34,7 @@ const Footer = () => {
                 href="https://tiktok.com/@gambla_it" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-gambla-pink transition-colors duration-300"
+                className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300"
               >
                 TikTok
               </a>
@@ -46,22 +46,22 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-white mb-4">Collegamenti</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-gray-400 hover:text-gambla-orange transition-colors duration-300">
+                <Link to="/" className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/blog" className="text-gray-400 hover:text-gambla-orange transition-colors duration-300">
+                <Link to="/blog" className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link to="/fantagambla" className="text-gray-400 hover:text-gambla-orange transition-colors duration-300">
+                <Link to="/fantagambla" className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300">
                   Fantagambla
                 </Link>
               </li>
               <li>
-                <Link to="/chi-siamo" className="text-gray-400 hover:text-gambla-orange transition-colors duration-300">
+                <Link to="/chi-siamo" className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300">
                   Chi Siamo
                 </Link>
               </li>
@@ -73,17 +73,17 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-white mb-4">Contatti</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/contatti" className="text-gray-400 hover:text-gambla-orange transition-colors duration-300">
+                <Link to="/contatti" className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300">
                   Contattaci
                 </Link>
               </li>
               <li>
-                <a href="mailto:info@gambla.it" className="text-gray-400 hover:text-gambla-orange transition-colors duration-300">
+                <a href="mailto:info@gambla.it" className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300">
                   info@gambla.it
                 </a>
               </li>
               <li>
-                <a href="mailto:redazione@gambla.it" className="text-gray-400 hover:text-gambla-orange transition-colors duration-300">
+                <a href="mailto:redazione@gambla.it" className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300">
                   redazione@gambla.it
                 </a>
               </li>

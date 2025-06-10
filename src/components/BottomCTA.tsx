@@ -16,13 +16,13 @@ const BottomCTA = () => {
     >
       {/* Animated elements */}
       <div className="absolute top-10 right-10 w-20 h-20 bg-gambla-orange/30 rounded-full blur-lg animate-pulse"></div>
-      <div className="absolute bottom-10 left-10 w-32 h-32 bg-gambla-pink/20 rounded-full blur-xl animate-float"></div>
+      <div className="absolute bottom-10 left-10 w-32 h-32 bg-gambla-magenta/20 rounded-full blur-xl animate-float"></div>
 
       <div className="container px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
           <h2 className="section-title mb-6 opacity-0 animate-fade-in">
             Trasforma la Tua <span className="text-gambla-yellow">Adrenalina</span> in{" "}
-            <span className="text-gambla-pink">Azioni!</span>
+            <span className="text-transparent bg-clip-text bg-gambla-gradient">Azioni!</span>
           </h2>
           
           <p 
@@ -60,7 +60,7 @@ const BottomCTA = () => {
                 href="https://instagram.com/gambla_it" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gambla-pink hover:text-gambla-yellow transition-colors duration-300 font-semibold"
+                className="text-transparent bg-clip-text bg-gambla-gradient hover:text-gambla-yellow transition-colors duration-300 font-semibold"
               >
                 @gambla_it
               </a>{" "}

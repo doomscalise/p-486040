@@ -10,7 +10,7 @@ const SportIconsGrid = () => {
       description: "Segui gli eventi in diretta e condividi le tue reazioni in tempo reale!"
     },
     {
-      icon: <Users className="w-12 h-12 text-gambla-pink" />,
+      icon: <Users className="w-12 h-12 text-gambla-magenta" />,
       title: "Tifosi Connessi",
       description: "Collegati con altri appassionati e crea il tuo gruppo di supporto!"
     },
@@ -25,7 +25,7 @@ const SportIconsGrid = () => {
       description: "Preparati a competere con analisi uniche presto disponibili!"
     },
     {
-      icon: <Trophy className="w-12 h-12 text-gambla-pink" />,
+      icon: <Trophy className="w-12 h-12 text-gambla-magenta" />,
       title: "Fantasy Challenge",
       description: "Crea la tua squadra e sfida amici – iscriviti per il lancio!"
     }
@@ -36,7 +36,7 @@ const SportIconsGrid = () => {
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="section-title mb-6 opacity-0 animate-fade-in">
-            Sblocca il Tuo <span className="text-gambla-orange">Potenziale Sportivo!</span>
+            Sblocca il Tuo <span className="text-transparent bg-clip-text bg-gambla-gradient">Potenziale Sportivo!</span>
           </h2>
           <p 
             className="section-subtitle mx-auto opacity-0 animate-fade-in"

@@ -55,7 +55,7 @@ const Navbar = () => {
             <span className="text-white font-bold text-xl">G</span>
           </div>
           <span className="text-2xl font-display font-bold text-white">
-            Gambla<span className="text-gambla-orange">.it</span>
+            Gambla<span className="text-transparent bg-clip-text bg-gambla-gradient">.it</span>
           </span>
         </Link>
 
@@ -66,9 +66,9 @@ const Navbar = () => {
               key={item.path}
               to={item.path}
               className={cn(
-                "relative text-white hover:text-gambla-orange py-2 transition-colors duration-300 font-medium",
-                "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gambla-orange after:transition-all hover:after:w-full",
-                location.pathname === item.path && "text-gambla-orange after:w-full"
+                "relative text-white hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient py-2 transition-colors duration-300 font-medium",
+                "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gambla-gradient after:transition-all hover:after:w-full",
+                location.pathname === item.path && "text-transparent bg-clip-text bg-gambla-gradient after:w-full"
               )}
             >
               {item.name}
@@ -99,8 +99,8 @@ const Navbar = () => {
               className={cn(
                 "text-xl font-medium py-3 px-6 w-full text-center rounded-lg transition-colors duration-300",
                 location.pathname === item.path 
-                  ? "text-gambla-orange bg-gray-800/50" 
-                  : "text-white hover:text-gambla-orange hover:bg-gray-800/30"
+                  ? "text-transparent bg-clip-text bg-gambla-gradient bg-gray-800/50" 
+                  : "text-white hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient hover:bg-gray-800/30"
               )}
               onClick={closeMenu}
             >

@@ -15,8 +15,8 @@ const GamblaHero = () => {
       }}
     >
       {/* Animated background elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-gambla-orange/20 rounded-full blur-xl animate-float"></div>
-      <div className="absolute bottom-20 right-10 w-40 h-40 bg-gambla-pink/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-20 left-10 w-32 h-32 bg-gambla-magenta/20 rounded-full blur-xl animate-float"></div>
+      <div className="absolute bottom-20 right-10 w-40 h-40 bg-gambla-orange/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
       <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gambla-yellow/20 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
 
       <div className="container px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -24,7 +24,7 @@ const GamblaHero = () => {
           {/* Main Hero Content */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 opacity-0 animate-fade-in">
             <span className="text-white">Accendi la Tua</span>{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gambla-orange to-gambla-pink">
+            <span className="text-transparent bg-clip-text bg-gambla-gradient">
               Passione Sportiva
             </span>{" "}
             <span className="text-white">con</span>{" "}
