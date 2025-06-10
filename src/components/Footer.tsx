@@ -15,7 +15,7 @@ const Footer = () => {
                 <span className="text-white font-bold text-xl">G</span>
               </div>
               <span className="text-2xl font-display font-bold text-white">
-                Gambla<span className="text-transparent bg-clip-text bg-gambla-gradient">.it</span>
+                GAMBLA<span className="text-transparent bg-clip-text bg-gambla-gradient">.it</span>
               </span>
             </div>
             <p className="text-gray-400 mb-4 max-w-md">
