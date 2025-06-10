@@ -61,7 +61,7 @@ const Blog = () => {
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto">
               <h1 className="section-title mb-6">
-                Il Cuore delle <span className="bg-gambla-magenta/20 px-4 py-2 rounded-lg text-gambla-magenta border border-gambla-magenta/30">Notizie Sportive</span>
+                Il Cuore delle <span className="bg-white/90 px-4 py-2 rounded-lg text-gambla-magenta border-2 border-gambla-magenta font-bold shadow-lg">Notizie Sportive</span>
               </h1>
               <p className="section-subtitle mx-auto mb-8">
                 Scopri storie inedite, analisi approfondite e aggiornamenti dal mondo dello sport. 
