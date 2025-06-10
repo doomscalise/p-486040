@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -52,15 +51,13 @@ const Contatti = () => {
         <section className="py-16 bg-gambla-gradient">
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6">
-                Contattaci
+              <h1 className="section-title mb-6">
+                <span className="block">Contattaci per ogni</span>
+                <span className="bg-white/90 px-4 py-2 rounded-lg text-gambla-magenta border-2 border-gambla-magenta font-bold shadow-lg inline-block mt-2">
+                  Domanda o Collaborazione
+                </span>
               </h1>
-              <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-8 py-4 mb-6">
-                <p className="text-xl md:text-2xl text-gambla-orange font-semibold">
-                  Siamo qui per ascoltarti
-                </p>
-              </div>
-              <p className="text-lg text-gray-200 max-w-2xl mx-auto">
+              <p className="section-subtitle mx-auto">
                 Hai domande, suggerimenti o vuoi collaborare con noi? Scrivici e ti risponderemo il prima possibile!
               </p>
             </div>
