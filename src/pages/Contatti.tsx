@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Mail, MessageCircle, Send, User } from "lucide-react";
+import { Mail, MessageCircle, Send, User, Phone, MapPin } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const Contatti = () => {
@@ -52,11 +52,16 @@ const Contatti = () => {
         <section className="py-16 bg-gambla-gradient">
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto">
-              <h1 className="section-title mb-6">
-                Contattaci per la Tua <span className="text-gambla-orange">Voce!</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6">
+                Contattaci
               </h1>
-              <p className="section-subtitle mx-auto">
-                Hai domande o idee? Scrivi al nostro team e unisciti alla conversazione!
+              <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-8 py-4 mb-6">
+                <p className="text-xl md:text-2xl text-gambla-orange font-semibold">
+                  Siamo qui per ascoltarti
+                </p>
+              </div>
+              <p className="text-lg text-gray-200 max-w-2xl mx-auto">
+                Hai domande, suggerimenti o vuoi collaborare con noi? Scrivici e ti risponderemo il prima possibile!
               </p>
             </div>
           </div>
@@ -69,7 +74,7 @@ const Contatti = () => {
               {/* Contact Info */}
               <div>
                 <h2 className="text-3xl font-display font-bold text-white mb-8">
-                  Parliamo di <span className="text-gambla-yellow">Sport!</span>
+                  Raggiungi il nostro <span className="text-gambla-yellow">Team</span>
                 </h2>
                 
                 <div className="space-y-6 mb-8">
@@ -116,18 +121,31 @@ const Contatti = () => {
                       </div>
                     </div>
                   </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-gambla-yellow/20 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-6 h-6 text-gambla-yellow" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-white mb-2">Risposta Rapida</h3>
+                      <p className="text-gray-400">Ti rispondiamo entro 24 ore</p>
+                      <p className="text-gray-400">Lunedì - Venerdì: 9:00 - 18:00</p>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="bg-gray-800/30 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
-                  <h3 className="text-lg font-semibold text-white mb-3">
-                    Perché contattarci?
+                  <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
+                    <MapPin className="w-5 h-5 text-gambla-orange mr-2" />
+                    Come possiamo aiutarti?
                   </h3>
                   <ul className="space-y-2 text-gray-400">
-                    <li>• Suggerimenti per articoli</li>
+                    <li>• Suggerimenti per nuovi contenuti</li>
                     <li>• Collaborazioni e partnership</li>
                     <li>• Feedback sulla piattaforma</li>
                     <li>• Supporto tecnico</li>
-                    <li>• Proposte per la community</li>
+                    <li>• Proposte dalla community</li>
+                    <li>• Richieste pubblicitarie</li>
                   </ul>
                 </div>
               </div>
