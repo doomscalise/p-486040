@@ -14,7 +14,63 @@ const GamblaHero = () => {
         }}></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+      {/* Interactive Sports Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Tennis Racket with Ball */}
+        <div className="absolute top-20 right-20 group pointer-events-auto cursor-pointer">
+          <div className="relative transform transition-all duration-500 hover:scale-110 hover:rotate-12">
+            <div className="w-16 h-16 bg-gambla-gradient rounded-full flex items-center justify-center shadow-lg animate-float">
+              <span className="text-2xl">🎾</span>
+            </div>
+            <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-gambla-orange to-gambla-magenta rounded-full opacity-80 transform transition-all duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125"></div>
+          </div>
+        </div>
+
+        {/* Soccer Ball */}
+        <div className="absolute top-1/3 left-10 group pointer-events-auto cursor-pointer">
+          <div className="relative transform transition-all duration-500 hover:scale-110 hover:rotate-45">
+            <div className="w-20 h-20 bg-gradient-to-br from-gambla-magenta to-gambla-orange rounded-full flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '1s' }}>
+              <span className="text-3xl transform transition-transform duration-300 group-hover:rotate-180">⚽</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Basketball */}
+        <div className="absolute bottom-1/4 right-1/4 group pointer-events-auto cursor-pointer">
+          <div className="relative transform transition-all duration-500 hover:scale-110 hover:-rotate-12">
+            <div className="w-14 h-14 bg-gradient-to-tr from-gambla-orange to-gambla-magenta rounded-full flex items-center justify-center shadow-lg animate-float" style={{ animationDelay: '2s' }}>
+              <span className="text-xl">🏀</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Formula 1 Car */}
+        <div className="absolute bottom-20 left-1/4 group pointer-events-auto cursor-pointer">
+          <div className="relative transform transition-all duration-500 hover:scale-110 hover:translate-x-4">
+            <div className="w-12 h-12 bg-gambla-gradient rounded-lg flex items-center justify-center shadow-lg animate-float" style={{ animationDelay: '3s' }}>
+              <span className="text-lg transform transition-transform duration-300 group-hover:scale-125">🏎️</span>
+            </div>
+            <div className="absolute inset-0 bg-gambla-gradient rounded-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-lg"></div>
+          </div>
+        </div>
+
+        {/* Trophy */}
+        <div className="absolute top-1/2 right-10 group pointer-events-auto cursor-pointer">
+          <div className="relative transform transition-all duration-500 hover:scale-110 hover:-translate-y-2">
+            <div className="w-16 h-16 bg-gradient-to-b from-gambla-orange to-gambla-magenta rounded-full flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '0.5s' }}>
+              <span className="text-2xl transform transition-transform duration-300 group-hover:rotate-12">🏆</span>
+            </div>
+            <div className="absolute -inset-2 bg-gambla-gradient rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-xl"></div>
+          </div>
+        </div>
+
+        {/* Additional small floating elements */}
+        <div className="absolute top-1/4 left-1/3 w-8 h-8 bg-gambla-magenta/30 rounded-full animate-float blur-sm" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute bottom-1/3 right-1/3 w-6 h-6 bg-gambla-orange/40 rounded-full animate-float blur-sm" style={{ animationDelay: '5s' }}></div>
+        <div className="absolute top-2/3 left-1/4 w-4 h-4 bg-gambla-gradient rounded-full animate-float" style={{ animationDelay: '6s' }}></div>
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
           {/* Left side - Content */}
           <div className="space-y-8">
