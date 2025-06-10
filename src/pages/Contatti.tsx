@@ -92,7 +92,7 @@ const Contatti = () => {
                 <div className="grid grid-cols-2 gap-6">
                   <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-4 border border-gray-700 hover:border-gambla-magenta/50 transition-all duration-300">
                     <div className="text-2xl font-bold text-transparent bg-clip-text bg-gambla-gradient mb-2">
-                      <24 h
+                      24h
                     </div>
                     <div className="text-gray-400 text-sm">
                       Tempo di Risposta
