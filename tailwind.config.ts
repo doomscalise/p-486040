@@ -63,26 +63,15 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for Pulse Robot
-				pulse: {
-					"50": "#fff7ed",
-					"100": "#ffedd5",
-					"200": "#fed7aa",
-					"300": "#fdba74",
-					"400": "#fb923c",
-					"500": "#f97316", // Primary orange
-					"600": "#ea580c",
-					"700": "#c2410c",
-					"800": "#9a3412",
-					"900": "#7c2d12",
-					"950": "#431407",
-				},
-				dark: {
-					"900": "#121212", // Almost black
-					"800": "#1e1e1e",
-					"700": "#2d2d2d",
-					"600": "#3d3d3d",
-				},
+				// Gambla.it color palette
+				gambla: {
+					dark: '#1C2526',
+					orange: '#E63946',
+					pink: '#FF69B4',
+					yellow: '#F1C40F',
+					purple: '#2A0944',
+					blue: '#0A1D37',
+				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -125,6 +114,10 @@ export default {
 				'float': {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' }
+				},
+				'hover-scale': {
+					'0%': { transform: 'scale(1)' },
+					'100%': { transform: 'scale(1.05)' }
 				}
 			},
 			animation: {
@@ -134,23 +127,17 @@ export default {
 				'fade-in-right': 'fade-in-right 0.7s ease-out forwards',
 				'fade-in-left': 'fade-in-left 0.7s ease-out forwards',
 				'pulse-slow': 'pulse-slow 3s infinite',
-				'float': 'float 6s ease-in-out infinite'
+				'float': 'float 6s ease-in-out infinite',
+				'hover-scale': 'hover-scale 0.3s ease-in-out'
 			},
 			backgroundImage: {
-				'hero-gradient': 'linear-gradient(90deg, hsla(24, 100%, 83%, 1) 0%, hsla(341, 91%, 68%, 1) 100%)',
-				'hero-gradient-2': 'linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%)',
-				'pulse-gradient': 'linear-gradient(180deg, rgba(249,115,22,0.8) 0%, rgba(249,115,22,0) 100%)',
+				'gambla-gradient': 'linear-gradient(135deg, #2A0944 0%, #0A1D37 100%)',
+				'hero-sports': 'linear-gradient(rgba(28, 37, 38, 0.5), rgba(28, 37, 38, 0.5)), url("https://images.unsplash.com/photo-1574629810360-7efbbe195018")',
 			},
 			fontFamily: {
-				'sans': ['Inter', 'sans-serif'],
-				'display': ['Brockmann', 'SF Pro Display', 'Inter', 'sans-serif'],
-				'brockmann': ['Brockmann', 'serif'],
-				'playfair': ['"Playfair Display"', 'serif'],
+				'sans': ['Roboto', 'sans-serif'],
+				'display': ['Montserrat', 'sans-serif'],
 			},
-			boxShadow: {
-				'elegant': '0 4px 20px rgba(0, 0, 0, 0.08)',
-				'elegant-hover': '0 8px 30px rgba(0, 0, 0, 0.12)',
-			}
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
