@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { Instagram, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -23,20 +24,31 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="https://instagram.com/gambla_it" 
+                href="https://www.instagram.com/gambla.it?igsh=MWJxOTQxcmt5b3p6Mg==" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300"
+                className="flex items-center space-x-2 text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300"
               >
-                Instagram
+                <Instagram size={20} />
+                <span>Instagram</span>
               </a>
               <a 
-                href="https://tiktok.com/@gambla_it" 
+                href="https://www.tiktok.com/@gambla.it?_t=ZN-8x6C4necE6c&_r=1" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300"
+                className="flex items-center space-x-2 text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300"
               >
-                TikTok
+                <span className="text-lg">🎵</span>
+                <span>TikTok</span>
+              </a>
+              <a 
+                href="/lovable-uploads/2f5d270b-71b2-4843-a72e-9a8dc6527fb9.png" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300"
+              >
+                <MessageCircle size={20} />
+                <span>Telegram</span>
               </a>
             </div>
           </div>
