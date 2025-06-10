@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -96,26 +97,44 @@ const Contatti = () => {
                         <p className="text-gray-400">
                           Instagram:{" "}
                           <a 
-                            href="https://instagram.com/gambla_it" 
+                            href="https://www.instagram.com/gambla.it?igsh=MWJxOTQxcmt5b3p6Mg==" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="text-gambla-pink hover:text-gambla-yellow transition-colors duration-300"
                           >
-                            @gambla_it
+                            @gambla.it
                           </a>
                         </p>
                         <p className="text-gray-400">
                           TikTok:{" "}
                           <a 
-                            href="https://tiktok.com/@gambla_it" 
+                            href="https://www.tiktok.com/@gambla.it?_t=ZN-8x6C4necE6c&_r=1" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="text-gambla-pink hover:text-gambla-yellow transition-colors duration-300"
                           >
-                            @gambla_it
+                            @gambla.it
                           </a>
                         </p>
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-gambla-magenta/20 rounded-full flex items-center justify-center flex-shrink-0">
+                      <MessageCircle className="w-6 h-6 text-gambla-magenta" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-white mb-2">Telegram</h3>
+                      <p className="text-gray-400 mb-2">Gruppo pubblico pronostici</p>
+                      <a 
+                        href="http://t.me/+QHqp3ShP8ZZkOTA0" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-gambla-magenta hover:text-gambla-yellow transition-colors duration-300 font-medium"
+                      >
+                        Unisciti al gruppo Telegram
+                      </a>
                     </div>
                   </div>
 

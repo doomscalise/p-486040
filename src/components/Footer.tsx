@@ -42,7 +42,7 @@ const Footer = () => {
                 <span>TikTok</span>
               </a>
               <a 
-                href="/lovable-uploads/2f5d270b-71b2-4843-a72e-9a8dc6527fb9.png" 
+                href="http://t.me/+QHqp3ShP8ZZkOTA0" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient transition-colors duration-300"
