@@ -3,11 +3,12 @@ import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import GamblaHero from "@/components/GamblaHero";
 import SportIconsGrid from "@/components/SportIconsGrid";
+import SocialNetwork from "@/components/SocialNetwork";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import BottomCTA from "@/components/BottomCTA";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import Analytics from "@/components/Analytics";
-import NewsletterSignup from "@/components/NewsletterSignup";
 
 const Index = () => {
   useEffect(() => {
@@ -44,6 +45,15 @@ const Index = () => {
       <main>
         <GamblaHero />
         <SportIconsGrid />
+        
+        {/* Social Network Section */}
+        <section className="py-16 bg-gambla-dark">
+          <div className="container px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <SocialNetwork />
+            </div>
+          </div>
+        </section>
         
         {/* Newsletter Section */}
         <section className="py-16 bg-gambla-dark">

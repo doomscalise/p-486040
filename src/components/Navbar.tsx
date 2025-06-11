@@ -1,119 +1,105 @@
 
 import React, { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 20);
     };
-    
-    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-    document.body.style.overflow = '';
-  };
-
-  const navigationItems = [
+  const navItems = [
     { name: "Home", path: "/" },
     { name: "Blog", path: "/blog" },
-    { name: "Fantasy", path: "/fantagambla" },
+    { name: "Fantagambla", path: "/fantagambla" },
     { name: "Chi Siamo", path: "/chi-siamo" },
-    { name: "Contatti", path: "/contatti" }
+    { name: "Contatti", path: "/contatti" },
   ];
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 py-3 md:py-4 transition-all duration-300",
-        isScrolled 
-          ? "bg-black/95 backdrop-blur-md shadow-lg border-b border-gray-800" 
-          : "bg-transparent"
-      )}
-    >
-      <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link 
-          to="/" 
-          className="flex items-center space-x-3"
-          onClick={closeMenu}
-        >
-          <div className="w-10 h-10 bg-gambla-gradient rounded-full flex items-center justify-center p-1">
-            <img 
-              src="/lovable-uploads/5551ac8e-24aa-42a4-a884-df70ee009be3.png" 
-              alt="GAMBLA Logo" 
-              className="w-full h-full object-contain filter brightness-0 invert"
-            />
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+      isScrolled ? "bg-gambla-dark/95 backdrop-blur-md border-b border-gray-800" : "bg-transparent"
+    }`}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="w-10 h-10 bg-gambla-gradient rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span className="text-white font-bold text-xl">G</span>
+            </div>
+            <span className="text-2xl font-display font-bold text-white">
+              GAMBLA<span className="text-transparent bg-clip-text bg-gambla-gradient">.it</span>
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`text-sm font-medium transition-colors duration-300 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient ${
+                  location.pathname === item.path 
+                    ? "text-transparent bg-clip-text bg-gambla-gradient" 
+                    : "text-gray-300"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+            <button className="gambla-btn-primary text-sm">
+              Unisciti Ora
+            </button>
           </div>
-          <span className="text-2xl font-display font-bold text-transparent bg-clip-text bg-gambla-gradient">
-            GAMBLA
-          </span>
-        </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
-          {navigationItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={cn(
-                "relative text-white hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient py-2 transition-colors duration-300 font-medium",
-                "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gambla-gradient after:transition-all hover:after:w-full",
-                location.pathname === item.path && "text-transparent bg-clip-text bg-gambla-gradient after:w-full"
-              )}
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-white hover:text-gambla-orange transition-colors duration-300"
             >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
 
-        {/* Mobile menu button */}
-        <button 
-          className="md:hidden text-white p-3 focus:outline-none" 
-          onClick={toggleMenu}
-          aria-label={isMenuOpen ? "Chiudi menu" : "Apri menu"}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-gambla-dark/95 backdrop-blur-md rounded-lg mt-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`block px-3 py-2 text-base font-medium transition-colors duration-300 hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient ${
+                    location.pathname === item.path 
+                      ? "text-transparent bg-clip-text bg-gambla-gradient" 
+                      : "text-gray-300"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <div className="px-3 py-2">
+                <button className="gambla-btn-primary w-full text-sm">
+                  Unisciti Ora
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-
-      {/* Mobile Navigation */}
-      <div className={cn(
-        "fixed inset-0 z-40 bg-black flex flex-col pt-16 px-6 md:hidden transition-all duration-300 ease-in-out",
-        isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full pointer-events-none"
-      )}>
-        <nav className="flex flex-col space-y-8 items-center mt-8">
-          {navigationItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={cn(
-                "text-xl font-medium py-3 px-6 w-full text-center rounded-lg transition-colors duration-300",
-                location.pathname === item.path 
-                  ? "text-transparent bg-clip-text bg-gambla-gradient bg-gray-800/50" 
-                  : "text-white hover:text-transparent hover:bg-clip-text hover:bg-gambla-gradient hover:bg-gray-800/30"
-              )}
-              onClick={closeMenu}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-      </div>
-    </header>
+    </nav>
   );
 };
 

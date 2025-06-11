@@ -72,6 +72,7 @@
 }
 
 @layer components {
+  /* GAMBLA Button Styles */
   .gambla-btn-primary {
     @apply bg-gradient-to-r from-gambla-magenta to-gambla-orange hover:from-gambla-magenta-light hover:to-gambla-orange-light text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg;
   }
@@ -84,10 +85,12 @@
     @apply bg-gambla-yellow hover:bg-yellow-500 text-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg;
   }
 
+  /* GAMBLA Card Styles */
   .gambla-card {
     @apply bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 transition-all duration-300 hover:transform hover:scale-105 hover:border-gambla-magenta/50;
   }
 
+  /* Section Containers */
   .section-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12;
   }
@@ -100,6 +103,7 @@
     @apply text-lg md:text-xl text-gray-300 mt-4 max-w-3xl;
   }
 
+  /* Sport Icons Grid */
   .icon-grid-item {
     @apply flex flex-col items-center text-center p-6 rounded-xl bg-gray-900/30 backdrop-blur-sm border border-gray-800 transition-all duration-300 hover:bg-gray-800/50 hover:border-gambla-magenta hover:transform hover:scale-105;
   }
