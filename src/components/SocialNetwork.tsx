@@ -21,7 +21,8 @@ const SocialNetwork = () => {
     {
       id: 2,
       name: "TikTok",
-      icon: () => <span className="text-2xl">🎵</span>,
+      icon: "custom",
+      customIcon: "🎵",
       color: "gambla-orange",
       status: "In Crescita",
       followers: "1.2K",
@@ -84,6 +85,15 @@ const SocialNetwork = () => {
     }
   };
 
+  const renderIcon = (node: any) => {
+    if (node.icon === "custom" && node.customIcon) {
+      return <span className="text-2xl">{node.customIcon}</span>;
+    }
+    
+    const IconComponent = node.icon;
+    return <IconComponent className={`w-8 h-8 text-${node.color}`} />;
+  };
+
   return (
     <div className="relative h-96 bg-gray-900/30 rounded-3xl p-8 overflow-hidden">
       <h3 className="text-2xl font-display font-bold text-white mb-6 text-center">
@@ -110,8 +120,6 @@ const SocialNetwork = () => {
 
       {/* Social Nodes */}
       {socialNodes.map((node) => {
-        const IconComponent = node.icon;
-        
         return (
           <div
             key={node.id}
@@ -136,11 +144,7 @@ const SocialNetwork = () => {
               
               {/* Node */}
               <div className={`w-16 h-16 rounded-full bg-${node.color}/20 border-2 border-${node.color} flex items-center justify-center hover:scale-110 transition-transform duration-300`}>
-                {typeof IconComponent === 'function' ? (
-                  <IconComponent />
-                ) : (
-                  <IconComponent className={`w-8 h-8 text-${node.color}`} />
-                )}
+                {renderIcon(node)}
               </div>
 
               {/* Info Card */}
