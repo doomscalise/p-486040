@@ -1,10 +1,14 @@
-import React from "react";
+
+import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FantaDashboard from "@/components/FantaDashboard";
+import PreRegistrationForm from "@/components/PreRegistrationForm";
 import { Trophy, Users, Zap, Target, ArrowRight, Star } from "lucide-react";
 
 const Fantagambla = () => {
+  const [showPreRegistration, setShowPreRegistration] = useState(false);
+
   const features = [
     {
       icon: Trophy,
@@ -70,7 +74,10 @@ const Fantagambla = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
-                <button className="gambla-btn-primary flex items-center justify-center group">
+                <button 
+                  onClick={() => setShowPreRegistration(true)}
+                  className="gambla-btn-primary flex items-center justify-center group"
+                >
                   Inizia a Giocare
                   <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </button>
@@ -119,7 +126,10 @@ const Fantagambla = () => {
                 <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
                   Unisciti a migliaia di giocatori che hanno già scelto Fantagambla per la loro esperienza fantasy.
                 </p>
-                <button className="gambla-btn-tertiary text-lg px-8 py-4">
+                <button 
+                  onClick={() => setShowPreRegistration(true)}
+                  className="gambla-btn-tertiary text-lg px-8 py-4"
+                >
                   Registrati Ora - È Gratis!
                 </button>
               </div>
@@ -129,6 +139,11 @@ const Fantagambla = () => {
       </main>
 
       <Footer />
+      
+      <PreRegistrationForm 
+        isOpen={showPreRegistration}
+        onClose={() => setShowPreRegistration(false)}
+      />
     </div>
   );
 };
