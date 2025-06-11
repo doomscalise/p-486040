@@ -83,8 +83,8 @@ const Contatti = () => {
               </p>
             </div>
 
-            {/* Social Network Section */}
-            <SocialNetwork />
+            {/* Hide Social Network Section */}
+            <SocialNetwork hideNetworkVisualization={true} />
           </div>
         </section>
 

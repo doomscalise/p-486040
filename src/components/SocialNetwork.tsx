@@ -1,7 +1,8 @@
+
 import React from "react";
 import { Instagram, Send, Mail } from "lucide-react";
 
-const SocialNetwork = () => {
+const SocialNetwork = ({ hideNetworkVisualization = false }) => {
   const socialNodes = [
     {
       icon: Instagram,
@@ -52,6 +53,11 @@ const SocialNetwork = () => {
       window.open(link, '_blank', 'noopener,noreferrer');
     }
   };
+
+  // Se hideNetworkVisualization è true, non mostrare nulla
+  if (hideNetworkVisualization) {
+    return null;
+  }
 
   return (
     <div className="animate-on-scroll">
