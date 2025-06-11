@@ -1,175 +1,134 @@
 
-import React, { useState, useEffect } from "react";
-import { Instagram, MessageCircle, Mail, Phone } from "lucide-react";
+import React from "react";
+import { Instagram, MessageCircle, Send, Mail } from "lucide-react";
 
 const SocialNetwork = () => {
-  const [activeNode, setActiveNode] = useState<number | null>(null);
-  const [pulseNodes, setPulseNodes] = useState<number[]>([]);
-
   const socialNodes = [
     {
-      id: 1,
-      name: "Instagram",
       icon: Instagram,
-      color: "gambla-magenta",
-      status: "Molto Attivo",
-      followers: "2.5K",
-      link: "https://www.instagram.com/gambla.it?igsh=MWJxOTQxcmt5b3p6Mg==",
-      position: { x: 25, y: 25 },
-      tooltipPosition: "bottom"
+      name: "Instagram",
+      handle: "@gambla.it",
+      color: "from-pink-500 to-purple-600",
+      followers: "8.2K",
+      position: "top-4 left-8"
     },
     {
-      id: 2,
-      name: "TikTok",
-      icon: "custom",
-      customIcon: "🎵",
-      color: "gambla-orange",
-      status: "In Crescita",
-      followers: "1.2K",
-      link: "https://www.tiktok.com/@gambla.it?_t=ZN-8x6C4necE6c&_r=1",
-      position: { x: 75, y: 25 },
-      tooltipPosition: "bottom"
-    },
-    {
-      id: 3,
-      name: "Telegram",
       icon: MessageCircle,
-      color: "gambla-yellow",
-      status: "Community",
-      followers: "800",
-      link: "http://t.me/+QHqp3ShP8ZZkOTA0",
-      position: { x: 25, y: 75 },
-      tooltipPosition: "left"
+      name: "TikTok", 
+      handle: "@gambla.it",
+      color: "from-black to-red-600",
+      followers: "12.5K",
+      position: "top-12 right-12"
     },
     {
-      id: 4,
-      name: "Email",
+      icon: Send,
+      name: "Telegram",
+      handle: "Community GAMBLA",
+      color: "from-blue-400 to-blue-600",
+      followers: "3.1K",
+      position: "bottom-8 left-12"
+    },
+    {
       icon: Mail,
-      color: "gambla-orange",
-      status: "Sempre Aperto",
-      followers: "24/7",
-      link: "mailto:info@gambla.it",
-      position: { x: 75, y: 75 },
-      tooltipPosition: "right"
+      name: "Newsletter",
+      handle: "Aggiornamenti Weekly",
+      color: "from-gambla-orange to-gambla-magenta",
+      followers: "5.8K",
+      position: "bottom-4 right-8"
     }
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const randomNodes = socialNodes
-        .sort(() => Math.random() - 0.5)
-        .slice(0, Math.floor(Math.random() * 3) + 1)
-        .map(node => node.id);
-      
-      setPulseNodes(randomNodes);
-      
-      setTimeout(() => {
-        setPulseNodes([]);
-      }, 2000);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const getTooltipClasses = (position: string) => {
-    const baseClasses = "absolute bg-black border border-gray-700 rounded-lg p-3 min-w-max z-10 animate-fade-in";
-    
-    switch (position) {
-      case "left":
-        return `${baseClasses} right-20 top-1/2 transform -translate-y-1/2`;
-      case "right":
-        return `${baseClasses} left-20 top-1/2 transform -translate-y-1/2`;
-      case "bottom":
-      default:
-        return `${baseClasses} top-20 left-1/2 transform -translate-x-1/2`;
-    }
-  };
-
-  const renderIcon = (node: any) => {
-    if (node.icon === "custom" && node.customIcon) {
-      return <span className="text-2xl">{node.customIcon}</span>;
-    }
-    
-    const IconComponent = node.icon;
-    return <IconComponent className={`w-8 h-8 text-${node.color}`} />;
-  };
-
   return (
-    <div className="relative h-96 bg-gray-900/30 rounded-3xl p-8 overflow-hidden">
-      <h3 className="text-2xl font-display font-bold text-white mb-6 text-center">
-        Network di Comunicazione
-      </h3>
-      
-      {/* Connection Lines */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none">
-        {socialNodes.map((node, index) => 
-          socialNodes.slice(index + 1).map((otherNode) => (
-            <line
-              key={`${node.id}-${otherNode.id}`}
-              x1={`${node.position.x}%`}
-              y1={`${node.position.y}%`}
-              x2={`${otherNode.position.x}%`}
-              y2={`${otherNode.position.y}%`}
-              stroke="rgba(255, 20, 147, 0.2)"
-              strokeWidth="1"
-              className="animate-pulse"
-            />
-          ))
-        )}
-      </svg>
-
-      {/* Social Nodes */}
-      {socialNodes.map((node) => {
-        return (
-          <div
-            key={node.id}
-            className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300"
-            style={{ 
-              left: `${node.position.x}%`, 
-              top: `${node.position.y}%` 
-            }}
-          >
-            <div
-              className={`relative group cursor-pointer ${
-                pulseNodes.includes(node.id) ? 'animate-pulse' : ''
-              }`}
-              onMouseEnter={() => setActiveNode(node.id)}
-              onMouseLeave={() => setActiveNode(null)}
-              onClick={() => window.open(node.link, '_blank')}
-            >
-              {/* Pulse Ring */}
-              {pulseNodes.includes(node.id) && (
-                <div className={`absolute inset-0 w-16 h-16 rounded-full bg-${node.color}/30 animate-ping`}></div>
-              )}
-              
-              {/* Node */}
-              <div className={`w-16 h-16 rounded-full bg-${node.color}/20 border-2 border-${node.color} flex items-center justify-center hover:scale-110 transition-transform duration-300`}>
-                {renderIcon(node)}
-              </div>
-
-              {/* Info Card */}
-              {activeNode === node.id && (
-                <div className={getTooltipClasses(node.tooltipPosition)}>
-                  <div className="text-white font-semibold text-sm">{node.name}</div>
-                  <div className="text-gray-400 text-xs">{node.status}</div>
-                  <div className={`text-${node.color} text-xs font-bold`}>{node.followers}</div>
-                </div>
-              )}
-            </div>
-          </div>
-        );
-      })}
-
-      {/* Central Hub with GAMBLA Logo */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="w-20 h-20 bg-gambla-gradient rounded-full flex items-center justify-center animate-float p-2">
-          <img 
-            src="/lovable-uploads/5551ac8e-24aa-42a4-a884-df70ee009be3.png" 
-            alt="GAMBLA Logo" 
-            className="w-full h-full object-contain filter brightness-0 invert"
-          />
+    <div className="animate-on-scroll">
+      <div className="text-center mb-12">
+        <div className="inline-block px-6 py-3 bg-gambla-gradient/20 rounded-full text-gambla-yellow text-sm font-semibold mb-6">
+          🌐 La Nostra Community
         </div>
-        <div className="absolute inset-0 w-20 h-20 rounded-full bg-gambla-gradient opacity-30 animate-ping"></div>
+        
+        <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+          Connessi al{" "}
+          <span className="text-transparent bg-clip-text bg-gambla-gradient">
+            Mondo Sport
+          </span>
+        </h2>
+        
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          Unisciti alla community più appassionata d'Italia. 
+          Seguici su tutti i canali per non perdere nemmeno una notizia!
+        </p>
+      </div>
+
+      {/* Network visualization */}
+      <div className="relative h-96 mx-auto max-w-4xl">
+        {/* Central Hub */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+          <div className="w-20 h-20 bg-gambla-gradient rounded-full flex items-center justify-center shadow-lg animate-pulse-slow">
+            <span className="text-white font-bold text-2xl">G</span>
+          </div>
+          <div className="text-center mt-2">
+            <span className="text-white font-semibold">GAMBLA</span>
+          </div>
+        </div>
+
+        {/* Social Nodes */}
+        {socialNodes.map((node, index) => {
+          const Icon = node.icon;
+          return (
+            <div
+              key={node.name}
+              className={`absolute ${node.position} group cursor-pointer`}
+              style={{ animationDelay: `${index * 0.2}s` }}
+            >
+              {/* Connection Line */}
+              <svg className="absolute inset-0 w-full h-full -z-10" style={{
+                left: node.position.includes('left') ? '50px' : '-50px',
+                top: node.position.includes('top') ? '50px' : '-50px',
+              }}>
+                <line
+                  x1="50%"
+                  y1="50%"
+                  x2={node.position.includes('left') ? '100%' : '0%'}
+                  y2={node.position.includes('top') ? '100%' : '0%'}
+                  stroke="url(#gradient)"
+                  strokeWidth="2"
+                  className="opacity-30 group-hover:opacity-70 transition-opacity duration-300"
+                />
+                <defs>
+                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FF1493" />
+                    <stop offset="100%" stopColor="#FF8C00" />
+                  </linearGradient>
+                </defs>
+              </svg>
+
+              {/* Node */}
+              <div className="group">
+                <div className={`w-16 h-16 bg-gradient-to-br ${node.color} rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300 animate-float`}>
+                  <Icon className="w-8 h-8 text-white" />
+                </div>
+                
+                {/* Info Card */}
+                <div className="absolute top-20 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gambla-dark/90 backdrop-blur-md rounded-lg p-3 min-w-max border border-gray-700">
+                  <h4 className="text-white font-semibold text-sm">{node.name}</h4>
+                  <p className="text-gray-300 text-xs">{node.handle}</p>
+                  <p className="text-gambla-yellow text-xs font-semibold">{node.followers} followers</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* CTA Buttons */}
+      <div className="text-center mt-12">
+        <div className="flex flex-wrap justify-center gap-4">
+          <button className="gambla-btn-primary">
+            Seguici su Instagram
+          </button>
+          <button className="gambla-btn-secondary">
+            Unisciti al Telegram
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -36,8 +36,8 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-gambla-gradient rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <span className="text-white font-bold text-xl">G</span>
             </div>
-            <span className="text-2xl font-display font-bold text-white">
-              GAMBLA<span className="text-transparent bg-clip-text bg-gambla-gradient">.it</span>
+            <span className="text-2xl font-display font-bold text-transparent bg-clip-text bg-gambla-gradient">
+              GAMBLA
             </span>
           </Link>
 
