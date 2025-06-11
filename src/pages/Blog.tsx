@@ -1,26 +1,43 @@
+
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BlogSlider from "@/components/BlogSlider";
+import SEOHead from "@/components/SEOHead";
+import Analytics from "@/components/Analytics";
+import { useBlog } from "@/hooks/useBlog";
 import { Search, Filter, Clock, User, Calendar, ArrowRight } from "lucide-react";
 
 const Blog = () => {
-  const featuredArticles = [
-    {
-      id: 1,
-      title: "Guida completa al fantacalcio 2024/25",
-      excerpt: "Tutto quello che devi sapere per dominare la tua lega",
-      author: "Marco Rossi",
-      date: "15 Dic 2024",
-      readTime: "8 min",
-      category: "Fantacalcio",
-      image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-    },
-    // ... altri articoli
-  ];
+  const { articles, loading, error, getFeaturedArticles } = useBlog();
+  const featuredArticles = getFeaturedArticles();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gambla-dark flex items-center justify-center">
+        <div className="text-white text-xl">Caricamento articoli...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gambla-dark flex items-center justify-center">
+        <div className="text-red-500 text-xl">Errore: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gambla-dark">
+      <SEOHead 
+        title="Blog GAMBLA - Notizie, Analisi e Consigli Sportivi"
+        description="Il blog di GAMBLA.it: analisi approfondite, pronostici esperti, guide al fantacalcio e tutte le news dal mondo dello sport italiano."
+        keywords="blog calcio, notizie serie a, analisi sportive, consigli fantacalcio, pronostici calcio"
+        url="https://gambla.it/blog"
+      />
+      <Analytics />
+      
       <Navbar />
       
       <main className="pt-20">
@@ -60,7 +77,7 @@ const Blog = () => {
         <section className="py-16 bg-gambla-dark">
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredArticles.map((article) => (
+              {articles.map((article) => (
                 <article key={article.id} className="gambla-card group cursor-pointer">
                   <div className="relative overflow-hidden rounded-lg mb-4">
                     <img 
@@ -71,6 +88,11 @@ const Blog = () => {
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 bg-gambla-gradient rounded-full text-white text-sm font-semibold">
                         {article.category}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-4 right-4">
+                      <span className="px-2 py-1 bg-black/70 rounded text-white text-xs">
+                        {article.views} visualizzazioni
                       </span>
                     </div>
                   </div>

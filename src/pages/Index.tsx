@@ -5,6 +5,9 @@ import GamblaHero from "@/components/GamblaHero";
 import SportIconsGrid from "@/components/SportIconsGrid";
 import BottomCTA from "@/components/BottomCTA";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import Analytics from "@/components/Analytics";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const Index = () => {
   useEffect(() => {
@@ -30,10 +33,27 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gambla-dark">
+      <SEOHead 
+        title="GAMBLA.it - Il Portale Sportivo #1 d'Italia | Fantacalcio e News Live"
+        description="Accendi la tua passione sportiva con GAMBLA.it! Notizie live, fantacalcio innovativo, community attiva e contenuti esclusivi. Unisciti a 10K+ appassionati."
+        keywords="gambla, fantacalcio, calcio italia, serie a, notizie sportive, community calcio, pronostici, statistiche calcio, fantagambla"
+      />
+      <Analytics />
+      
       <Navbar />
       <main>
         <GamblaHero />
         <SportIconsGrid />
+        
+        {/* Newsletter Section */}
+        <section className="py-16 bg-gambla-dark">
+          <div className="container px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl mx-auto">
+              <NewsletterSignup variant="inline" />
+            </div>
+          </div>
+        </section>
+
         <BottomCTA />
       </main>
       <Footer />

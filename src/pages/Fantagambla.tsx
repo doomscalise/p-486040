@@ -1,13 +1,20 @@
-
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FantaDashboard from "@/components/FantaDashboard";
 import PreRegistrationForm from "@/components/PreRegistrationForm";
+import SEOHead from "@/components/SEOHead";
+import Analytics, { useAnalytics } from "@/components/Analytics";
 import { Trophy, Users, Zap, Target, ArrowRight, Star } from "lucide-react";
 
 const Fantagambla = () => {
   const [showPreRegistration, setShowPreRegistration] = useState(false);
+  const { trackFantacalcioInterest } = useAnalytics();
+
+  const handlePreRegistrationClick = () => {
+    trackFantacalcioInterest();
+    setShowPreRegistration(true);
+  };
 
   const features = [
     {
@@ -38,6 +45,14 @@ const Fantagambla = () => {
 
   return (
     <div className="min-h-screen bg-gambla-dark">
+      <SEOHead 
+        title="Fantagambla - Il Fantacalcio del Futuro | GAMBLA.it"
+        description="Scopri Fantagambla: statistiche avanzate, AI, community attiva e competizioni esclusive. Il futuro del fantacalcio ti aspetta. Pre-registrazione gratuita!"
+        keywords="fantagambla, fantacalcio 2024, fantacalcio AI, statistiche fantacalcio, community fantacalcio, tornei fantacalcio"
+        url="https://gambla.it/fantagambla"
+      />
+      <Analytics />
+      
       <Navbar />
       
       <main className="pt-20">
@@ -75,7 +90,7 @@ const Fantagambla = () => {
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
                 <button 
-                  onClick={() => setShowPreRegistration(true)}
+                  onClick={handlePreRegistrationClick}
                   className="gambla-btn-primary flex items-center justify-center group"
                 >
                   Inizia a Giocare
@@ -127,7 +142,7 @@ const Fantagambla = () => {
                   Unisciti a migliaia di giocatori che hanno già scelto Fantagambla per la loro esperienza fantasy.
                 </p>
                 <button 
-                  onClick={() => setShowPreRegistration(true)}
+                  onClick={handlePreRegistrationClick}
                   className="gambla-btn-tertiary text-lg px-8 py-4"
                 >
                   Registrati Ora - È Gratis!

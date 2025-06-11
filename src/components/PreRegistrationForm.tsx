@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { X, Trophy, Gift, Calendar, Users } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { useAnalytics } from "@/components/Analytics";
 
 interface PreRegistrationFormProps {
   isOpen: boolean;
@@ -16,6 +17,7 @@ const PreRegistrationForm = ({ isOpen, onClose }: PreRegistrationFormProps) => {
     experience: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { trackPreRegistration } = useAnalytics();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +25,9 @@ const PreRegistrationForm = ({ isOpen, onClose }: PreRegistrationFormProps) => {
 
     // Simulate API call
     setTimeout(() => {
+      // Track conversion
+      trackPreRegistration();
+      
       toast({
         title: "Pre-registrazione completata!",
         description: "Ti contatteremo presto per l'anteprima esclusiva del fantacalcio Gambla."
