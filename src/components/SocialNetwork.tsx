@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Instagram, MessageCircle, Send, Mail } from "lucide-react";
+import { Instagram, Send, Mail } from "lucide-react";
 
 const SocialNetwork = () => {
   const socialNodes = [
@@ -10,15 +10,17 @@ const SocialNetwork = () => {
       handle: "@gambla.it",
       color: "from-pink-500 to-purple-600",
       followers: "8.2K",
-      position: "top-4 left-8"
+      position: "top-8 left-1/2 transform -translate-x-1/2 -translate-y-8",
+      link: "https://instagram.com/gambla.it"
     },
     {
-      icon: MessageCircle,
+      icon: "TikTok",
       name: "TikTok", 
       handle: "@gambla.it",
       color: "from-black to-red-600",
       followers: "12.5K",
-      position: "top-12 right-12"
+      position: "top-1/2 right-8 transform translate-x-8 -translate-y-1/2",
+      link: "https://tiktok.com/@gambla.it"
     },
     {
       icon: Send,
@@ -26,7 +28,8 @@ const SocialNetwork = () => {
       handle: "Community GAMBLA",
       color: "from-blue-400 to-blue-600",
       followers: "3.1K",
-      position: "bottom-8 left-12"
+      position: "bottom-8 left-1/2 transform -translate-x-1/2 translate-y-8",
+      link: "https://t.me/gambla_community"
     },
     {
       icon: Mail,
@@ -34,9 +37,18 @@ const SocialNetwork = () => {
       handle: "Aggiornamenti Weekly",
       color: "from-gambla-orange to-gambla-magenta",
       followers: "5.8K",
-      position: "bottom-4 right-8"
+      position: "top-1/2 left-8 transform -translate-x-8 -translate-y-1/2",
+      link: "mailto:info@gambla.it"
     }
   ];
+
+  const handleSocialClick = (link) => {
+    if (link.startsWith('mailto:')) {
+      window.location.href = link;
+    } else {
+      window.open(link, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   return (
     <div className="animate-on-scroll">
@@ -58,50 +70,71 @@ const SocialNetwork = () => {
         </p>
       </div>
 
-      {/* Network visualization */}
-      <div className="relative h-96 mx-auto max-w-4xl">
+      {/* Network visualization con design più professionale */}
+      <div className="relative h-80 mx-auto max-w-2xl">
         {/* Central Hub con logo PNG */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 group">
-          <div className="w-20 h-20 bg-gambla-gradient rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 cursor-pointer">
+          <div className="w-24 h-24 bg-gambla-gradient rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 cursor-pointer">
             <img 
               src="/lovable-uploads/3440b5bf-cc6b-4e15-a97e-8c44c35f3558.png" 
               alt="GAMBLA Logo" 
-              className="w-12 h-12 object-contain"
+              className="w-14 h-14 object-contain"
             />
           </div>
-          <div className="text-center mt-2">
-            <span className="text-white font-semibold">GAMBLA</span>
+          <div className="text-center mt-3">
+            <span className="text-white font-bold text-lg">GAMBLA</span>
           </div>
         </div>
 
-        {/* Connection Lines - sempre visibili */}
+        {/* Cerchi concentrici per design più elegante */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-48 h-48 border border-gambla-magenta/30 rounded-full"></div>
+        </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-64 h-64 border border-gambla-orange/20 rounded-full"></div>
+        </div>
+
+        {/* Linee eleganti che partono dal centro */}
         <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
           <defs>
             <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FF1493" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#FF8C00" stopOpacity="0.6" />
+              <stop offset="0%" stopColor="#FF1493" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#FF8C00" stopOpacity="0.4" />
             </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
           </defs>
           
-          {/* Linee verso ogni nodo social */}
-          <line x1="50%" y1="50%" x2="25%" y2="25%" stroke="url(#connectionGradient)" strokeWidth="2" />
-          <line x1="50%" y1="50%" x2="75%" y2="25%" stroke="url(#connectionGradient)" strokeWidth="2" />
-          <line x1="50%" y1="50%" x2="25%" y2="75%" stroke="url(#connectionGradient)" strokeWidth="2" />
-          <line x1="50%" y1="50%" x2="75%" y2="75%" stroke="url(#connectionGradient)" strokeWidth="2" />
+          {/* Linee più eleganti dal centro ai nodi */}
+          <line x1="50%" y1="50%" x2="50%" y2="20%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
+          <line x1="50%" y1="50%" x2="80%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
+          <line x1="50%" y1="50%" x2="50%" y2="80%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
+          <line x1="50%" y1="50%" x2="20%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
         </svg>
 
-        {/* Social Nodes - statici senza animazioni */}
+        {/* Social Nodes - più vicini al centro */}
         {socialNodes.map((node, index) => {
-          const Icon = node.icon;
           return (
             <div
               key={node.name}
               className={`absolute ${node.position} group cursor-pointer`}
               style={{ zIndex: 2 }}
+              onClick={() => handleSocialClick(node.link)}
             >
-              {/* Node - rimosso animate-float */}
-              <div className={`w-16 h-16 bg-gradient-to-br ${node.color} rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300`}>
-                <Icon className="w-8 h-8 text-white" />
+              {/* Node */}
+              <div className={`w-16 h-16 bg-gradient-to-br ${node.color} rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-all duration-300 hover:shadow-2xl`}>
+                {node.icon === "TikTok" ? (
+                  <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-center">
+                    <div className="text-black font-bold text-xs">TT</div>
+                  </div>
+                ) : (
+                  React.createElement(node.icon, { className: "w-8 h-8 text-white" })
+                )}
               </div>
               
               {/* Info Card */}
@@ -116,12 +149,18 @@ const SocialNetwork = () => {
       </div>
 
       {/* CTA Buttons */}
-      <div className="text-center mt-12">
+      <div className="text-center mt-16">
         <div className="flex flex-wrap justify-center gap-4">
-          <button className="gambla-btn-primary">
+          <button 
+            className="gambla-btn-primary"
+            onClick={() => handleSocialClick("https://instagram.com/gambla.it")}
+          >
             Seguici su Instagram
           </button>
-          <button className="gambla-btn-secondary">
+          <button 
+            className="gambla-btn-secondary"
+            onClick={() => handleSocialClick("https://t.me/gambla_community")}
+          >
             Unisciti al Telegram
           </button>
         </div>

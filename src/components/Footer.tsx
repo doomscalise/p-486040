@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Instagram, MessageCircle, Send, Mail, Heart } from "lucide-react";
+import { Instagram, Send, Mail, Heart } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -41,21 +41,33 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: Instagram, href: "https://instagram.com/gambla.it", name: "Instagram" },
-    { icon: MessageCircle, href: "https://tiktok.com/@gambla.it", name: "TikTok" },
+    { icon: "TikTok", href: "https://tiktok.com/@gambla.it", name: "TikTok" },
     { icon: Send, href: "https://t.me/gambla_community", name: "Telegram" },
     { icon: Mail, href: "mailto:info@gambla.it", name: "Email" }
   ];
+
+  const handleSocialClick = (href) => {
+    if (href.startsWith('mailto:')) {
+      window.location.href = href;
+    } else {
+      window.open(href, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   return (
     <footer className="bg-gambla-dark border-t border-gray-800">
       {/* Main Footer */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand Section */}
+          {/* Brand Section con logo PNG */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center space-x-3 mb-6">
               <div className="w-12 h-12 bg-gambla-gradient rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">G</span>
+                <img 
+                  src="/lovable-uploads/3440b5bf-cc6b-4e15-a97e-8c44c35f3558.png" 
+                  alt="GAMBLA Logo" 
+                  className="w-7 h-7 object-contain"
+                />
               </div>
               <span className="text-2xl font-display font-bold text-transparent bg-clip-text bg-gambla-gradient">
                 GAMBLA
@@ -67,32 +79,23 @@ const Footer = () => {
               con notizie esclusive, fantacalcio innovativo e una community appassionata.
             </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="text-center p-3 bg-white/5 rounded-lg">
-                <div className="text-2xl font-bold text-gambla-magenta">10K+</div>
-                <div className="text-xs text-gray-400">Utenti Attivi</div>
-              </div>
-              <div className="text-center p-3 bg-white/5 rounded-lg">
-                <div className="text-2xl font-bold text-gambla-orange">500+</div>
-                <div className="text-xs text-gray-400">Articoli</div>
-              </div>
-            </div>
-
             {/* Social Links */}
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => {
-                const Icon = social.icon;
                 return (
-                  <a
+                  <button
                     key={index}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={() => handleSocialClick(social.href)}
                     className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-gambla-gradient transition-all duration-300 group"
                   >
-                    <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  </a>
+                    {social.icon === "TikTok" ? (
+                      <div className="w-5 h-5 bg-white rounded-sm flex items-center justify-center group-hover:bg-black transition-colors">
+                        <div className="text-black group-hover:text-white font-bold text-xs">TT</div>
+                      </div>
+                    ) : (
+                      React.createElement(social.icon, { className: "w-5 h-5 group-hover:scale-110 transition-transform" })
+                    )}
+                  </button>
                 );
               })}
             </div>
@@ -106,14 +109,12 @@ const Footer = () => {
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
                     {link.external ? (
-                      <a
-                        href={link.path}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-gambla-magenta transition-colors duration-300 text-sm"
+                      <button
+                        onClick={() => handleSocialClick(link.path)}
+                        className="text-gray-400 hover:text-gambla-magenta transition-colors duration-300 text-sm text-left"
                       >
                         {link.name}
-                      </a>
+                      </button>
                     ) : (
                       <Link
                         to={link.path}
