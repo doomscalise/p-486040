@@ -109,48 +109,52 @@ const SocialNetwork = () => {
       </svg>
 
       {/* Social Nodes */}
-      {socialNodes.map((node) => (
-        <div
-          key={node.id}
-          className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300"
-          style={{ 
-            left: `${node.position.x}%`, 
-            top: `${node.position.y}%` 
-          }}
-        >
+      {socialNodes.map((node) => {
+        const IconComponent = node.icon;
+        
+        return (
           <div
-            className={`relative group cursor-pointer ${
-              pulseNodes.includes(node.id) ? 'animate-pulse' : ''
-            }`}
-            onMouseEnter={() => setActiveNode(node.id)}
-            onMouseLeave={() => setActiveNode(null)}
-            onClick={() => window.open(node.link, '_blank')}
+            key={node.id}
+            className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300"
+            style={{ 
+              left: `${node.position.x}%`, 
+              top: `${node.position.y}%` 
+            }}
           >
-            {/* Pulse Ring */}
-            {pulseNodes.includes(node.id) && (
-              <div className={`absolute inset-0 w-16 h-16 rounded-full bg-${node.color}/30 animate-ping`}></div>
-            )}
-            
-            {/* Node */}
-            <div className={`w-16 h-16 rounded-full bg-${node.color}/20 border-2 border-${node.color} flex items-center justify-center hover:scale-110 transition-transform duration-300`}>
-              {typeof node.icon === 'function' ? (
-                <node.icon />
-              ) : (
-                <node.icon className={`w-8 h-8 text-${node.color}`} />
+            <div
+              className={`relative group cursor-pointer ${
+                pulseNodes.includes(node.id) ? 'animate-pulse' : ''
+              }`}
+              onMouseEnter={() => setActiveNode(node.id)}
+              onMouseLeave={() => setActiveNode(null)}
+              onClick={() => window.open(node.link, '_blank')}
+            >
+              {/* Pulse Ring */}
+              {pulseNodes.includes(node.id) && (
+                <div className={`absolute inset-0 w-16 h-16 rounded-full bg-${node.color}/30 animate-ping`}></div>
+              )}
+              
+              {/* Node */}
+              <div className={`w-16 h-16 rounded-full bg-${node.color}/20 border-2 border-${node.color} flex items-center justify-center hover:scale-110 transition-transform duration-300`}>
+                {typeof IconComponent === 'function' ? (
+                  <IconComponent />
+                ) : (
+                  <IconComponent className={`w-8 h-8 text-${node.color}`} />
+                )}
+              </div>
+
+              {/* Info Card */}
+              {activeNode === node.id && (
+                <div className={getTooltipClasses(node.tooltipPosition)}>
+                  <div className="text-white font-semibold text-sm">{node.name}</div>
+                  <div className="text-gray-400 text-xs">{node.status}</div>
+                  <div className={`text-${node.color} text-xs font-bold`}>{node.followers}</div>
+                </div>
               )}
             </div>
-
-            {/* Info Card */}
-            {activeNode === node.id && (
-              <div className={getTooltipClasses(node.tooltipPosition)}>
-                <div className="text-white font-semibold text-sm">{node.name}</div>
-                <div className="text-gray-400 text-xs">{node.status}</div>
-                <div className={`text-${node.color} text-xs font-bold`}>{node.followers}</div>
-              </div>
-            )}
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       {/* Central Hub with GAMBLA Logo */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
