@@ -91,10 +91,23 @@ export const useBlog = () => {
 
   const incrementViews = async (articleId: string) => {
     try {
-      // Incrementa le visualizzazioni direttamente nella tabella
+      // Prima ottieni il valore attuale delle views
+      const { data: currentArticle, error: fetchError } = await supabase
+        .from('blog_articles')
+        .select('views')
+        .eq('id', articleId)
+        .single();
+
+      if (fetchError) {
+        console.error('Errore nel recupero dell\'articolo:', fetchError);
+        return;
+      }
+
+      // Incrementa le visualizzazioni
+      const newViews = (currentArticle?.views || 0) + 1;
       const { error } = await supabase
         .from('blog_articles')
-        .update({ views: supabase.raw('views + 1') })
+        .update({ views: newViews })
         .eq('id', articleId);
 
       if (error) {
@@ -105,7 +118,7 @@ export const useBlog = () => {
       // Aggiorna lo stato locale
       setArticles(prev => prev.map(article => 
         article.id === articleId 
-          ? { ...article, views: article.views + 1 }
+          ? { ...article, views: newViews }
           : article
       ));
     } catch (err) {
