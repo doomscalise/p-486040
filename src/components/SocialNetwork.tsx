@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Instagram, Send, Mail } from "lucide-react";
 
@@ -29,7 +28,7 @@ const SocialNetwork = () => {
       color: "from-blue-400 to-blue-600",
       followers: "3.1K",
       position: "bottom-8 left-1/2 transform -translate-x-1/2 translate-y-8",
-      link: "https://t.me/gambla_community"
+      link: "https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A"
     },
     {
       icon: Mail,
@@ -127,7 +126,7 @@ const SocialNetwork = () => {
               onClick={() => handleSocialClick(node.link)}
             >
               {/* Node */}
-              <div className={`w-16 h-16 bg-gradient-to-br ${node.color} rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-all duration-300 hover:shadow-2xl`}>
+              <div className={`w-16 h-16 bg-gradient-to-br ${node.color} rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:shadow-2xl`}>
                 {node.icon === "TikTok" ? (
                   <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-center">
                     <div className="text-black font-bold text-xs">TT</div>
@@ -159,7 +158,7 @@ const SocialNetwork = () => {
           </button>
           <button 
             className="gambla-btn-secondary"
-            onClick={() => handleSocialClick("https://t.me/gambla_community")}
+            onClick={() => handleSocialClick("https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A")}
           >
             Unisciti al Telegram
           </button>

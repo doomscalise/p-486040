@@ -30,7 +30,7 @@ const Footer = () => {
     {
       title: "Community",
       links: [
-        { name: "Telegram Community", path: "https://t.me/gambla_community", external: true },
+        { name: "Telegram Community", path: "https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A", external: true },
         { name: "Instagram", path: "https://instagram.com/gambla.it", external: true },
         { name: "TikTok", path: "https://tiktok.com/@gambla.it", external: true },
         { name: "Newsletter", path: "#newsletter" },
@@ -42,7 +42,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: Instagram, href: "https://instagram.com/gambla.it", name: "Instagram" },
     { icon: "TikTok", href: "https://tiktok.com/@gambla.it", name: "TikTok" },
-    { icon: Send, href: "https://t.me/gambla_community", name: "Telegram" },
+    { icon: Send, href: "https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A", name: "Telegram" },
     { icon: Mail, href: "mailto:info@gambla.it", name: "Email" }
   ];
 

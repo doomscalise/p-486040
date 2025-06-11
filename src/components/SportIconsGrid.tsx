@@ -3,14 +3,14 @@ import React from "react";
 
 const SportIconsGrid = () => {
   const sports = [
-    { name: "Calcio", emoji: "⚽", description: "Serie A, Champions League" },
-    { name: "Basket", emoji: "🏀", description: "NBA, Serie A Basket" },
-    { name: "Tennis", emoji: "🎾", description: "ATP, WTA, Slam" },
-    { name: "Volley", emoji: "🏐", description: "SuperLega, Nations League" },
-    { name: "F1", emoji: "🏎️", description: "Formula 1, MotoGP" },
-    { name: "Rugby", emoji: "🏉", description: "Sei Nazioni, World Cup" },
-    { name: "Nuoto", emoji: "🏊‍♂️", description: "Mondiali, Olimpiadi" },
-    { name: "Ciclismo", emoji: "🚴‍♂️", description: "Giro, Tour de France" },
+    { name: "Calcio", emoji: "⚽", description: "Sport collettivo più amato" },
+    { name: "Basket", emoji: "🏀", description: "Sport di squadra dinamico" },
+    { name: "Tennis", emoji: "🎾", description: "Sport individuale elegante" },
+    { name: "Volley", emoji: "🏐", description: "Sport collettivo spettacolare" },
+    { name: "F1", emoji: "🏎️", description: "Motori e adrenalina pura" },
+    { name: "Rugby", emoji: "🏉", description: "Sport collettivo di contatto" },
+    { name: "Nuoto", emoji: "🏊‍♂️", description: "Sport acquatico olimpico" },
+    { name: "Ciclismo", emoji: "🚴‍♂️", description: "Sport di resistenza e velocità" },
   ];
 
   return (
