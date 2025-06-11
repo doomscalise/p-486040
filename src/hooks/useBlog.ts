@@ -91,9 +91,11 @@ export const useBlog = () => {
 
   const incrementViews = async (articleId: string) => {
     try {
-      const { error } = await supabase.rpc('increment_article_views', {
-        article_id: articleId
-      });
+      // Incrementa le visualizzazioni direttamente nella tabella
+      const { error } = await supabase
+        .from('blog_articles')
+        .update({ views: supabase.raw('views + 1') })
+        .eq('id', articleId);
 
       if (error) {
         console.error('Errore nell\'incremento delle visualizzazioni:', error);
