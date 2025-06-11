@@ -31,10 +31,14 @@ const Navbar = () => {
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo con PNG */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="w-10 h-10 bg-gambla-gradient rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <span className="text-white font-bold text-xl">G</span>
+              <img 
+                src="/lovable-uploads/3440b5bf-cc6b-4e15-a97e-8c44c35f3558.png" 
+                alt="GAMBLA Logo" 
+                className="w-6 h-6 object-contain"
+              />
             </div>
             <span className="text-2xl font-display font-bold text-transparent bg-clip-text bg-gambla-gradient">
               GAMBLA
