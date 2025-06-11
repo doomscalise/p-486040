@@ -9,7 +9,119 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      blog_articles: {
+        Row: {
+          author: string
+          category_id: string | null
+          content: string
+          created_at: string
+          excerpt: string
+          featured: boolean | null
+          id: string
+          image: string | null
+          published: boolean | null
+          read_time: string | null
+          slug: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+          views: number | null
+        }
+        Insert: {
+          author: string
+          category_id?: string | null
+          content: string
+          created_at?: string
+          excerpt: string
+          featured?: boolean | null
+          id?: string
+          image?: string | null
+          published?: boolean | null
+          read_time?: string | null
+          slug: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          views?: number | null
+        }
+        Update: {
+          author?: string
+          category_id?: string | null
+          content?: string
+          created_at?: string
+          excerpt?: string
+          featured?: boolean | null
+          id?: string
+          image?: string | null
+          published?: boolean | null
+          read_time?: string | null
+          slug?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          views?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_articles_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "blog_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      blog_categories: {
+        Row: {
+          color: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      newsletter_subscriptions: {
+        Row: {
+          active: boolean | null
+          email: string
+          id: string
+          source: string | null
+          subscribed_at: string
+        }
+        Insert: {
+          active?: boolean | null
+          email: string
+          id?: string
+          source?: string | null
+          subscribed_at?: string
+        }
+        Update: {
+          active?: boolean | null
+          email?: string
+          id?: string
+          source?: string | null
+          subscribed_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

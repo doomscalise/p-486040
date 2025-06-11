@@ -1,76 +1,80 @@
 
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Calendar, User, ArrowRight } from "lucide-react";
+import { useBlog } from "@/hooks/useBlog";
 
 const BlogSlider = () => {
+  const { getFeaturedArticles, loading } = useBlog();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
-
-  const articles = [
-    {
-      id: 1,
-      title: "Le strategie vincenti per il fantacalcio 2024",
-      excerpt: "Scopri i segreti dei campioni per dominare la tua lega",
-      author: "Marco Rossi",
-      date: "15 Dic 2024",
-      image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "Fantacalcio"
-    },
-    {
-      id: 2,
-      title: "Analisi tattica: Inter vs Juventus",
-      excerpt: "Un'analisi approfondita del Derby d'Italia",
-      author: "Luca Bianchi",
-      date: "14 Dic 2024",
-      image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "Serie A"
-    },
-    {
-      id: 3,
-      title: "Champions League: pronostici quarti di finale",
-      excerpt: "Le nostre previsioni per le sfide più attese",
-      author: "Sofia Verde",
-      date: "13 Dic 2024",
-      image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "Champions"
-    }
-  ];
+  
+  const articles = getFeaturedArticles();
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % articles.length);
-    setIsTyping(false);
-    setTimeout(() => setIsTyping(true), 100);
+    if (articles.length > 0) {
+      setCurrentSlide((prev) => (prev + 1) % articles.length);
+      setIsTyping(false);
+      setTimeout(() => setIsTyping(true), 100);
+    }
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + articles.length) % articles.length);
-    setIsTyping(false);
-    setTimeout(() => setIsTyping(true), 100);
+    if (articles.length > 0) {
+      setCurrentSlide((prev) => (prev - 1 + articles.length) % articles.length);
+      setIsTyping(false);
+      setTimeout(() => setIsTyping(true), 100);
+    }
   };
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
-    return () => clearInterval(interval);
-  }, []);
+    if (articles.length > 0) {
+      const interval = setInterval(nextSlide, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [articles.length]);
+
+  if (loading) {
+    return (
+      <div className="relative overflow-hidden bg-gray-900/30 rounded-3xl p-8">
+        <div className="animate-pulse">
+          <div className="h-6 bg-gray-700 rounded w-32 mb-6"></div>
+          <div className="h-64 bg-gray-700 rounded"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (articles.length === 0) {
+    return (
+      <div className="relative overflow-hidden bg-gray-900/30 rounded-3xl p-8">
+        <h3 className="text-2xl font-display font-bold text-white mb-6">Ultimi Articoli</h3>
+        <div className="text-center text-gray-400">
+          <p>Nessun articolo in evidenza al momento.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative overflow-hidden bg-gray-900/30 rounded-3xl p-8">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-2xl font-display font-bold text-white">Ultimi Articoli</h3>
-        <div className="flex space-x-2">
-          <button 
-            onClick={prevSlide}
-            className="p-2 bg-gambla-magenta/20 rounded-full hover:bg-gambla-magenta/40 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 text-white" />
-          </button>
-          <button 
-            onClick={nextSlide}
-            className="p-2 bg-gambla-magenta/20 rounded-full hover:bg-gambla-magenta/40 transition-colors"
-          >
-            <ChevronRight className="w-5 h-5 text-white" />
-          </button>
-        </div>
+        {articles.length > 1 && (
+          <div className="flex space-x-2">
+            <button 
+              onClick={prevSlide}
+              className="p-2 bg-gambla-magenta/20 rounded-full hover:bg-gambla-magenta/40 transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5 text-white" />
+            </button>
+            <button 
+              onClick={nextSlide}
+              className="p-2 bg-gambla-magenta/20 rounded-full hover:bg-gambla-magenta/40 transition-colors"
+            >
+              <ChevronRight className="w-5 h-5 text-white" />
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="relative h-64">
@@ -127,17 +131,19 @@ const BlogSlider = () => {
         ))}
       </div>
 
-      <div className="flex justify-center mt-6 space-x-2">
-        {articles.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === currentSlide ? 'bg-gambla-orange w-8' : 'bg-gray-600'
-            }`}
-          />
-        ))}
-      </div>
+      {articles.length > 1 && (
+        <div className="flex justify-center mt-6 space-x-2">
+          {articles.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentSlide ? 'bg-gambla-orange w-8' : 'bg-gray-600'
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

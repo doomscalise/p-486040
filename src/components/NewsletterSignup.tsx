@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Mail, CheckCircle, Loader } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 import { useAnalytics } from '@/components/Analytics';
+import { supabase } from '@/integrations/supabase/client';
 
 interface NewsletterSignupProps {
   variant?: 'inline' | 'popup' | 'footer';
@@ -27,11 +28,42 @@ const NewsletterSignup = ({ variant = 'inline', className = '' }: NewsletterSign
       return;
     }
 
+    // Validazione email semplice
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast({
+        title: "Email non valida",
+        description: "Inserisci un indirizzo email valido",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      // Simula chiamata API - da sostituire con Supabase
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const { error } = await supabase
+        .from('newsletter_subscriptions')
+        .insert([
+          {
+            email: email.toLowerCase().trim(),
+            source: variant
+          }
+        ]);
+
+      if (error) {
+        if (error.code === '23505') { // Unique constraint violation
+          toast({
+            title: "Già iscritto!",
+            description: "Questa email è già iscritta alla nostra newsletter.",
+            variant: "destructive",
+          });
+        } else {
+          throw error;
+        }
+        setIsSubmitting(false);
+        return;
+      }
       
       // Track conversion
       trackNewsletterSignup(email);
@@ -44,6 +76,7 @@ const NewsletterSignup = ({ variant = 'inline', className = '' }: NewsletterSign
 
       setEmail('');
     } catch (error) {
+      console.error('Errore nell\'iscrizione alla newsletter:', error);
       toast({
         title: "Errore nell'iscrizione",
         description: "Si è verificato un errore. Riprova più tardi.",
@@ -60,7 +93,7 @@ const NewsletterSignup = ({ variant = 'inline', className = '' }: NewsletterSign
         <CheckCircle className="w-6 h-6 text-green-500 mr-3" />
         <div>
           <p className="text-green-800 font-semibold">Iscrizione completata!</p>
-          <p className="text-green-600 text-sm">Controlla la tua email per confermare l'iscrizione.</p>
+          <p className="text-green-600 text-sm">Grazie per esserti iscritto alla newsletter di GAMBLA!</p>
         </div>
       </div>
     );
