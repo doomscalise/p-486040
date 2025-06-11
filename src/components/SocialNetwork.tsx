@@ -10,9 +10,9 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       handle: "@gambla.it",
       color: "from-pink-500 to-purple-600",
       followers: "8.2K",
-      position: "top-8 left-1/2 transform -translate-x-1/2 -translate-y-8",
+      position: "top-12 left-1/2 transform -translate-x-1/2 -translate-y-4",
       link: "https://instagram.com/gambla.it",
-      infoPosition: "top-20 left-20" // Spostiamo a destra
+      infoPosition: "top-20 right-4"
     },
     {
       icon: "TikTok",
@@ -20,9 +20,9 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       handle: "@gambla.it",
       color: "from-black to-red-600",
       followers: "12.5K",
-      position: "top-1/2 right-8 transform translate-x-8 -translate-y-1/2",
+      position: "top-1/2 right-12 transform translate-x-4 -translate-y-1/2",
       link: "https://tiktok.com/@gambla.it",
-      infoPosition: "top-20 left-1/2 transform -translate-x-1/2"
+      infoPosition: "top-20 right-4"
     },
     {
       icon: Send,
@@ -30,9 +30,9 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       handle: "Community GAMBLA",
       color: "from-blue-400 to-blue-600",
       followers: "3.1K",
-      position: "bottom-8 left-1/2 transform -translate-x-1/2 translate-y-8",
+      position: "bottom-12 left-1/2 transform -translate-x-1/2 translate-y-4",
       link: "https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A",
-      infoPosition: "bottom-20 left-20" // Spostiamo a destra
+      infoPosition: "bottom-20 right-4"
     },
     {
       icon: Mail,
@@ -40,9 +40,9 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       handle: "Aggiornamenti Weekly",
       color: "from-gambla-orange to-gambla-magenta",
       followers: "5.8K",
-      position: "top-1/2 left-8 transform -translate-x-8 -translate-y-1/2",
+      position: "top-1/2 left-12 transform -translate-x-4 -translate-y-1/2",
       link: "mailto:info@gambla.it",
-      infoPosition: "top-20 left-1/2 transform -translate-x-1/2"
+      infoPosition: "top-20 left-4"
     }
   ];
 
@@ -83,7 +83,7 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       <div className="relative h-80 mx-auto max-w-2xl">
         {/* Central Hub con logo PNG */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 group">
-          <div className="w-24 h-24 bg-gambla-gradient rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 cursor-pointer">
+          <div className="w-24 h-24 bg-gambla-gradient rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 cursor-pointer animate-pulse">
             <img 
               src="/lovable-uploads/3440b5bf-cc6b-4e15-a97e-8c44c35f3558.png" 
               alt="GAMBLA Logo" 
@@ -95,12 +95,12 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
           </div>
         </div>
 
-        {/* Cerchi concentrici per design più elegante */}
+        {/* Cerchi concentrici per design più elegante con animazione */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-48 h-48 border border-gambla-magenta/30 rounded-full"></div>
+          <div className="w-48 h-48 border border-gambla-magenta/30 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>
         </div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-64 h-64 border border-gambla-orange/20 rounded-full"></div>
+          <div className="w-64 h-64 border border-gambla-orange/20 rounded-full animate-spin" style={{ animationDuration: '30s', animationDirection: 'reverse' }}></div>
         </div>
 
         {/* Linee eleganti che partono dal centro */}
@@ -120,23 +120,28 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
           </defs>
           
           {/* Linee più eleganti dal centro ai nodi */}
-          <line x1="50%" y1="50%" x2="50%" y2="20%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
-          <line x1="50%" y1="50%" x2="80%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
-          <line x1="50%" y1="50%" x2="50%" y2="80%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
-          <line x1="50%" y1="50%" x2="20%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
+          <line x1="50%" y1="50%" x2="50%" y2="25%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
+          <line x1="50%" y1="50%" x2="75%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
+          <line x1="50%" y1="50%" x2="50%" y2="75%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
+          <line x1="50%" y1="50%" x2="25%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="2" filter="url(#glow)" />
         </svg>
 
-        {/* Social Nodes - più vicini al centro */}
+        {/* Social Nodes - con animazioni */}
         {socialNodes.map((node, index) => {
+          const animationDelay = `${index * 0.5}s`;
           return (
             <div
               key={node.name}
-              className={`absolute ${node.position} group cursor-pointer`}
-              style={{ zIndex: 2 }}
+              className={`absolute ${node.position} group cursor-pointer animate-bounce hover:animate-none`}
+              style={{ 
+                zIndex: 2,
+                animationDelay,
+                animationDuration: '2s'
+              }}
               onClick={() => handleSocialClick(node.link)}
             >
-              {/* Node */}
-              <div className={`w-16 h-16 bg-gradient-to-br ${node.color} rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:shadow-2xl`}>
+              {/* Node con effetti hover più dinamici */}
+              <div className={`w-16 h-16 bg-gradient-to-br ${node.color} rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-125 hover:rotate-12`}>
                 {node.icon === "TikTok" ? (
                   <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-center">
                     <div className="text-black font-bold text-xs">TT</div>
@@ -147,7 +152,7 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
               </div>
               
               {/* Info Card con posizionamento migliorato */}
-              <div className={`absolute ${node.infoPosition} opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gambla-dark/90 backdrop-blur-md rounded-lg p-3 min-w-max border border-gray-700`}>
+              <div className={`absolute ${node.infoPosition} opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gambla-dark/90 backdrop-blur-md rounded-lg p-3 min-w-max border border-gray-700 transform translate-y-2 group-hover:translate-y-0`}>
                 <h4 className="text-white font-semibold text-sm">{node.name}</h4>
                 <p className="text-gray-300 text-xs">{node.handle}</p>
                 <p className="text-gambla-yellow text-xs font-semibold">{node.followers} followers</p>
@@ -161,13 +166,13 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       <div className="text-center mt-16">
         <div className="flex flex-wrap justify-center gap-4">
           <button 
-            className="gambla-btn-primary"
+            className="gambla-btn-primary hover:scale-105 transition-transform duration-300"
             onClick={() => handleSocialClick("https://instagram.com/gambla.it")}
           >
             Seguici su Instagram
           </button>
           <button 
-            className="gambla-btn-secondary"
+            className="gambla-btn-secondary hover:scale-105 transition-transform duration-300"
             onClick={() => handleSocialClick("https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A")}
           >
             Unisciti al Telegram
