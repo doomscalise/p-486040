@@ -10,7 +10,8 @@ const SocialNetwork = () => {
       color: "from-pink-500 to-purple-600",
       followers: "8.2K",
       position: "top-8 left-1/2 transform -translate-x-1/2 -translate-y-8",
-      link: "https://instagram.com/gambla.it"
+      link: "https://instagram.com/gambla.it",
+      infoPosition: "top-20 left-20" // Spostiamo a destra
     },
     {
       icon: "TikTok",
@@ -19,7 +20,8 @@ const SocialNetwork = () => {
       color: "from-black to-red-600",
       followers: "12.5K",
       position: "top-1/2 right-8 transform translate-x-8 -translate-y-1/2",
-      link: "https://tiktok.com/@gambla.it"
+      link: "https://tiktok.com/@gambla.it",
+      infoPosition: "top-20 left-1/2 transform -translate-x-1/2"
     },
     {
       icon: Send,
@@ -28,7 +30,8 @@ const SocialNetwork = () => {
       color: "from-blue-400 to-blue-600",
       followers: "3.1K",
       position: "bottom-8 left-1/2 transform -translate-x-1/2 translate-y-8",
-      link: "https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A"
+      link: "https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A",
+      infoPosition: "bottom-20 left-20" // Spostiamo a destra
     },
     {
       icon: Mail,
@@ -37,7 +40,8 @@ const SocialNetwork = () => {
       color: "from-gambla-orange to-gambla-magenta",
       followers: "5.8K",
       position: "top-1/2 left-8 transform -translate-x-8 -translate-y-1/2",
-      link: "mailto:info@gambla.it"
+      link: "mailto:info@gambla.it",
+      infoPosition: "top-20 left-1/2 transform -translate-x-1/2"
     }
   ];
 
@@ -136,8 +140,8 @@ const SocialNetwork = () => {
                 )}
               </div>
               
-              {/* Info Card */}
-              <div className="absolute top-20 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gambla-dark/90 backdrop-blur-md rounded-lg p-3 min-w-max border border-gray-700">
+              {/* Info Card con posizionamento migliorato */}
+              <div className={`absolute ${node.infoPosition} opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gambla-dark/90 backdrop-blur-md rounded-lg p-3 min-w-max border border-gray-700`}>
                 <h4 className="text-white font-semibold text-sm">{node.name}</h4>
                 <p className="text-gray-300 text-xs">{node.handle}</p>
                 <p className="text-gambla-yellow text-xs font-semibold">{node.followers} followers</p>
