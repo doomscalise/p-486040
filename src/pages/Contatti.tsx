@@ -189,18 +189,18 @@ const Contatti = () => {
                 </div>
               </div>
 
-              {/* Step-by-Step Form - Ridotto in altezza */}
-              <div className="bg-gambla-gradient p-1 rounded-3xl">
-                <div className="bg-gambla-dark p-6 rounded-3xl">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-display font-bold text-white">
+              {/* Compact Form */}
+              <div className="bg-gambla-gradient p-1 rounded-2xl h-fit">
+                <div className="bg-gambla-dark p-4 rounded-2xl">
+                  <div className="flex items-center justify-between mb-3">
+                    <h2 className="text-lg font-display font-bold text-white">
                       Invia un Messaggio
                     </h2>
-                    <div className="flex space-x-2">
+                    <div className="flex space-x-1">
                       {[0, 1, 2].map((step) => (
                         <div
                           key={step}
-                          className={`w-2 h-2 rounded-full transition-colors ${
+                          className={`w-1.5 h-1.5 rounded-full transition-colors ${
                             step <= currentStep ? 'bg-gambla-orange' : 'bg-gray-600'
                           }`}
                         />
@@ -208,9 +208,9 @@ const Contatti = () => {
                     </div>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-3">
                     {currentStep === 0 && (
-                      <div className="space-y-3 animate-fade-in">
+                      <div className="space-y-2 animate-fade-in">
                         <div className="relative">
                           <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                           <input
@@ -219,7 +219,7 @@ const Contatti = () => {
                             value={formData.name}
                             onChange={handleChange}
                             placeholder="Il tuo nome"
-                            className="w-full pl-10 pr-3 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300"
+                            className="w-full pl-10 pr-3 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300 text-sm"
                             required
                           />
                         </div>
@@ -227,7 +227,7 @@ const Contatti = () => {
                           type="button"
                           onClick={nextStep}
                           disabled={!formData.name}
-                          className="w-full gambla-btn-primary disabled:opacity-50 py-2"
+                          className="w-full gambla-btn-primary disabled:opacity-50 py-2 text-sm"
                         >
                           Continua
                         </button>
@@ -235,7 +235,7 @@ const Contatti = () => {
                     )}
 
                     {currentStep === 1 && (
-                      <div className="space-y-3 animate-fade-in">
+                      <div className="space-y-2 animate-fade-in">
                         <div className="relative">
                           <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                           <input
@@ -244,7 +244,7 @@ const Contatti = () => {
                             value={formData.email}
                             onChange={handleChange}
                             placeholder="La tua email"
-                            className="w-full pl-10 pr-3 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300"
+                            className="w-full pl-10 pr-3 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300 text-sm"
                             required
                           />
                         </div>
@@ -252,7 +252,7 @@ const Contatti = () => {
                           type="button"
                           onClick={nextStep}
                           disabled={!formData.email}
-                          className="w-full gambla-btn-primary disabled:opacity-50 py-2"
+                          className="w-full gambla-btn-primary disabled:opacity-50 py-2 text-sm"
                         >
                           Continua
                         </button>
@@ -260,7 +260,7 @@ const Contatti = () => {
                     )}
 
                     {currentStep === 2 && (
-                      <div className="space-y-3 animate-fade-in">
+                      <div className="space-y-2 animate-fade-in">
                         <div className="relative">
                           <MessageCircle className="absolute left-3 top-3 text-gray-400 w-4 h-4" />
                           <textarea
@@ -268,15 +268,15 @@ const Contatti = () => {
                             value={formData.message}
                             onChange={handleChange}
                             placeholder="Il tuo messaggio"
-                            rows={3}
-                            className="w-full pl-10 pr-3 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300 resize-none"
+                            rows={2}
+                            className="w-full pl-10 pr-3 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gambla-orange focus:border-transparent transition-all duration-300 resize-none text-sm"
                             required
                           />
                         </div>
                         <button
                           type="submit"
                           disabled={isSubmitting || !formData.message}
-                          className="w-full gambla-btn-tertiary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed py-2"
+                          className="w-full gambla-btn-tertiary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed py-2 text-sm"
                         >
                           <Send className="mr-2 w-4 h-4" />
                           {isSubmitting ? "Invio in corso..." : "Invia Messaggio"}
