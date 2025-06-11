@@ -15,17 +15,19 @@ const SocialNetwork = () => {
       status: "Molto Attivo",
       followers: "2.5K",
       link: "https://www.instagram.com/gambla.it?igsh=MWJxOTQxcmt5b3p6Mg==",
-      position: { x: 25, y: 25 }
+      position: { x: 25, y: 25 },
+      tooltipPosition: "bottom"
     },
     {
       id: 2,
       name: "TikTok",
-      icon: MessageCircle,
+      icon: () => <span className="text-2xl">🎵</span>,
       color: "gambla-orange",
       status: "In Crescita",
       followers: "1.2K",
       link: "https://www.tiktok.com/@gambla.it?_t=ZN-8x6C4necE6c&_r=1",
-      position: { x: 75, y: 25 }
+      position: { x: 75, y: 25 },
+      tooltipPosition: "bottom"
     },
     {
       id: 3,
@@ -35,7 +37,8 @@ const SocialNetwork = () => {
       status: "Community",
       followers: "800",
       link: "http://t.me/+QHqp3ShP8ZZkOTA0",
-      position: { x: 25, y: 75 }
+      position: { x: 25, y: 75 },
+      tooltipPosition: "left"
     },
     {
       id: 4,
@@ -45,7 +48,8 @@ const SocialNetwork = () => {
       status: "Sempre Aperto",
       followers: "24/7",
       link: "mailto:info@gambla.it",
-      position: { x: 75, y: 75 }
+      position: { x: 75, y: 75 },
+      tooltipPosition: "right"
     }
   ];
 
@@ -65,6 +69,20 @@ const SocialNetwork = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  const getTooltipClasses = (position: string) => {
+    const baseClasses = "absolute bg-black border border-gray-700 rounded-lg p-3 min-w-max z-10 animate-fade-in";
+    
+    switch (position) {
+      case "left":
+        return `${baseClasses} right-20 top-1/2 transform -translate-y-1/2`;
+      case "right":
+        return `${baseClasses} left-20 top-1/2 transform -translate-y-1/2`;
+      case "bottom":
+      default:
+        return `${baseClasses} top-20 left-1/2 transform -translate-x-1/2`;
+    }
+  };
 
   return (
     <div className="relative h-96 bg-gray-900/30 rounded-3xl p-8 overflow-hidden">
@@ -115,12 +133,16 @@ const SocialNetwork = () => {
             
             {/* Node */}
             <div className={`w-16 h-16 rounded-full bg-${node.color}/20 border-2 border-${node.color} flex items-center justify-center hover:scale-110 transition-transform duration-300`}>
-              <node.icon className={`w-8 h-8 text-${node.color}`} />
+              {typeof node.icon === 'function' ? (
+                <node.icon />
+              ) : (
+                <node.icon className={`w-8 h-8 text-${node.color}`} />
+              )}
             </div>
 
             {/* Info Card */}
             {activeNode === node.id && (
-              <div className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-black border border-gray-700 rounded-lg p-3 min-w-max z-10 animate-fade-in">
+              <div className={getTooltipClasses(node.tooltipPosition)}>
                 <div className="text-white font-semibold text-sm">{node.name}</div>
                 <div className="text-gray-400 text-xs">{node.status}</div>
                 <div className={`text-${node.color} text-xs font-bold`}>{node.followers}</div>
