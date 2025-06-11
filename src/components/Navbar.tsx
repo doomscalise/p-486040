@@ -51,8 +51,12 @@ const Navbar = () => {
           className="flex items-center space-x-3"
           onClick={closeMenu}
         >
-          <div className="w-10 h-10 bg-gambla-gradient rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-xl">G</span>
+          <div className="w-10 h-10 bg-gambla-gradient rounded-full flex items-center justify-center p-1">
+            <img 
+              src="/lovable-uploads/5551ac8e-24aa-42a4-a884-df70ee009be3.png" 
+              alt="GAMBLA Logo" 
+              className="w-full h-full object-contain filter brightness-0 invert"
+            />
           </div>
           <span className="text-2xl font-display font-bold text-transparent bg-clip-text bg-gambla-gradient">
             GAMBLA

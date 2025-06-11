@@ -15,7 +15,7 @@ const SocialNetwork = () => {
       status: "Molto Attivo",
       followers: "2.5K",
       link: "https://www.instagram.com/gambla.it?igsh=MWJxOTQxcmt5b3p6Mg==",
-      position: { x: 20, y: 30 }
+      position: { x: 25, y: 25 }
     },
     {
       id: 2,
@@ -25,7 +25,7 @@ const SocialNetwork = () => {
       status: "In Crescita",
       followers: "1.2K",
       link: "https://www.tiktok.com/@gambla.it?_t=ZN-8x6C4necE6c&_r=1",
-      position: { x: 70, y: 20 }
+      position: { x: 75, y: 25 }
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ const SocialNetwork = () => {
       status: "Community",
       followers: "800",
       link: "http://t.me/+QHqp3ShP8ZZkOTA0",
-      position: { x: 50, y: 60 }
+      position: { x: 25, y: 75 }
     },
     {
       id: 4,
@@ -45,7 +45,7 @@ const SocialNetwork = () => {
       status: "Sempre Aperto",
       followers: "24/7",
       link: "mailto:info@gambla.it",
-      position: { x: 80, y: 70 }
+      position: { x: 75, y: 75 }
     }
   ];
 
@@ -130,10 +130,14 @@ const SocialNetwork = () => {
         </div>
       ))}
 
-      {/* Central Hub */}
+      {/* Central Hub with GAMBLA Logo */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="w-20 h-20 rounded-full bg-gambla-gradient flex items-center justify-center animate-float">
-          <span className="text-white font-bold text-xl">G</span>
+        <div className="w-20 h-20 bg-gambla-gradient rounded-full flex items-center justify-center animate-float p-2">
+          <img 
+            src="/lovable-uploads/5551ac8e-24aa-42a4-a884-df70ee009be3.png" 
+            alt="GAMBLA Logo" 
+            className="w-full h-full object-contain filter brightness-0 invert"
+          />
         </div>
         <div className="absolute inset-0 w-20 h-20 rounded-full bg-gambla-gradient opacity-30 animate-ping"></div>
       </div>
