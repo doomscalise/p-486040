@@ -1,6 +1,5 @@
-
 import React from "react";
-import { Instagram, Send, Mail } from "lucide-react";
+import { Instagram, Send, Mail, Music } from "lucide-react";
 
 const SocialNetwork = ({ hideNetworkVisualization = false }) => {
   const socialNodes = [
@@ -14,7 +13,7 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       link: "https://instagram.com/gambla.it",
     },
     {
-      icon: "TikTok",
+      icon: Music,
       name: "TikTok", 
       handle: "@gambla.it",
       color: "from-black to-red-600",
@@ -96,7 +95,7 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
 
       {/* Network visualization geometricamente perfetto */}
       <div className="relative h-96 mx-auto max-w-3xl flex items-center justify-center">
-        {/* Logo centrale GAMBLA */}
+        {/* Logo centrale GAMBLA - senza testo */}
         <div className="relative z-10 group cursor-pointer">
           <div className="w-32 h-32 bg-gambla-gradient rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 group-hover:scale-125 group-hover:shadow-3xl group-hover:shadow-gambla-orange/50">
             <img 
@@ -104,9 +103,6 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
               alt="GAMBLA Logo" 
               className="w-16 h-16 object-contain transition-transform duration-500 group-hover:scale-110"
             />
-          </div>
-          <div className="text-center mt-4">
-            <span className="text-white font-bold text-xl transition-all duration-300 group-hover:text-gambla-yellow">GAMBLA</span>
           </div>
         </div>
 
@@ -119,16 +115,8 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
             onClick={() => handleSocialClick(node.link)}
           >
             {/* Icona social */}
-            <div className={`w-20 h-20 bg-gradient-to-br ${node.color} rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-${node.color.split('-')[1]}-500/30`}>
-              {node.icon === "TikTok" ? (
-                <div className="w-10 h-10 bg-white rounded-sm flex items-center justify-center transition-transform duration-300 group-hover:rotate-12">
-                  <div className="text-black font-bold text-sm">TT</div>
-                </div>
-              ) : (
-                React.createElement(node.icon, { 
-                  className: "w-10 h-10 text-white transition-transform duration-300 group-hover:rotate-12" 
-                })
-              )}
+            <div className={`w-20 h-20 bg-gradient-to-br ${node.color} rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl`}>
+              <node.icon className="w-10 h-10 text-white transition-transform duration-300 group-hover:rotate-12" />
             </div>
             
             {/* Info Card con posizionamento intelligente */}
