@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Instagram, Send, Mail, Music } from "lucide-react";
 
@@ -8,7 +9,6 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       name: "Instagram",
       handle: "@gambla.it",
       color: "from-pink-500 to-purple-600",
-      followers: "8.2K",
       angle: 0, // Top
       link: "https://instagram.com/gambla.it",
     },
@@ -17,7 +17,6 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       name: "TikTok", 
       handle: "@gambla.it",
       color: "from-black to-red-600",
-      followers: "12.5K",
       angle: 90, // Right
       link: "https://tiktok.com/@gambla.it",
     },
@@ -26,7 +25,6 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       name: "Telegram",
       handle: "Community GAMBLA",
       color: "from-blue-400 to-blue-600",
-      followers: "3.1K",
       angle: 180, // Bottom
       link: "https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A",
     },
@@ -35,7 +33,6 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
       name: "Newsletter",
       handle: "Aggiornamenti Weekly",
       color: "from-gambla-orange to-gambla-magenta",
-      followers: "5.8K",
       angle: 270, // Left
       link: "mailto:info@gambla.it",
     }
@@ -119,11 +116,11 @@ const SocialNetwork = ({ hideNetworkVisualization = false }) => {
               <node.icon className="w-10 h-10 text-white transition-transform duration-300 group-hover:rotate-12" />
             </div>
             
-            {/* Info Card con posizionamento intelligente */}
+            {/* Info Card semplificata senza follower count */}
             <div className={`absolute ${getInfoPosition(node.angle)} opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gambla-dark/95 backdrop-blur-md rounded-xl p-4 min-w-max border border-gray-700/50 shadow-xl transform scale-95 group-hover:scale-100`}>
               <h4 className="text-white font-semibold text-sm">{node.name}</h4>
               <p className="text-gray-300 text-xs">{node.handle}</p>
-              <p className="text-gambla-yellow text-xs font-semibold">{node.followers} followers</p>
+              <p className="text-gambla-yellow text-xs font-semibold">Clicca per seguirci</p>
             </div>
           </div>
         ))}
