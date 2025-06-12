@@ -25,3 +25,17 @@ export interface BlogCategory {
   description: string;
   color: string;
 }
+
+// Tipi per le API response
+export interface ApiResponse<T> {
+  data: T;
+  success: boolean;
+  message?: string;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+}
