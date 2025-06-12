@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Instagram, Send, Mail, Heart } from "lucide-react";
+import { Instagram, Send, Mail, Heart, Video } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -30,10 +30,10 @@ const Footer = () => {
     {
       title: "Community",
       links: [
+        { name: "Newsletter", path: "/newsletter" },
         { name: "Telegram Community", path: "https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A", external: true },
         { name: "Instagram", path: "https://instagram.com/gambla.it", external: true },
         { name: "TikTok", path: "https://tiktok.com/@gambla.it", external: true },
-        { name: "Newsletter", path: "#newsletter" },
         { name: "FAQ", path: "/faq" }
       ]
     }
@@ -41,7 +41,7 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: Instagram, href: "https://instagram.com/gambla.it", name: "Instagram" },
-    { icon: "TikTok", href: "https://tiktok.com/@gambla.it", name: "TikTok" },
+    { icon: Video, href: "https://tiktok.com/@gambla.it", name: "TikTok" },
     { icon: Send, href: "https://t.me/+QHqp3ShP8ZZkOTA0?fbclid=PAZXh0bgNhZW0CMTEAAacaMd9hyFpQJfWwQryQplF_XPO5Zhl48Xer1pft84qjll4AqbffBxL2boof7g_aem_n3yWzB4S3Zkb4URTkUlS3A", name: "Telegram" },
     { icon: Mail, href: "mailto:info@gambla.it", name: "Email" }
   ];
@@ -88,13 +88,7 @@ const Footer = () => {
                     onClick={() => handleSocialClick(social.href)}
                     className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-gambla-gradient transition-all duration-300 group"
                   >
-                    {social.icon === "TikTok" ? (
-                      <div className="w-5 h-5 bg-white rounded-sm flex items-center justify-center group-hover:bg-black transition-colors">
-                        <div className="text-black group-hover:text-white font-bold text-xs">TT</div>
-                      </div>
-                    ) : (
-                      React.createElement(social.icon, { className: "w-5 h-5 group-hover:scale-110 transition-transform" })
-                    )}
+                    <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
                   </button>
                 );
               })}
