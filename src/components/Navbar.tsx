@@ -22,6 +22,8 @@ const Navbar = () => {
     { name: "Blog", path: "/blog" },
     { name: "Fantagambla", path: "/fantagambla" },
     { name: "Chi Siamo", path: "/chi-siamo" },
+    { name: "FAQ", path: "/faq" },
+    { name: "Newsletter", path: "/newsletter" },
     { name: "Contatti", path: "/contatti" },
   ];
 
