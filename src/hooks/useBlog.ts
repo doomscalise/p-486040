@@ -1,7 +1,8 @@
 
 import { useState, useEffect } from 'react';
 import { BlogArticle, BlogCategory } from '@/types/blog';
-import { blogService } from '@/services/blogService';
+// Usa il servizio mock temporaneamente
+import { mockBlogService as blogService } from '@/services/mockBlogService';
 
 export const useBlog = () => {
   const [articles, setArticles] = useState<BlogArticle[]>([]);
@@ -18,11 +19,16 @@ export const useBlog = () => {
       setLoading(true);
       setError(null);
       
+      console.log('Loading blog data...');
+      
       // Carica categorie e articoli in parallelo
       const [categoriesData, articlesData] = await Promise.all([
         blogService.getCategories(),
         blogService.getArticles()
       ]);
+
+      console.log('Categories loaded:', categoriesData);
+      console.log('Articles loaded:', articlesData);
 
       setCategories(categoriesData);
       setArticles(articlesData);
