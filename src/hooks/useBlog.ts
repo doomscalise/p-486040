@@ -1,8 +1,11 @@
 
 import { useState, useEffect } from 'react';
 import { BlogArticle, BlogCategory } from '@/types/blog';
-// Usa il servizio mock temporaneamente
-import { mockBlogService as blogService } from '@/services/mockBlogService';
+import { wordpressService } from '@/services/wordpressService';
+import { mockBlogService } from '@/services/mockBlogService';
+
+// Flag per scegliere tra WordPress e mock data
+const USE_WORDPRESS = true; // Cambia in false per usare i dati mock
 
 export const useBlog = () => {
   const [articles, setArticles] = useState<BlogArticle[]>([]);
@@ -10,58 +13,64 @@ export const useBlog = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const blogService = USE_WORDPRESS ? wordpressService : mockBlogService;
+
   useEffect(() => {
-    loadData();
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const [articlesData, categoriesData] = await Promise.all([
+          blogService.getArticles(),
+          blogService.getCategories()
+        ]);
+        
+        setArticles(articlesData);
+        setCategories(categoriesData);
+      } catch (err) {
+        console.error('Errore nel caricamento dei dati del blog:', err);
+        setError('Impossibile caricare i contenuti del blog');
+        
+        // Fallback ai dati mock in caso di errore
+        if (USE_WORDPRESS) {
+          try {
+            const [mockArticles, mockCategories] = await Promise.all([
+              mockBlogService.getArticles(),
+              mockBlogService.getCategories()
+            ]);
+            setArticles(mockArticles);
+            setCategories(mockCategories);
+            setError('Utilizzando dati di fallback');
+          } catch (mockError) {
+            console.error('Errore anche con i dati mock:', mockError);
+          }
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const loadData = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      console.log('Loading blog data...');
-      
-      // Carica categorie e articoli in parallelo
-      const [categoriesData, articlesData] = await Promise.all([
-        blogService.getCategories(),
-        blogService.getArticles()
-      ]);
-
-      console.log('Categories loaded:', categoriesData);
-      console.log('Articles loaded:', articlesData);
-
-      setCategories(categoriesData);
-      setArticles(articlesData);
-    } catch (err) {
-      console.error('Errore nel caricamento dei dati:', err);
-      setError('Errore nel caricamento degli articoli');
-    } finally {
-      setLoading(false);
-    }
+  const getFeaturedArticles = () => {
+    return articles.filter(article => article.featured);
   };
 
-  const getFeaturedArticles = () => articles.filter(article => article.featured);
-  
-  const getArticlesByCategory = (categorySlug: string) => 
-    articles.filter(article => 
-      categories.find(cat => cat.name === article.category)?.slug === categorySlug
-    );
-  
-  const getArticleBySlug = (slug: string) => 
-    articles.find(article => article.slug === slug);
+  const getArticlesByCategory = (categorySlug: string) => {
+    return articles.filter(article => {
+      const category = categories.find(cat => cat.slug === categorySlug);
+      return category && article.category === category.name;
+    });
+  };
 
-  const incrementViews = async (articleId: string) => {
+  const getArticleBySlug = async (slug: string): Promise<BlogArticle | null> => {
     try {
-      await blogService.incrementViews(articleId);
-      
-      // Aggiorna lo stato locale
-      setArticles(prev => prev.map(article => 
-        article.id === articleId 
-          ? { ...article, views: (article.views || 0) + 1 }
-          : article
-      ));
+      return await blogService.getArticleBySlug(slug);
     } catch (err) {
-      console.error('Errore nell\'incremento delle visualizzazioni:', err);
+      console.error('Errore nel recupero articolo:', err);
+      return null;
     }
   };
 
@@ -73,7 +82,6 @@ export const useBlog = () => {
     getFeaturedArticles,
     getArticlesByCategory,
     getArticleBySlug,
-    incrementViews,
-    refreshData: loadData
+    incrementViews: blogService.incrementViews
   };
 };
