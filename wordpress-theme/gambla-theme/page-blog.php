@@ -7,9 +7,11 @@ get_header(); ?>
 
 <div class="page-hero">
     <div class="container">
-        <h1>Il Blog di <span class="gradient-text">GAMBLA</span></h1>
-        <p style="font-size: 1.25rem; color: #cccccc; margin-top: 1rem;">
-            Analisi, pronostici e tutto quello che devi sapere sul mondo dello sport
+        <h1 class="blog-page-title">
+            <?php echo esc_html(get_theme_mod('gambla_blog_title', 'Il Blog di GAMBLA')); ?>
+        </h1>
+        <p class="blog-page-description" style="font-size: 1.25rem; color: #cccccc; margin-top: 1rem;">
+            <?php echo esc_html(get_theme_mod('gambla_blog_description', 'Analisi, pronostici e tutto quello che devi sapere sul mondo dello sport')); ?>
         </p>
     </div>
 </div>
