@@ -1,4 +1,3 @@
-
 <?php
 
 // Theme Setup
@@ -23,6 +22,69 @@ function gambla_theme_setup() {
     add_image_size('gambla-large', 1200, 600, true);
 }
 add_action('after_setup_theme', 'gambla_theme_setup');
+
+// Create default pages
+function gambla_create_default_pages() {
+    $pages = array(
+        'Home' => array(
+            'template' => 'page-home.php',
+            'content' => 'Homepage di GAMBLA'
+        ),
+        'Blog' => array(
+            'template' => 'page-blog.php',
+            'content' => 'Il blog di GAMBLA con notizie sportive'
+        ),
+        'FantaGambla' => array(
+            'template' => 'page-fantagambla.php',
+            'content' => 'Il fantacalcio di GAMBLA'
+        ),
+        'Chi Siamo' => array(
+            'template' => 'page-chi-siamo.php',
+            'content' => 'Chi siamo e la nostra storia'
+        ),
+        'FAQ' => array(
+            'template' => 'page-faq.php',
+            'content' => 'Domande frequenti'
+        ),
+        'Newsletter' => array(
+            'template' => 'page-newsletter.php',
+            'content' => 'Iscriviti alla nostra newsletter'
+        ),
+        'Contatti' => array(
+            'template' => 'page-contatti.php',
+            'content' => 'Contattaci per informazioni'
+        ),
+        'Unisciti Ora' => array(
+            'template' => 'page-unisciti-ora.php',
+            'content' => 'Registrati e unisciti alla community'
+        )
+    );
+    
+    foreach ($pages as $page_title => $page_data) {
+        $page_check = get_page_by_title($page_title);
+        
+        if (!$page_check) {
+            $page_id = wp_insert_post(array(
+                'post_title' => $page_title,
+                'post_content' => $page_data['content'],
+                'post_status' => 'publish',
+                'post_type' => 'page',
+                'post_slug' => sanitize_title($page_title)
+            ));
+            
+            if ($page_id) {
+                update_post_meta($page_id, '_wp_page_template', $page_data['template']);
+                
+                // Set homepage
+                if ($page_title == 'Home') {
+                    update_option('page_on_front', $page_id);
+                    update_option('show_on_front', 'page');
+                }
+            }
+        }
+    }
+}
+add_action('after_setup_theme', 'gambla_create_default_pages');
 
 // Enqueue styles and scripts
 function gambla_theme_scripts() {
@@ -212,6 +274,48 @@ function gambla_customize_register($wp_customize) {
     $wp_customize->add_control('gambla_blog_description', array(
         'label' => 'Blog Page Description',
         'section' => 'gambla_blog',
+        'type' => 'textarea',
+    ));
+    
+    // Contact Settings
+    $wp_customize->add_section('gambla_contact', array(
+        'title' => 'Contact Information',
+        'priority' => 34,
+    ));
+    
+    // Email
+    $wp_customize->add_setting('gambla_contact_email', array(
+        'default' => 'info@gambla.it',
+        'sanitize_callback' => 'sanitize_email',
+    ));
+    
+    $wp_customize->add_control('gambla_contact_email', array(
+        'label' => 'Contact Email',
+        'section' => 'gambla_contact',
+        'type' => 'email',
+    ));
+    
+    // Phone
+    $wp_customize->add_setting('gambla_contact_phone', array(
+        'default' => '+39 123 456 7890',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('gambla_contact_phone', array(
+        'label' => 'Contact Phone',
+        'section' => 'gambla_contact',
+        'type' => 'text',
+    ));
+    
+    // Address
+    $wp_customize->add_setting('gambla_contact_address', array(
+        'default' => 'Via Roma 123, Milano, Italia',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    
+    $wp_customize->add_control('gambla_contact_address', array(
+        'label' => 'Contact Address',
+        'section' => 'gambla_contact',
         'type' => 'textarea',
     ));
 }
@@ -499,4 +603,39 @@ remove_action('wp_head', 'wp_generator');
 remove_action('wp_head', 'wlwmanifest_link');
 remove_action('wp_head', 'rsd_link');
 
+// Create navigation menu automatically
+function gambla_create_default_menu() {
+    $menu_name = 'Primary Menu';
+    $menu_exists = wp_get_nav_menu_object($menu_name);
+    
+    if (!$menu_exists) {
+        $menu_id = wp_create_nav_menu($menu_name);
+        
+        // Add menu items
+        $menu_items = array(
+            'Home' => home_url('/'),
+            'Blog' => home_url('/blog'),
+            'FantaGambla' => home_url('/fantagambla'),
+            'Chi Siamo' => home_url('/chi-siamo'),
+            'FAQ' => home_url('/faq'),
+            'Newsletter' => home_url('/newsletter'),
+            'Contatti' => home_url('/contatti'),
+            'Unisciti Ora' => home_url('/unisciti-ora')
+        );
+        
+        foreach ($menu_items as $title => $url) {
+            wp_update_nav_menu_item($menu_id, 0, array(
+                'menu-item-title' => $title,
+                'menu-item-url' => $url,
+                'menu-item-status' => 'publish'
+            ));
+        }
+        
+        // Set menu to primary location
+        $locations = get_theme_mod('nav_menu_locations');
+        $locations['primary'] = $menu_id;
+        set_theme_mod('nav_menu_locations', $locations);
+    }
+}
+add_action('after_setup_theme', 'gambla_create_default_menu');
 ?>
