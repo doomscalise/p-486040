@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php wp_title('|', true, 'right'); ?><?php bloginfo('name'); ?></title>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -16,28 +13,40 @@
 <header class="site-header">
     <div class="container">
         <div class="header-content">
-            <a href="https://gambla.it" class="site-logo font-display">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
                 GAMBLA
             </a>
             
             <nav class="main-nav">
-                <ul>
-                    <li><a href="https://gambla.it">Home</a></li>
-                    <li><a href="<?php echo home_url(); ?>">Blog</a></li>
-                    <li><a href="https://gambla.it/fantagambla">FantaGambla</a></li>
-                    <li><a href="https://gambla.it/chi-siamo">Chi Siamo</a></li>
-                    <li><a href="https://gambla.it/contatti">Contatti</a></li>
-                </ul>
+                <?php
+                wp_nav_menu(array(
+                    'theme_location' => 'primary',
+                    'menu_class' => '',
+                    'container' => false,
+                    'fallback_cb' => 'gambla_default_menu'
+                ));
+                ?>
             </nav>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" style="display: none;">
+                ☰
+            </button>
         </div>
     </div>
 </header>
 
-<?php if (is_home() || is_front_page()) : ?>
-<section class="blog-hero">
-    <div class="container">
-        <h1 class="font-display">Il Blog di GAMBLA</h1>
-        <p>Analisi, pronostici e tutto quello che devi sapere sul mondo dello sport</p>
-    </div>
-</section>
-<?php endif; ?>
+<?php
+// Default menu fallback
+function gambla_default_menu() {
+    echo '<ul>';
+    echo '<li><a href="' . esc_url(home_url('/')) . '">Home</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/blog')) . '">Blog</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/fantagambla')) . '">FantaGambla</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/chi-siamo')) . '">Chi Siamo</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/faq')) . '">FAQ</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/newsletter')) . '">Newsletter</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/contatti')) . '">Contatti</a></li>';
+    echo '</ul>';
+}
+?>

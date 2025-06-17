@@ -1,14 +1,16 @@
 
-<?php get_header(); ?>
+<?php
+/*
+Template Name: Blog
+*/
+get_header(); ?>
 
 <div class="page-hero">
     <div class="container">
-        <h1>Categoria: <span class="gradient-text"><?php single_cat_title(); ?></span></h1>
-        <?php if (category_description()) : ?>
-            <p style="font-size: 1.25rem; color: #cccccc; margin-top: 1rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                <?php echo category_description(); ?>
-            </p>
-        <?php endif; ?>
+        <h1>Il Blog di <span class="gradient-text">GAMBLA</span></h1>
+        <p style="font-size: 1.25rem; color: #cccccc; margin-top: 1rem;">
+            Analisi, pronostici e tutto quello che devi sapere sul mondo dello sport
+        </p>
     </div>
 </div>
 
@@ -16,9 +18,18 @@
     <div class="container">
         <div class="two-column">
             <div class="posts-container">
-                <?php if (have_posts()) : ?>
+                <?php
+                $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+                $blog_posts = new WP_Query(array(
+                    'post_type' => 'post',
+                    'posts_per_page' => 9,
+                    'paged' => $paged,
+                    'post_status' => 'publish'
+                ));
+                
+                if ($blog_posts->have_posts()) : ?>
                     <div class="posts-grid">
-                        <?php while (have_posts()) : the_post(); ?>
+                        <?php while ($blog_posts->have_posts()) : $blog_posts->the_post(); ?>
                             <article class="post-card">
                                 <?php if (has_post_thumbnail()) : ?>
                                     <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'gambla-card'); ?>" 
@@ -26,7 +37,12 @@
                                 <?php endif; ?>
                                 
                                 <div class="post-content">
-                                    <span class="post-category"><?php single_cat_title(); ?></span>
+                                    <?php 
+                                    $categories = get_the_category();
+                                    if (!empty($categories)) :
+                                    ?>
+                                        <span class="post-category"><?php echo esc_html($categories[0]->name); ?></span>
+                                    <?php endif; ?>
                                     
                                     <h2 class="post-title">
                                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
@@ -52,23 +68,24 @@
                     </div>
                     
                     <?php
-                    the_posts_pagination(array(
-                        'mid_size' => 2,
+                    echo paginate_links(array(
+                        'total' => $blog_posts->max_num_pages,
+                        'current' => $paged,
                         'prev_text' => '← Precedente',
                         'next_text' => 'Successivo →',
-                        'class' => 'pagination'
+                        'type' => 'list',
+                        'end_size' => 3,
+                        'mid_size' => 3
                     ));
                     ?>
                     
                 <?php else : ?>
-                    <div class="no-posts" style="text-align: center; padding: 4rem 2rem; background: var(--gambla-gray); border-radius: 20px;">
-                        <h2 style="color: var(--gambla-primary); margin-bottom: 1rem;">Nessun articolo in questa categoria</h2>
-                        <p style="color: #cccccc; margin-bottom: 2rem;">Non ci sono ancora articoli pubblicati in questa categoria.</p>
-                        <a href="<?php echo esc_url(home_url('/blog')); ?>" class="btn-primary">
-                            ← Torna al Blog
-                        </a>
+                    <div class="no-posts">
+                        <h2>Nessun articolo trovato</h2>
+                        <p>Non ci sono ancora articoli pubblicati.</p>
                     </div>
-                <?php endif; ?>
+                <?php endif; 
+                wp_reset_postdata(); ?>
             </div>
             
             <?php get_sidebar(); ?>

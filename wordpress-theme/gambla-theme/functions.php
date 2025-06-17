@@ -1,44 +1,329 @@
 
 <?php
 
-// Enqueue styles and scripts
-function gambla_theme_styles() {
-    wp_enqueue_style('gambla-style', get_stylesheet_uri());
-}
-add_action('wp_enqueue_scripts', 'gambla_theme_styles');
-
-// Theme support
+// Theme Setup
 function gambla_theme_setup() {
-    // Add theme support for post thumbnails
+    // Add theme support
     add_theme_support('post-thumbnails');
-    
-    // Add theme support for title tag
     add_theme_support('title-tag');
-    
-    // Add theme support for custom logo
     add_theme_support('custom-logo');
+    add_theme_support('html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption'));
+    add_theme_support('custom-background');
     
     // Register navigation menus
     register_nav_menus(array(
         'primary' => 'Primary Menu',
         'footer' => 'Footer Menu'
     ));
+    
+    // Add custom image sizes
+    add_image_size('gambla-card', 400, 250, true);
+    add_image_size('gambla-hero', 800, 400, true);
+    add_image_size('gambla-large', 1200, 600, true);
 }
 add_action('after_setup_theme', 'gambla_theme_setup');
 
-// Custom excerpt length
-function gambla_custom_excerpt_length($length) {
-    return 20;
+// Enqueue styles and scripts
+function gambla_theme_scripts() {
+    // Google Fonts
+    wp_enqueue_style('gambla-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800&display=swap');
+    
+    // Theme stylesheet
+    wp_enqueue_style('gambla-style', get_stylesheet_uri(), array(), '2.0');
+    
+    // Custom JavaScript
+    wp_enqueue_script('gambla-script', get_template_directory_uri() . '/js/gambla.js', array('jquery'), '2.0', true);
+    
+    // Localize script for AJAX
+    wp_localize_script('gambla-script', 'gambla_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('gambla_nonce')
+    ));
 }
-add_filter('excerpt_length', 'gambla_custom_excerpt_length');
+add_action('wp_enqueue_scripts', 'gambla_theme_scripts');
 
-// Custom excerpt more
-function gambla_custom_excerpt_more($more) {
-    return '...';
+// Theme Customizer
+function gambla_customize_register($wp_customize) {
+    // Colors Section
+    $wp_customize->add_section('gambla_colors', array(
+        'title' => 'GAMBLA Colors',
+        'priority' => 30,
+    ));
+    
+    // Primary Color
+    $wp_customize->add_setting('gambla_primary_color', array(
+        'default' => '#FF1493',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'gambla_primary_color', array(
+        'label' => 'Primary Color',
+        'section' => 'gambla_colors',
+    )));
+    
+    // Secondary Color
+    $wp_customize->add_setting('gambla_secondary_color', array(
+        'default' => '#FF8C00',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'gambla_secondary_color', array(
+        'label' => 'Secondary Color',
+        'section' => 'gambla_colors',
+    )));
+    
+    // Typography Section
+    $wp_customize->add_section('gambla_typography', array(
+        'title' => 'GAMBLA Typography',
+        'priority' => 31,
+    ));
+    
+    // Primary Font
+    $wp_customize->add_setting('gambla_primary_font', array(
+        'default' => 'Inter',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('gambla_primary_font', array(
+        'label' => 'Primary Font',
+        'section' => 'gambla_typography',
+        'type' => 'select',
+        'choices' => array(
+            'Inter' => 'Inter',
+            'Roboto' => 'Roboto',
+            'Open Sans' => 'Open Sans',
+            'Lato' => 'Lato',
+            'Poppins' => 'Poppins',
+        ),
+    ));
+    
+    // Display Font
+    $wp_customize->add_setting('gambla_display_font', array(
+        'default' => 'Montserrat',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('gambla_display_font', array(
+        'label' => 'Display Font (Headings)',
+        'section' => 'gambla_typography',
+        'type' => 'select',
+        'choices' => array(
+            'Montserrat' => 'Montserrat',
+            'Oswald' => 'Oswald',
+            'Bebas Neue' => 'Bebas Neue',
+            'Anton' => 'Anton',
+            'Righteous' => 'Righteous',
+        ),
+    ));
+    
+    // Homepage Content Section
+    $wp_customize->add_section('gambla_homepage', array(
+        'title' => 'Homepage Content',
+        'priority' => 32,
+    ));
+    
+    // Hero Title
+    $wp_customize->add_setting('gambla_hero_title', array(
+        'default' => 'Accendi la Tua Passione Sportiva',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('gambla_hero_title', array(
+        'label' => 'Hero Title',
+        'section' => 'gambla_homepage',
+        'type' => 'text',
+    ));
+    
+    // Hero Subtitle
+    $wp_customize->add_setting('gambla_hero_subtitle', array(
+        'default' => 'Unisciti alla community sportiva più dinamica d\'Italia',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    
+    $wp_customize->add_control('gambla_hero_subtitle', array(
+        'label' => 'Hero Subtitle',
+        'section' => 'gambla_homepage',
+        'type' => 'textarea',
+    ));
 }
-add_filter('excerpt_more', 'gambla_custom_excerpt_more');
+add_action('customize_register', 'gambla_customize_register');
 
-// Add custom categories
+// Output Custom CSS
+function gambla_custom_css() {
+    $primary_color = get_theme_mod('gambla_primary_color', '#FF1493');
+    $secondary_color = get_theme_mod('gambla_secondary_color', '#FF8C00');
+    $primary_font = get_theme_mod('gambla_primary_font', 'Inter');
+    $display_font = get_theme_mod('gambla_display_font', 'Montserrat');
+    
+    echo '<style type="text/css">';
+    echo ':root {';
+    echo '--gambla-primary: ' . esc_attr($primary_color) . ';';
+    echo '--gambla-secondary: ' . esc_attr($secondary_color) . ';';
+    echo '--font-primary: "' . esc_attr($primary_font) . '", sans-serif;';
+    echo '--font-display: "' . esc_attr($display_font) . '", sans-serif;';
+    echo '}';
+    echo '</style>';
+}
+add_action('wp_head', 'gambla_custom_css');
+
+// Custom Post Types
+function gambla_create_post_types() {
+    // FAQ Post Type
+    register_post_type('faq', array(
+        'labels' => array(
+            'name' => 'FAQ',
+            'singular_name' => 'FAQ',
+            'add_new' => 'Add New FAQ',
+            'add_new_item' => 'Add New FAQ',
+            'edit_item' => 'Edit FAQ',
+            'new_item' => 'New FAQ',
+            'view_item' => 'View FAQ',
+            'search_items' => 'Search FAQ',
+            'not_found' => 'No FAQ found',
+            'not_found_in_trash' => 'No FAQ found in Trash'
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'menu_icon' => 'dashicons-editor-help',
+        'rewrite' => array('slug' => 'faq'),
+    ));
+    
+    // Testimonial Post Type
+    register_post_type('testimonial', array(
+        'labels' => array(
+            'name' => 'Testimonials',
+            'singular_name' => 'Testimonial',
+            'add_new' => 'Add New Testimonial',
+            'add_new_item' => 'Add New Testimonial',
+            'edit_item' => 'Edit Testimonial',
+            'new_item' => 'New Testimonial',
+            'view_item' => 'View Testimonial',
+            'search_items' => 'Search Testimonials',
+            'not_found' => 'No testimonials found',
+            'not_found_in_trash' => 'No testimonials found in Trash'
+        ),
+        'public' => true,
+        'has_archive' => false,
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'menu_icon' => 'dashicons-format-quote',
+    ));
+    
+    // Team Member Post Type
+    register_post_type('team_member', array(
+        'labels' => array(
+            'name' => 'Team Members',
+            'singular_name' => 'Team Member',
+            'add_new' => 'Add New Member',
+            'add_new_item' => 'Add New Team Member',
+            'edit_item' => 'Edit Team Member',
+            'new_item' => 'New Team Member',
+            'view_item' => 'View Team Member',
+            'search_items' => 'Search Team Members',
+            'not_found' => 'No team members found',
+            'not_found_in_trash' => 'No team members found in Trash'
+        ),
+        'public' => true,
+        'has_archive' => false,
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'menu_icon' => 'dashicons-groups',
+    ));
+}
+add_action('init', 'gambla_create_post_types');
+
+// Add Custom Fields (Meta Boxes)
+function gambla_add_meta_boxes() {
+    add_meta_box(
+        'team_member_details',
+        'Team Member Details',
+        'gambla_team_member_meta_box',
+        'team_member',
+        'normal',
+        'high'
+    );
+    
+    add_meta_box(
+        'testimonial_details',
+        'Testimonial Details',
+        'gambla_testimonial_meta_box',
+        'testimonial',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'gambla_add_meta_boxes');
+
+// Team Member Meta Box
+function gambla_team_member_meta_box($post) {
+    wp_nonce_field('gambla_save_team_member', 'gambla_team_member_nonce');
+    
+    $position = get_post_meta($post->ID, '_team_member_position', true);
+    $linkedin = get_post_meta($post->ID, '_team_member_linkedin', true);
+    $twitter = get_post_meta($post->ID, '_team_member_twitter', true);
+    
+    echo '<table class="form-table">';
+    echo '<tr><th><label for="team_member_position">Position</label></th>';
+    echo '<td><input type="text" id="team_member_position" name="team_member_position" value="' . esc_attr($position) . '" style="width: 100%;" /></td></tr>';
+    echo '<tr><th><label for="team_member_linkedin">LinkedIn URL</label></th>';
+    echo '<td><input type="url" id="team_member_linkedin" name="team_member_linkedin" value="' . esc_attr($linkedin) . '" style="width: 100%;" /></td></tr>';
+    echo '<tr><th><label for="team_member_twitter">Twitter URL</label></th>';
+    echo '<td><input type="url" id="team_member_twitter" name="team_member_twitter" value="' . esc_attr($twitter) . '" style="width: 100%;" /></td></tr>';
+    echo '</table>';
+}
+
+// Testimonial Meta Box
+function gambla_testimonial_meta_box($post) {
+    wp_nonce_field('gambla_save_testimonial', 'gambla_testimonial_nonce');
+    
+    $author = get_post_meta($post->ID, '_testimonial_author', true);
+    $company = get_post_meta($post->ID, '_testimonial_company', true);
+    $rating = get_post_meta($post->ID, '_testimonial_rating', true);
+    
+    echo '<table class="form-table">';
+    echo '<tr><th><label for="testimonial_author">Author Name</label></th>';
+    echo '<td><input type="text" id="testimonial_author" name="testimonial_author" value="' . esc_attr($author) . '" style="width: 100%;" /></td></tr>';
+    echo '<tr><th><label for="testimonial_company">Company</label></th>';
+    echo '<td><input type="text" id="testimonial_company" name="testimonial_company" value="' . esc_attr($company) . '" style="width: 100%;" /></td></tr>';
+    echo '<tr><th><label for="testimonial_rating">Rating (1-5)</label></th>';
+    echo '<td><select id="testimonial_rating" name="testimonial_rating">';
+    for ($i = 1; $i <= 5; $i++) {
+        echo '<option value="' . $i . '"' . selected($rating, $i, false) . '>' . $i . ' Star' . ($i > 1 ? 's' : '') . '</option>';
+    }
+    echo '</select></td></tr>';
+    echo '</table>';
+}
+
+// Save Meta Box Data
+function gambla_save_meta_data($post_id) {
+    // Team Member
+    if (isset($_POST['gambla_team_member_nonce']) && wp_verify_nonce($_POST['gambla_team_member_nonce'], 'gambla_save_team_member')) {
+        if (isset($_POST['team_member_position'])) {
+            update_post_meta($post_id, '_team_member_position', sanitize_text_field($_POST['team_member_position']));
+        }
+        if (isset($_POST['team_member_linkedin'])) {
+            update_post_meta($post_id, '_team_member_linkedin', esc_url_raw($_POST['team_member_linkedin']));
+        }
+        if (isset($_POST['team_member_twitter'])) {
+            update_post_meta($post_id, '_team_member_twitter', esc_url_raw($_POST['team_member_twitter']));
+        }
+    }
+    
+    // Testimonial
+    if (isset($_POST['gambla_testimonial_nonce']) && wp_verify_nonce($_POST['gambla_testimonial_nonce'], 'gambla_save_testimonial')) {
+        if (isset($_POST['testimonial_author'])) {
+            update_post_meta($post_id, '_testimonial_author', sanitize_text_field($_POST['testimonial_author']));
+        }
+        if (isset($_POST['testimonial_company'])) {
+            update_post_meta($post_id, '_testimonial_company', sanitize_text_field($_POST['testimonial_company']));
+        }
+        if (isset($_POST['testimonial_rating'])) {
+            update_post_meta($post_id, '_testimonial_rating', intval($_POST['testimonial_rating']));
+        }
+    }
+}
+add_action('save_post', 'gambla_save_meta_data');
+
+// Create default categories
 function gambla_create_default_categories() {
     $categories = array(
         'Serie A' => 'Notizie e analisi sul campionato italiano',
@@ -50,71 +335,86 @@ function gambla_create_default_categories() {
     );
     
     foreach ($categories as $cat_name => $cat_description) {
-        if (!get_cat_ID($cat_name)) {
-            wp_insert_category(array(
-                'cat_name' => $cat_name,
-                'category_description' => $cat_description,
-                'category_nicename' => sanitize_title($cat_name)
-            ));
+        if (!term_exists($cat_name, 'category')) {
+            wp_insert_term(
+                $cat_name,
+                'category',
+                array(
+                    'description' => $cat_description,
+                    'slug' => sanitize_title($cat_name)
+                )
+            );
         }
     }
 }
 add_action('after_setup_theme', 'gambla_create_default_categories');
 
-// Add reading time function
+// Newsletter AJAX Handler
+function gambla_newsletter_signup() {
+    check_ajax_referer('gambla_nonce', 'nonce');
+    
+    $email = sanitize_email($_POST['email']);
+    $name = sanitize_text_field($_POST['name']);
+    
+    if (!is_email($email)) {
+        wp_die('Invalid email address');
+    }
+    
+    // Store in custom table or send to external service
+    // For now, we'll just store as a custom post type
+    $newsletter_id = wp_insert_post(array(
+        'post_type' => 'newsletter_signup',
+        'post_title' => $name . ' - ' . $email,
+        'post_status' => 'private',
+        'meta_input' => array(
+            '_newsletter_email' => $email,
+            '_newsletter_name' => $name,
+            '_newsletter_date' => current_time('mysql')
+        )
+    ));
+    
+    if ($newsletter_id) {
+        wp_send_json_success('Iscrizione completata con successo!');
+    } else {
+        wp_send_json_error('Errore durante l\'iscrizione. Riprova.');
+    }
+}
+add_action('wp_ajax_gambla_newsletter_signup', 'gambla_newsletter_signup');
+add_action('wp_ajax_nopriv_gambla_newsletter_signup', 'gambla_newsletter_signup');
+
+// Helper Functions
 function gambla_reading_time() {
     $content = get_post_field('post_content', get_the_ID());
     $word_count = str_word_count(strip_tags($content));
-    $reading_time = ceil($word_count / 200); // 200 words per minute
-    
+    $reading_time = ceil($word_count / 200);
     return max(1, $reading_time) . ' min';
 }
 
-// Custom post meta for reading time
-function gambla_add_reading_time_meta() {
-    global $post;
-    if ($post && $post->post_type == 'post') {
-        echo '<div style="color: #666; font-size: 0.875rem; margin: 0.5rem 0;">';
-        echo 'Tempo di lettura: ' . gambla_reading_time();
-        echo '</div>';
-    }
+function gambla_get_featured_posts($limit = 3) {
+    return get_posts(array(
+        'numberposts' => $limit,
+        'meta_key' => '_featured_post',
+        'meta_value' => '1',
+        'post_status' => 'publish'
+    ));
 }
-add_action('wp_head', function() {
-    if (is_single()) {
-        add_action('the_content', 'gambla_add_reading_time_meta', 1);
-    }
-});
 
-// Optimize images
-function gambla_add_image_sizes() {
-    add_image_size('gambla-card', 400, 250, true);
-    add_image_size('gambla-hero', 800, 400, true);
+function gambla_excerpt($limit = 20) {
+    return wp_trim_words(get_the_excerpt(), $limit, '...');
 }
-add_action('after_setup_theme', 'gambla_add_image_sizes');
 
-// Remove WordPress default styles for a cleaner look
+// Remove WordPress bloat
 function gambla_remove_wp_styles() {
     wp_dequeue_style('wp-block-library');
     wp_dequeue_style('wp-block-library-theme');
     wp_dequeue_style('classic-theme-styles');
+    wp_dequeue_style('global-styles');
 }
 add_action('wp_enqueue_scripts', 'gambla_remove_wp_styles', 100);
 
-// Custom post navigation
-function gambla_post_navigation() {
-    $prev_post = get_previous_post();
-    $next_post = get_next_post();
-    
-    if ($prev_post || $next_post) {
-        echo '<nav class="post-navigation">';
-        if ($prev_post) {
-            echo '<a href="' . get_permalink($prev_post) . '" class="nav-previous">← ' . get_the_title($prev_post) . '</a>';
-        }
-        if ($next_post) {
-            echo '<a href="' . get_permalink($next_post) . '" class="nav-next">' . get_the_title($next_post) . ' →</a>';
-        }
-        echo '</nav>';
-    }
-}
+// Security enhancements
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'rsd_link');
 
 ?>
