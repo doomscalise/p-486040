@@ -1,17 +1,14 @@
-
 import React from "react";
 import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
-
 const GamblaHero = () => {
-  return (
-    <section className="min-h-screen bg-black relative overflow-hidden">
+  return <section className="min-h-screen bg-black relative overflow-hidden">
       {/* Grid pattern background */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
-          backgroundSize: '50px 50px'
-        }}></div>
+        backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+        backgroundSize: '50px 50px'
+      }}></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 relative z-10">
@@ -71,10 +68,10 @@ const GamblaHero = () => {
             <div className="relative z-10">
               <div className="bg-gambla-gradient p-8 rounded-3xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
                 <div className="bg-black p-6 rounded-2xl">
-                  <h3 className="text-white font-bold text-xl mb-4">📰 GAMBLA Live</h3>
+                  <h3 className="text-white font-bold text-xl mb-4">📰 GAMBLA</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
-                      <span className="text-white">📈 Notizie Live</span>
+                      <span className="text-white">📈 Notizie Sportive </span>
                       <span className="text-gambla-orange font-bold">AGGIORNATE</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
@@ -92,12 +89,12 @@ const GamblaHero = () => {
             
             {/* Floating elements */}
             <div className="absolute top-10 right-10 w-20 h-20 bg-gambla-magenta/20 rounded-full blur-xl animate-float"></div>
-            <div className="absolute bottom-10 left-10 w-32 h-32 bg-gambla-orange/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute bottom-10 left-10 w-32 h-32 bg-gambla-orange/20 rounded-full blur-xl animate-float" style={{
+            animationDelay: '2s'
+          }}></div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default GamblaHero;
