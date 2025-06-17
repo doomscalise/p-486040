@@ -71,19 +71,19 @@ const GamblaHero = () => {
             <div className="relative z-10">
               <div className="bg-gambla-gradient p-8 rounded-3xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
                 <div className="bg-black p-6 rounded-2xl">
-                  <h3 className="text-white font-bold text-xl mb-4">🏆 Highlights Oggi</h3>
+                  <h3 className="text-white font-bold text-xl mb-4">📰 GAMBLA Live</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
-                      <span className="text-white">Inter vs Milan</span>
-                      <span className="text-gambla-orange font-bold">2-1</span>
+                      <span className="text-white">📈 Notizie Live</span>
+                      <span className="text-gambla-orange font-bold">AGGIORNATE</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
-                      <span className="text-white">Juventus vs Roma</span>
-                      <span className="text-gambla-magenta font-bold">LIVE</span>
+                      <span className="text-white">👥 Community</span>
+                      <span className="text-gambla-magenta font-bold">1.2K ONLINE</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
-                      <span className="text-white">Napoli vs Lazio</span>
-                      <span className="text-gray-400">20:45</span>
+                      <span className="text-white">🎯 Pronostici AI</span>
+                      <span className="text-green-400 font-bold">87% WIN</span>
                     </div>
                   </div>
                 </div>
