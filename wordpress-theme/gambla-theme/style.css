@@ -18,6 +18,8 @@ Text Domain: gambla
     --font-display: 'Montserrat', sans-serif;
     --base-font-size: 16px;
     --header-height: 80px;
+    --post-image-height: 250px;
+    --small-logo-height: 40px;
 }
 
 /* Reset and Base */
@@ -136,6 +138,15 @@ body {
     color: var(--gambla-primary);
     text-decoration: none;
     font-family: var(--font-display);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.site-logo img {
+    height: var(--small-logo-height);
+    width: auto;
+    object-fit: contain;
 }
 
 .main-nav ul {
@@ -184,6 +195,7 @@ body {
     font-weight: bold;
     margin-bottom: 1.5rem;
     line-height: 1.1;
+    color: #ffffff;
 }
 
 .hero-text p {
@@ -263,6 +275,7 @@ body {
     font-size: 3.5rem;
     font-family: var(--font-display);
     margin-bottom: 1rem;
+    color: #ffffff;
 }
 
 /* Sport Icons Grid */
@@ -296,6 +309,15 @@ body {
     margin-bottom: 1rem;
 }
 
+.sport-icon-item h3 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.sport-icon-item p {
+    color: #cccccc;
+}
+
 /* Values Grid */
 .value-item {
     background: var(--gambla-gray);
@@ -313,6 +335,15 @@ body {
 .value-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(255, 0, 255, 0.1);
+}
+
+.value-item h3 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.value-item p {
+    color: #cccccc;
 }
 
 /* Newsletter Benefits Grid */
@@ -347,6 +378,15 @@ body {
     display: block;
 }
 
+.newsletter-benefit h3 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.newsletter-benefit p {
+    color: #cccccc;
+}
+
 /* Blog Styles */
 .posts-grid {
     display: grid;
@@ -374,7 +414,7 @@ body {
 
 .post-image {
     width: 100%;
-    height: 250px;
+    height: var(--post-image-height);
     object-fit: cover;
 }
 
@@ -529,6 +569,10 @@ body {
 
 .footer-section a:hover {
     color: var(--gambla-primary);
+}
+
+.footer-section p {
+    color: #cccccc;
 }
 
 .footer-bottom {
@@ -736,4 +780,38 @@ body {
 .interactive-element:hover {
     transform: scale(1.05);
     filter: brightness(1.2);
+}
+
+/* Team member cards */
+.team-member {
+    background: var(--gambla-gray);
+    border: 2px solid transparent;
+    background-image: linear-gradient(var(--gambla-gray), var(--gambla-gray)), 
+                      linear-gradient(135deg, var(--gambla-primary), var(--gambla-secondary));
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(255, 0, 255, 0.1);
+}
+
+.team-member h3 {
+    color: #ffffff;
+    margin: 1rem 0 0.5rem;
+}
+
+.team-member .role {
+    color: var(--gambla-primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.team-member p {
+    color: #cccccc;
 }
