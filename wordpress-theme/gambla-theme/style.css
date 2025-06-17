@@ -16,6 +16,8 @@ Text Domain: gambla
     --gambla-gray: #1a1a1a;
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-display: 'Montserrat', sans-serif;
+    --base-font-size: 16px;
+    --header-height: 80px;
 }
 
 /* Reset and Base */
@@ -31,6 +33,7 @@ body {
     color: #ffffff;
     line-height: 1.6;
     overflow-x: hidden;
+    font-size: var(--base-font-size);
 }
 
 /* Typography */
@@ -116,6 +119,9 @@ body {
     width: 100%;
     z-index: 1000;
     padding: 1rem 0;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
 }
 
 .header-content {
@@ -162,7 +168,7 @@ body {
     background: var(--gambla-dark);
     position: relative;
     overflow: hidden;
-    padding-top: 80px;
+    padding-top: calc(var(--header-height) + 20px);
 }
 
 .hero-content {
@@ -210,6 +216,19 @@ body {
     transform: rotate(0deg);
 }
 
+/* Page Hero */
+.page-hero {
+    padding: calc(var(--header-height) + 60px) 0 4rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--gambla-dark) 0%, var(--gambla-gray) 100%);
+}
+
+.page-hero h1 {
+    font-size: 3.5rem;
+    font-family: var(--font-display);
+    margin-bottom: 1rem;
+}
+
 /* Sport Icons Grid */
 .sport-icons-grid {
     display: grid;
@@ -236,6 +255,51 @@ body {
 .sport-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+}
+
+/* Values Grid - same style as sport icons */
+.value-item {
+    background: var(--gambla-gray);
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.value-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--gambla-primary);
+    box-shadow: 0 20px 40px rgba(255, 20, 147, 0.1);
+}
+
+/* Newsletter Benefits Grid */
+.newsletter-benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.newsletter-benefit {
+    background: var(--gambla-gray);
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.newsletter-benefit:hover {
+    transform: translateY(-5px);
+    border-color: var(--gambla-primary);
+    box-shadow: 0 20px 40px rgba(255, 20, 147, 0.1);
+}
+
+.benefit-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
 }
 
 /* Blog Styles */
@@ -323,6 +387,18 @@ body {
 
 .read-more:hover {
     color: var(--gambla-secondary);
+}
+
+/* Content Layout */
+.content-section {
+    padding: 4rem 0;
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+    align-items: start;
 }
 
 /* Forms */
@@ -441,92 +517,6 @@ body {
     cursor: pointer;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .hero-text h1 {
-        font-size: 2.5rem;
-    }
-    
-    .header-content {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .main-nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-    }
-    
-    .posts-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .sport-icons-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-    
-    .newsletter-form {
-        flex-direction: column;
-    }
-    
-    .hero-buttons {
-        justify-content: center;
-    }
-}
-
-/* Animation Classes */
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.float-animation {
-    animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
-
-/* Custom Page Styles */
-.page-hero {
-    padding: 8rem 0 4rem;
-    text-align: center;
-    background: linear-gradient(135deg, var(--gambla-dark) 0%, var(--gambla-gray) 100%);
-}
-
-.page-hero h1 {
-    font-size: 3.5rem;
-    font-family: var(--font-display);
-    margin-bottom: 1rem;
-}
-
-.content-section {
-    padding: 4rem 0;
-}
-
-.two-column {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
-    align-items: start;
-}
-
 /* FAQ Styles */
 .faq-item {
     background: var(--gambla-gray);
@@ -582,4 +572,91 @@ body {
     color: #cccccc;
     font-size: 1.1rem;
     margin-top: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+    
+    .page-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .posts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sport-icons-grid,
+    .newsletter-benefits-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+    
+    :root {
+        --header-height: 120px;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.float-animation {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* No Posts Message */
+.no-posts {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #cccccc;
+}
+
+.no-posts h2 {
+    color: var(--gambla-primary);
+    margin-bottom: 1rem;
 }

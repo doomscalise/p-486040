@@ -70,11 +70,19 @@ get_header(); ?>
         <section class="section-padding" style="background: var(--gambla-gray);">
             <div class="container">
                 <div class="text-center" style="margin-bottom: 4rem;">
-                    <h2 class="font-display" style="font-size: 3rem; margin-bottom: 1rem;">
-                        Il Nostro <span class="gradient-text">Team</span>
+                    <h2 class="font-display team-section-title" style="font-size: 3rem; margin-bottom: 1rem;">
+                        <?php 
+                        $team_title = get_theme_mod('gambla_team_title', 'Il Nostro Team');
+                        $parts = explode(' ', $team_title);
+                        if (count($parts) >= 2) {
+                            echo esc_html($parts[0] . ' ' . $parts[1]) . ' <span class="gradient-text">' . esc_html(implode(' ', array_slice($parts, 2))) . '</span>';
+                        } else {
+                            echo '<span class="gradient-text">' . esc_html($team_title) . '</span>';
+                        }
+                        ?>
                     </h2>
-                    <p style="font-size: 1.25rem; color: #cccccc;">
-                        Esperti di sport e tecnologia che lavorano per te ogni giorno
+                    <p class="team-section-subtitle" style="font-size: 1.25rem; color: #cccccc;">
+                        <?php echo esc_html(get_theme_mod('gambla_team_subtitle', 'Esperti di sport e tecnologia che lavorano per te ogni giorno')); ?>
                     </p>
                 </div>
                 
@@ -94,8 +102,8 @@ get_header(); ?>
                     ?>
                         <div class="post-card" style="text-align: center;">
                             <?php if (has_post_thumbnail($member->ID)) : ?>
-                                <img src="<?php echo get_the_post_thumbnail_url($member->ID, 'gambla-card'); ?>" 
-                                     alt="<?php echo get_the_title($member); ?>" class="post-image" style="border-radius: 50%; width: 150px; height: 150px; margin: 2rem auto 1rem;">
+                                <img src="<?php echo get_the_post_thumbnail_url($member->ID, 'gambla-team'); ?>" 
+                                     alt="<?php echo get_the_title($member); ?>" class="post-image" style="border-radius: 50%; width: 150px; height: 150px; margin: 2rem auto 1rem; object-fit: cover;">
                             <?php endif; ?>
                             
                             <div class="post-content">
@@ -154,32 +162,29 @@ get_header(); ?>
         <section class="section-padding">
             <div class="container">
                 <div class="text-center" style="margin-bottom: 4rem;">
-                    <h2 class="font-display" style="font-size: 3rem; margin-bottom: 1rem;">
-                        I Nostri <span class="gradient-text">Valori</span>
+                    <h2 class="font-display values-section-title" style="font-size: 3rem; margin-bottom: 1rem;">
+                        <?php 
+                        $values_title = get_theme_mod('gambla_values_title', 'I Nostri Valori');
+                        $parts = explode(' ', $values_title);
+                        if (count($parts) >= 2) {
+                            echo esc_html($parts[0] . ' ' . $parts[1]) . ' <span class="gradient-text">' . esc_html(implode(' ', array_slice($parts, 2))) . '</span>';
+                        } else {
+                            echo '<span class="gradient-text">' . esc_html($values_title) . '</span>';
+                        }
+                        ?>
                     </h2>
                 </div>
                 
                 <div class="sport-icons-grid">
-                    <div class="sport-icon-item">
-                        <div class="sport-icon">🎯</div>
-                        <h3>Precisione</h3>
-                        <p style="color: #cccccc; margin-top: 0.5rem;">Analisi accurate basate su dati reali e statistiche approfondite</p>
-                    </div>
-                    <div class="sport-icon-item">
-                        <div class="sport-icon">🤝</div>
-                        <h3>Community</h3>
-                        <p style="color: #cccccc; margin-top: 0.5rem;">Crediamo nella forza della condivisione e dell'aiuto reciproco</p>
-                    </div>
-                    <div class="sport-icon-item">
-                        <div class="sport-icon">🚀</div>
-                        <h3>Innovazione</h3>
-                        <p style="color: #cccccc; margin-top: 0.5rem;">Utilizziamo sempre le tecnologie più avanzate per migliorare l'esperienza</p>
-                    </div>
-                    <div class="sport-icon-item">
-                        <div class="sport-icon">❤️</div>
-                        <h3>Passione</h3>
-                        <p style="color: #cccccc; margin-top: 0.5rem;">Lo sport è la nostra vita e trasmettiamo questa energia ogni giorno</p>
-                    </div>
+                    <?php for ($i = 1; $i <= 4; $i++) : ?>
+                        <div class="value-item">
+                            <div class="sport-icon"><?php echo esc_html(get_theme_mod("gambla_value_{$i}_icon", '🎯')); ?></div>
+                            <h3><?php echo esc_html(get_theme_mod("gambla_value_{$i}_title", 'Valore')); ?></h3>
+                            <p style="color: #cccccc; margin-top: 0.5rem;">
+                                <?php echo esc_html(get_theme_mod("gambla_value_{$i}_description", 'Descrizione del valore')); ?>
+                            </p>
+                        </div>
+                    <?php endfor; ?>
                 </div>
             </div>
         </section>

@@ -51,14 +51,13 @@ get_header(); ?>
                                     </h2>
                                     
                                     <div class="post-excerpt">
-                                        <?php echo gambla_excerpt(25); ?>
+                                        <?php echo wp_trim_words(get_the_excerpt(), 25, '...'); ?>
                                     </div>
                                     
                                     <div class="post-meta">
                                         <div>
                                             <span><?php echo get_the_author(); ?></span> • 
-                                            <span><?php echo get_the_date('j M Y'); ?></span> •
-                                            <span><?php echo gambla_reading_time(); ?></span>
+                                            <span><?php echo get_the_date('j M Y'); ?></span>
                                         </div>
                                         <a href="<?php the_permalink(); ?>" class="read-more">
                                             Leggi articolo →
@@ -84,7 +83,12 @@ get_header(); ?>
                 <?php else : ?>
                     <div class="no-posts">
                         <h2>Nessun articolo trovato</h2>
-                        <p>Non ci sono ancora articoli pubblicati.</p>
+                        <p>Non ci sono ancora articoli pubblicati. Inizia a creare i tuoi primi contenuti!</p>
+                        <div style="margin-top: 2rem;">
+                            <a href="<?php echo admin_url('post-new.php'); ?>" class="btn-primary">
+                                Crea il primo articolo
+                            </a>
+                        </div>
                     </div>
                 <?php endif; 
                 wp_reset_postdata(); ?>

@@ -84,16 +84,107 @@
         });
     }
 
-    // Newsletter
+    // Team section
+    wp.customize('gambla_team_title', function(value) {
+        value.bind(function(newval) {
+            $('.team-section-title').text(newval);
+        });
+    });
+
+    wp.customize('gambla_team_subtitle', function(value) {
+        value.bind(function(newval) {
+            $('.team-section-subtitle').text(newval);
+        });
+    });
+
+    // Values section
+    wp.customize('gambla_values_title', function(value) {
+        value.bind(function(newval) {
+            $('.values-section-title').text(newval);
+        });
+    });
+
+    // Individual values
+    for (let i = 1; i <= 4; i++) {
+        wp.customize(`gambla_value_${i}_icon`, function(value) {
+            value.bind(function(newval) {
+                $(`.value-item:nth-child(${i}) .sport-icon`).text(newval);
+            });
+        });
+
+        wp.customize(`gambla_value_${i}_title`, function(value) {
+            value.bind(function(newval) {
+                $(`.value-item:nth-child(${i}) h3`).text(newval);
+            });
+        });
+
+        wp.customize(`gambla_value_${i}_description`, function(value) {
+            value.bind(function(newval) {
+                $(`.value-item:nth-child(${i}) p`).text(newval);
+            });
+        });
+    }
+
+    // Newsletter section
     wp.customize('gambla_newsletter_title', function(value) {
         value.bind(function(newval) {
-            $('.newsletter-section h2').text(newval);
+            $('.newsletter-page-title').text(newval);
         });
     });
 
     wp.customize('gambla_newsletter_subtitle', function(value) {
         value.bind(function(newval) {
-            $('.newsletter-section p').first().text(newval);
+            $('.newsletter-page-subtitle').text(newval);
+        });
+    });
+
+    // Newsletter benefits
+    for (let i = 1; i <= 6; i++) {
+        wp.customize(`gambla_newsletter_benefit_${i}_icon`, function(value) {
+            value.bind(function(newval) {
+                $(`.newsletter-benefit:nth-child(${i}) .benefit-icon`).text(newval);
+            });
+        });
+
+        wp.customize(`gambla_newsletter_benefit_${i}_title`, function(value) {
+            value.bind(function(newval) {
+                $(`.newsletter-benefit:nth-child(${i}) h3`).text(newval);
+            });
+        });
+
+        wp.customize(`gambla_newsletter_benefit_${i}_description`, function(value) {
+            value.bind(function(newval) {
+                $(`.newsletter-benefit:nth-child(${i}) p`).text(newval);
+            });
+        });
+
+        wp.customize(`gambla_newsletter_benefit_${i}_show`, function(value) {
+            value.bind(function(newval) {
+                if (newval) {
+                    $(`.newsletter-benefit:nth-child(${i})`).show();
+                } else {
+                    $(`.newsletter-benefit:nth-child(${i})`).hide();
+                }
+            });
+        });
+    }
+
+    // Footer
+    wp.customize('gambla_footer_text', function(value) {
+        value.bind(function(newval) {
+            $('.footer-copyright').text(newval);
+        });
+    });
+
+    wp.customize('gambla_footer_about_title', function(value) {
+        value.bind(function(newval) {
+            $('.footer-about-title').text(newval);
+        });
+    });
+
+    wp.customize('gambla_footer_about_text', function(value) {
+        value.bind(function(newval) {
+            $('.footer-about-text').text(newval);
         });
     });
 
@@ -135,6 +226,18 @@
         });
     });
 
+    wp.customize('gambla_base_font_size', function(value) {
+        value.bind(function(newval) {
+            updateCustomCSS();
+        });
+    });
+
+    wp.customize('gambla_header_height', function(value) {
+        value.bind(function(newval) {
+            updateCustomCSS();
+        });
+    });
+
     // Update CSS variables
     function updateCustomCSS() {
         var primaryColor = wp.customize('gambla_primary_color')();
@@ -143,6 +246,8 @@
         var textColor = wp.customize('gambla_text_color')();
         var primaryFont = wp.customize('gambla_primary_font')();
         var displayFont = wp.customize('gambla_display_font')();
+        var baseFontSize = wp.customize('gambla_base_font_size')();
+        var headerHeight = wp.customize('gambla_header_height')();
 
         var css = ':root {';
         css += '--gambla-primary: ' + primaryColor + ';';
@@ -152,8 +257,12 @@
         css += '--text-color: ' + textColor + ';';
         css += '--font-primary: "' + primaryFont + '", sans-serif;';
         css += '--font-display: "' + displayFont + '", sans-serif;';
+        css += '--base-font-size: ' + baseFontSize + 'px;';
+        css += '--header-height: ' + headerHeight + 'px;';
         css += '}';
-        css += 'body { background-color: ' + backgroundColor + '; color: ' + textColor + '; }';
+        css += 'body { background-color: ' + backgroundColor + '; color: ' + textColor + '; font-size: ' + baseFontSize + 'px; }';
+        css += '.site-header { height: ' + headerHeight + 'px; }';
+        css += '.hero-section, .page-hero { padding-top: ' + (parseInt(headerHeight) + 20) + 'px; }';
 
         // Remove existing custom CSS and add new
         $('#gambla-customizer-css').remove();
