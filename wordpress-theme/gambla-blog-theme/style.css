@@ -1,0 +1,390 @@
+
+/*
+Theme Name: GAMBLA Blog Theme
+Description: Tema blog dedicato per blog.gambla.it - Coerente con il design del sito principale
+Version: 1.0
+Author: GAMBLA Team
+Text Domain: gambla-blog
+*/
+
+/* CSS Variables - Colori GAMBLA originali */
+:root {
+    --gambla-magenta: #FF00FF;
+    --gambla-orange: #FF6600;
+    --gambla-dark: #0a0a0a;
+    --gambla-gray: #1a1a1a;
+    --gambla-light-gray: #2a2a2a;
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Montserrat', sans-serif;
+}
+
+/* Reset e Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--gambla-dark);
+    color: #ffffff;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Header */
+.site-header {
+    background: var(--gambla-dark);
+    border-bottom: 1px solid var(--gambla-gray);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-logo {
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+    font-family: var(--font-display);
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+}
+
+.main-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+}
+
+.main-nav a:hover {
+    background: linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    transform: translateY(-2px);
+}
+
+/* Main Content */
+.main-content {
+    padding-top: 100px;
+    min-height: 100vh;
+}
+
+/* Blog Grid */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+/* Post Card */
+.post-card {
+    background: var(--gambla-gray);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    background-image: linear-gradient(var(--gambla-gray), var(--gambla-gray)), 
+                      linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+.post-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 0, 255, 0.3);
+}
+
+.post-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.post-content {
+    padding: 2rem;
+}
+
+.post-category {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.post-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    font-family: var(--font-display);
+}
+
+.post-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.post-title a:hover {
+    background: linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.post-excerpt {
+    color: #cccccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #999;
+}
+
+.read-more {
+    background: linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.read-more:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 0, 255, 0.3);
+    color: white;
+}
+
+/* Single Post */
+.single-post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.single-post .post-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.single-post .post-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.single-post .post-featured-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin: 2rem 0;
+}
+
+.single-post .post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+}
+
+.single-post .post-content h2,
+.single-post .post-content h3,
+.single-post .post-content h4 {
+    color: #ffffff;
+    margin: 2rem 0 1rem;
+    font-family: var(--font-display);
+}
+
+.single-post .post-content p {
+    margin-bottom: 1.5rem;
+}
+
+/* Buttons */
+.gambla-btn {
+    background: linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.gambla-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 0, 255, 0.3);
+    color: white;
+}
+
+/* Page Header */
+.page-header {
+    text-align: center;
+    padding: 4rem 0;
+    background: linear-gradient(135deg, var(--gambla-dark) 0%, var(--gambla-gray) 100%);
+}
+
+.page-title {
+    font-size: 4rem;
+    font-family: var(--font-display);
+    background: linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+}
+
+.page-description {
+    font-size: 1.25rem;
+    color: #cccccc;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Footer */
+.site-footer {
+    background: var(--gambla-dark);
+    border-top: 2px solid var(--gambla-gray);
+    padding: 3rem 0 1rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-logo {
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: var(--font-display);
+    margin-bottom: 1rem;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-links a {
+    color: #cccccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    background: linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-copyright {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+    
+    .single-post .post-title {
+        font-size: 2rem;
+    }
+    
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Gradient Effects */
+.gradient-border {
+    border: 2px solid transparent;
+    background-image: linear-gradient(var(--gambla-gray), var(--gambla-gray)), 
+                      linear-gradient(135deg, var(--gambla-magenta), var(--gambla-orange));
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
