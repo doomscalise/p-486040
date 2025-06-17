@@ -8,7 +8,14 @@
     // Site title
     wp.customize('blogname', function(value) {
         value.bind(function(newval) {
-            $('.site-logo').text(newval);
+            $('.site-logo span').text(newval);
+        });
+    });
+
+    // Small logo height
+    wp.customize('gambla_small_logo_height', function(value) {
+        value.bind(function(newval) {
+            $('.site-logo img').css('height', newval + 'px');
         });
     });
 
@@ -188,7 +195,7 @@
         });
     });
 
-    // Colors
+    // Colors and fonts
     wp.customize('gambla_primary_color', function(value) {
         value.bind(function(newval) {
             updateCustomCSS();
@@ -213,7 +220,6 @@
         });
     });
 
-    // Fonts
     wp.customize('gambla_primary_font', function(value) {
         value.bind(function(newval) {
             updateCustomCSS();
@@ -238,6 +244,12 @@
         });
     });
 
+    wp.customize('gambla_post_image_height', function(value) {
+        value.bind(function(newval) {
+            updateCustomCSS();
+        });
+    });
+
     // Update CSS variables
     function updateCustomCSS() {
         var primaryColor = wp.customize('gambla_primary_color')();
@@ -248,6 +260,7 @@
         var displayFont = wp.customize('gambla_display_font')();
         var baseFontSize = wp.customize('gambla_base_font_size')();
         var headerHeight = wp.customize('gambla_header_height')();
+        var postImageHeight = wp.customize('gambla_post_image_height')();
 
         var css = ':root {';
         css += '--gambla-primary: ' + primaryColor + ';';
@@ -263,6 +276,7 @@
         css += 'body { background-color: ' + backgroundColor + '; color: ' + textColor + '; font-size: ' + baseFontSize + 'px; }';
         css += '.site-header { height: ' + headerHeight + 'px; }';
         css += '.hero-section, .page-hero { padding-top: ' + (parseInt(headerHeight) + 20) + 'px; }';
+        css += '.post-image { height: ' + postImageHeight + 'px; object-fit: cover; }';
 
         // Remove existing custom CSS and add new
         $('#gambla-customizer-css').remove();

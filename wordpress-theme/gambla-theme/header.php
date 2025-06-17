@@ -15,11 +15,16 @@
         <div class="header-content">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
                 <?php 
-                if (has_custom_logo()) {
+                $small_logo = get_theme_mod('gambla_small_logo');
+                $logo_height = get_theme_mod('gambla_small_logo_height', 40);
+                
+                if ($small_logo) {
+                    echo '<img src="' . esc_url($small_logo) . '" alt="' . get_bloginfo('name') . '" style="height: ' . $logo_height . 'px; width: auto; margin-right: 10px; vertical-align: middle;">';
+                } elseif (has_custom_logo()) {
                     the_custom_logo();
-                } else {
-                    echo get_bloginfo('name', 'display');
                 }
+                
+                echo '<span style="vertical-align: middle;">' . get_bloginfo('name', 'display') . '</span>';
                 ?>
             </a>
             
