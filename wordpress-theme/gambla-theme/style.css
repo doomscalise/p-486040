@@ -1,8 +1,8 @@
 
 /*
 Theme Name: GAMBLA Complete Theme
-Description: Tema completo per GAMBLA con tutte le pagine e personalizzazioni
-Version: 2.0
+Description: Tema completo per GAMBLA con tutte le pagine e personalizzazioni avanzate
+Version: 3.0
 Author: GAMBLA Team
 Text Domain: gambla
 */
@@ -130,6 +130,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .site-logo {
@@ -141,12 +142,18 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-shrink: 0;
 }
 
 .site-logo img {
     height: var(--small-logo-height);
     width: auto;
     object-fit: contain;
+    max-height: 60px;
+}
+
+.site-logo span {
+    white-space: nowrap;
 }
 
 .main-nav ul {
@@ -154,6 +161,7 @@ body {
     list-style: none;
     gap: 2rem;
     margin: 0;
+    align-items: center;
 }
 
 .main-nav a {
@@ -163,6 +171,7 @@ body {
     transition: color 0.3s;
     padding: 0.5rem 1rem;
     border-radius: 25px;
+    white-space: nowrap;
 }
 
 .main-nav a:hover,
@@ -315,75 +324,6 @@ body {
 }
 
 .sport-icon-item p {
-    color: #cccccc;
-}
-
-/* Values Grid */
-.value-item {
-    background: var(--gambla-gray);
-    border: 2px solid transparent;
-    background-image: linear-gradient(var(--gambla-gray), var(--gambla-gray)), 
-                      linear-gradient(135deg, var(--gambla-primary), var(--gambla-secondary));
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-    border-radius: 20px;
-    padding: 2rem;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.value-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(255, 0, 255, 0.1);
-}
-
-.value-item h3 {
-    color: #ffffff;
-    margin-bottom: 0.5rem;
-}
-
-.value-item p {
-    color: #cccccc;
-}
-
-/* Newsletter Benefits Grid */
-.newsletter-benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin: 4rem 0;
-}
-
-.newsletter-benefit {
-    background: var(--gambla-gray);
-    border: 2px solid transparent;
-    background-image: linear-gradient(var(--gambla-gray), var(--gambla-gray)), 
-                      linear-gradient(135deg, var(--gambla-primary), var(--gambla-secondary));
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-    border-radius: 20px;
-    padding: 2rem;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.newsletter-benefit:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(255, 0, 255, 0.1);
-}
-
-.benefit-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    display: block;
-}
-
-.newsletter-benefit h3 {
-    color: #ffffff;
-    margin-bottom: 0.5rem;
-}
-
-.newsletter-benefit p {
     color: #cccccc;
 }
 
@@ -691,7 +631,7 @@ body {
     }
     
     .header-content {
-        flex-direction: column;
+        flex-wrap: wrap;
         gap: 1rem;
     }
     
@@ -705,8 +645,7 @@ body {
         grid-template-columns: 1fr;
     }
     
-    .sport-icons-grid,
-    .newsletter-benefits-grid {
+    .sport-icons-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
     
@@ -724,6 +663,25 @@ body {
     
     :root {
         --header-height: 120px;
+    }
+    
+    .site-logo {
+        font-size: 1.5rem;
+    }
+    
+    .site-logo span {
+        display: block;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-nav ul {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: block !important;
     }
 }
 
@@ -780,38 +738,4 @@ body {
 .interactive-element:hover {
     transform: scale(1.05);
     filter: brightness(1.2);
-}
-
-/* Team member cards */
-.team-member {
-    background: var(--gambla-gray);
-    border: 2px solid transparent;
-    background-image: linear-gradient(var(--gambla-gray), var(--gambla-gray)), 
-                      linear-gradient(135deg, var(--gambla-primary), var(--gambla-secondary));
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-    border-radius: 20px;
-    padding: 2rem;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.team-member:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(255, 0, 255, 0.1);
-}
-
-.team-member h3 {
-    color: #ffffff;
-    margin: 1rem 0 0.5rem;
-}
-
-.team-member .role {
-    color: var(--gambla-primary);
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-.team-member p {
-    color: #cccccc;
 }

@@ -19,12 +19,12 @@
                 $logo_height = get_theme_mod('gambla_small_logo_height', 40);
                 
                 if ($small_logo) {
-                    echo '<img src="' . esc_url($small_logo) . '" alt="' . get_bloginfo('name') . '" style="height: ' . $logo_height . 'px; width: auto; margin-right: 10px; vertical-align: middle;">';
+                    echo '<img src="' . esc_url($small_logo) . '" alt="' . get_bloginfo('name') . '" style="height: ' . $logo_height . 'px; width: auto; max-height: 60px; object-fit: contain;">';
                 } elseif (has_custom_logo()) {
                     the_custom_logo();
                 }
                 
-                echo '<span style="vertical-align: middle;">' . get_bloginfo('name', 'display') . '</span>';
+                echo '<span style="margin-left: 10px;">' . get_bloginfo('name', 'display') . '</span>';
                 ?>
             </a>
             
@@ -35,7 +35,7 @@
                         'theme_location' => 'primary',
                         'menu_class' => '',
                         'container' => false,
-                        'fallback_cb' => false
+                        'fallback_cb' => 'gambla_default_menu'
                     ));
                 } else {
                     gambla_default_menu();
@@ -44,7 +44,7 @@
             </nav>
             
             <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle" style="display: none; background: none; border: none; color: white; font-size: 1.5rem;">
+            <button class="mobile-menu-toggle" style="display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">
                 ☰
             </button>
         </div>

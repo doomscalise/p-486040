@@ -1,184 +1,124 @@
 
-jQuery(document).ready(function($) {
-    // Newsletter signup
-    $('#newsletter-form').on('submit', function(e) {
-        e.preventDefault();
-        
-        var email = $(this).find('input[name="email"]').val();
-        var name = $(this).find('input[name="name"]').val() || '';
-        
-        $.ajax({
-            url: gambla_ajax.ajax_url,
-            type: 'POST',
-            data: {
-                action: 'gambla_newsletter_signup',
-                email: email,
-                name: name,
-                nonce: gambla_ajax.nonce
-            },
-            success: function(response) {
-                if (response.success) {
-                    alert('Iscrizione completata con successo!');
-                    $('#newsletter-form')[0].reset();
-                } else {
-                    alert('Errore: ' + response.data);
-                }
-            },
-            error: function() {
-                alert('Errore durante l\'invio. Riprova.');
+// GAMBLA Theme JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Mobile Menu Toggle
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    
+    if (mobileToggle && mainNav) {
+        mobileToggle.addEventListener('click', function() {
+            if (mainNav.style.display === 'block') {
+                mainNav.style.display = 'none';
+            } else {
+                mainNav.style.display = 'block';
+                mainNav.style.position = 'absolute';
+                mainNav.style.top = '100%';
+                mainNav.style.left = '0';
+                mainNav.style.right = '0';
+                mainNav.style.background = 'var(--gambla-dark)';
+                mainNav.style.padding = '1rem';
+                mainNav.style.zIndex = '1000';
             }
         });
-    });
+        
+        // Close mobile menu on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                mainNav.style.display = '';
+                mainNav.style.position = '';
+                mainNav.style.top = '';
+                mainNav.style.left = '';
+                mainNav.style.right = '';
+                mainNav.style.background = '';
+                mainNav.style.padding = '';
+            }
+        });
+    }
     
     // Smooth scrolling for anchor links
-    $('a[href^="#"]').on('click', function(event) {
-        var target = $(this.getAttribute('href'));
-        if (target.length) {
-            event.preventDefault();
-            $('html, body').stop().animate({
-                scrollTop: target.offset().top - 80
-            }, 1000);
-        }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
     
-    // Fade in animations
-    function checkFadeIn() {
-        $('.fade-in').each(function() {
-            var elementTop = $(this).offset().top;
-            var elementBottom = elementTop + $(this).outerHeight();
-            var viewportTop = $(window).scrollTop();
-            var viewportBottom = viewportTop + $(window).height();
+    // Newsletter form submission
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[name="email"]').value;
             
-            if (elementBottom > viewportTop && elementTop < viewportBottom) {
-                $(this).addClass('animated');
+            // Simple validation
+            if (email && email.includes('@')) {
+                alert('Grazie per la tua iscrizione! Ti invieremo presto le nostre migliori notizie sportive.');
+                this.reset();
+            } else {
+                alert('Per favore inserisci un indirizzo email valido.');
             }
         });
     }
     
-    $(window).on('scroll resize', checkFadeIn);
-    checkFadeIn(); // Run on page load
-    
-    // Mobile menu toggle (if you add one later)
-    $('.mobile-menu-toggle').on('click', function() {
-        $('.main-nav').toggleClass('mobile-open');
-    });
-    
-    // Parallax effects for floating elements
-    if (window.innerWidth > 768) {
-        $(window).on('scroll', function() {
-            var scrolled = $(window).scrollTop();
-            var rate = scrolled * -0.5;
-            
-            $('.float-animation').css('transform', 'translateY(' + rate + 'px)');
-        });
-    }
-    
-    // Hero card hover effect
-    $('.hero-card').on('mouseenter', function() {
-        $(this).css('transform', 'rotate(0deg) scale(1.05)');
-    }).on('mouseleave', function() {
-        $(this).css('transform', 'rotate(3deg) scale(1)');
-    });
-    
-    // Post card hover effects
-    $('.post-card').on('mouseenter', function() {
-        $(this).find('.post-image').css('transform', 'scale(1.1)');
-    }).on('mouseleave', function() {
-        $(this).find('.post-image').css('transform', 'scale(1)');
-    });
-    
-    // Sport icon animations
-    $('.sport-icon-item').on('mouseenter', function() {
-        $(this).find('.sport-icon').addClass('animate-bounce');
-    }).on('mouseleave', function() {
-        $(this).find('.sport-icon').removeClass('animate-bounce');
-    });
-    
-    // Initialize any other JavaScript functionality
-    initCustomSliders();
-    initLazyLoading();
-});
-
-// Custom slider initialization
-function initCustomSliders() {
-    // Add custom slider logic if needed
-}
-
-// Lazy loading for images
-function initLazyLoading() {
-    if ('IntersectionObserver' in window) {
-        var imageObserver = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    var image = entry.target;
-                    image.src = image.dataset.src;
-                    image.classList.remove('lazy');
-                    imageObserver.unobserve(image);
-                }
+    // FAQ Toggle functionality
+    window.toggleFaq = function(element) {
+        const faqItem = element.parentElement;
+        const faqAnswer = faqItem.querySelector('.faq-answer');
+        const faqIcon = element.querySelector('.faq-icon');
+        
+        if (faqItem.classList.contains('active')) {
+            faqItem.classList.remove('active');
+            faqAnswer.style.display = 'none';
+            faqIcon.textContent = '+';
+        } else {
+            // Close all other FAQs
+            document.querySelectorAll('.faq-item.active').forEach(item => {
+                item.classList.remove('active');
+                item.querySelector('.faq-answer').style.display = 'none';
+                item.querySelector('.faq-icon').textContent = '+';
             });
+            
+            // Open clicked FAQ
+            faqItem.classList.add('active');
+            faqAnswer.style.display = 'block';
+            faqIcon.textContent = '−';
+        }
+    };
+    
+    // Interactive elements hover effects
+    document.querySelectorAll('.interactive-element').forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
         });
         
-        document.querySelectorAll('img[data-src]').forEach(function(img) {
-            imageObserver.observe(img);
+        element.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
         });
-    }
-}
-
-// Add CSS classes for animations
-var style = document.createElement('style');
-style.textContent = `
-    .animated {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-    }
+    });
     
-    .animate-bounce {
-        animation: bounce 0.6s ease-in-out;
-    }
+    // Fade in animation on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
     
-    @keyframes bounce {
-        0%, 20%, 53%, 80%, 100% {
-            transform: translate3d(0,0,0);
-        }
-        40%, 43% {
-            transform: translate3d(0,-10px,0);
-        }
-        70% {
-            transform: translate3d(0,-5px,0);
-        }
-        90% {
-            transform: translate3d(0,-2px,0);
-        }
-    }
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
     
-    .mobile-open {
-        display: block !important;
-    }
-    
-    @media (max-width: 768px) {
-        .main-nav {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--gambla-dark);
-            border-top: 1px solid var(--gambla-gray);
-        }
-        
-        .main-nav ul {
-            flex-direction: column;
-            padding: 1rem 0;
-        }
-        
-        .mobile-menu-toggle {
-            display: block;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-    }
-`;
-document.head.appendChild(style);
+    document.querySelectorAll('.post-card, .sport-icon-item, .demo-card').forEach(el => {
+        observer.observe(el);
+    });
+});
