@@ -40,19 +40,16 @@
             
             <div class="hero-visual">
                 <div class="hero-card">
-                    <h3 style="color: var(--gambla-primary); margin-bottom: 1rem;">🏆 Highlights Oggi</h3>
+                    <h3 style="color: var(--gambla-primary); margin-bottom: 1rem;">🎯 GAMBLA Sport</h3>
                     <div style="background: #000; padding: 1.5rem; border-radius: 10px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding: 0.75rem; background: #333; border-radius: 5px;">
-                            <span>Inter vs Milan</span>
-                            <span style="color: var(--gambla-secondary); font-weight: bold;">2-1</span>
+                        <div style="text-align: center; padding: 1rem; background: #333; border-radius: 5px; margin-bottom: 1rem;">
+                            <span style="color: var(--gambla-primary); font-weight: bold;">Notizie Live</span>
                         </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding: 0.75rem; background: #333; border-radius: 5px;">
-                            <span>Juventus vs Roma</span>
-                            <span style="color: var(--gambla-primary); font-weight: bold;">LIVE</span>
+                        <div style="text-align: center; padding: 1rem; background: #333; border-radius: 5px; margin-bottom: 1rem;">
+                            <span style="color: var(--gambla-secondary); font-weight: bold;">Analisi</span>
                         </div>
-                        <div style="display: flex; justify-content: space-between; padding: 0.75rem; background: #333; border-radius: 5px;">
-                            <span>Napoli vs Lazio</span>
-                            <span style="color: #999;">20:45</span>
+                        <div style="text-align: center; padding: 1rem; background: #333; border-radius: 5px;">
+                            <span style="color: var(--gambla-yellow); font-weight: bold;">Community</span>
                         </div>
                     </div>
                 </div>
@@ -74,36 +71,17 @@
         </div>
         
         <div class="sport-icons-grid">
-            <div class="sport-icon-item">
-                <div class="sport-icon">⚽</div>
-                <h3>Calcio</h3>
-                <p style="color: #cccccc; margin-top: 0.5rem;">Serie A, Champions League, Europa League</p>
-            </div>
-            <div class="sport-icon-item">
-                <div class="sport-icon">🏀</div>
-                <h3>Basket</h3>
-                <p style="color: #cccccc; margin-top: 0.5rem;">NBA, Serie A, Eurolega</p>
-            </div>
-            <div class="sport-icon-item">
-                <div class="sport-icon">🎾</div>
-                <h3>Tennis</h3>
-                <p style="color: #cccccc; margin-top: 0.5rem;">ATP, WTA, Slam</p>
-            </div>
-            <div class="sport-icon-item">
-                <div class="sport-icon">🏎️</div>
-                <h3>Formula 1</h3>
-                <p style="color: #cccccc; margin-top: 0.5rem;">Gare, qualifiche, news</p>
-            </div>
-            <div class="sport-icon-item">
-                <div class="sport-icon">🏐</div>
-                <h3>Volley</h3>
-                <p style="color: #cccccc; margin-top: 0.5rem;">Serie A, Champions League</p>
-            </div>
-            <div class="sport-icon-item">
-                <div class="sport-icon">🏊</div>
-                <h3>Sport Olimpici</h3>
-                <p style="color: #cccccc; margin-top: 0.5rem;">Nuoto, atletica e altro</p>
-            </div>
+            <?php for ($i = 1; $i <= 6; $i++) : ?>
+                <?php if (get_theme_mod("gambla_sport_{$i}_show", true)) : ?>
+                    <div class="sport-icon-item">
+                        <div class="sport-icon"><?php echo esc_html(get_theme_mod("gambla_sport_{$i}_icon", '⚽')); ?></div>
+                        <h3><?php echo esc_html(get_theme_mod("gambla_sport_{$i}_name", 'Sport')); ?></h3>
+                        <p style="color: #cccccc; margin-top: 0.5rem;">
+                            <?php echo esc_html(get_theme_mod("gambla_sport_{$i}_description", 'Descrizione sport')); ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
+            <?php endfor; ?>
         </div>
     </div>
 </section>
@@ -192,10 +170,10 @@
 <section class="newsletter-section">
     <div class="container">
         <h2 class="font-display" style="font-size: 3rem; margin-bottom: 1rem; color: white;">
-            Non Perdere Nemmeno una Notizia
+            <?php echo esc_html(get_theme_mod('gambla_newsletter_title', 'Non Perdere Nemmeno una Notizia')); ?>
         </h2>
         <p style="font-size: 1.25rem; margin-bottom: 2rem; color: white;">
-            Iscriviti alla nostra newsletter per ricevere le ultime news direttamente nella tua email
+            <?php echo esc_html(get_theme_mod('gambla_newsletter_subtitle', 'Iscriviti alla nostra newsletter per ricevere le ultime news direttamente nella tua email')); ?>
         </p>
         
         <form class="newsletter-form" id="newsletter-form">
