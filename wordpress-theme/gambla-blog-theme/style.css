@@ -1,4 +1,3 @@
-
 /*
 Theme Name: Blog
 Description: Tema blog dedicato con colori gradient personalizzati - Completamente editabile
@@ -33,14 +32,20 @@ body {
     font-size: 18px;
 }
 
-/* Container */
+/* Typography */
+.font-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+/* Utility Classes */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
-/* Header - Navbar più piccola e compatta */
+/* Header - Navbar più piccola e compatta - FISSO per tutte le pagine */
 .site-header {
     background: var(--gambla-dark);
     border-bottom: 1px solid var(--gambla-gray);
@@ -59,7 +64,7 @@ body {
     min-height: 50px;
 }
 
-/* Logo nel header - dimensioni ridotte e allineamento */
+/* Logo nel header - dimensioni ridotte e allineamento - STESSO per tutte le pagine */
 .site-logo {
     display: flex;
     align-items: center;
@@ -80,7 +85,7 @@ body {
     object-fit: contain;
 }
 
-/* Menu di navigazione compatto */
+/* Menu di navigazione compatto - STESSO per tutte le pagine */
 .main-nav ul {
     display: flex;
     list-style: none;
@@ -305,7 +310,7 @@ body {
     color: white;
 }
 
-/* Single Post - Articolo Singolo */
+/* Single Post - Articolo Singolo - NESSUN RIQUADRO BLOG */
 .single-post {
     max-width: 900px;
     margin: 0 auto;

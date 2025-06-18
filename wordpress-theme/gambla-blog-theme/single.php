@@ -24,6 +24,12 @@
                 <?php the_custom_logo(); ?>
             <?php else : ?>
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
+                    <?php 
+                    $header_logo = get_theme_mod('blog_header_logo');
+                    if ($header_logo) {
+                        echo '<img src="' . esc_url($header_logo) . '" alt="' . get_bloginfo('name') . '">';
+                    }
+                    ?>
                     <?php bloginfo('name'); ?>
                 </a>
             <?php endif; ?>
@@ -40,11 +46,12 @@
                 
                 <?php if (!has_nav_menu('primary')) : ?>
                     <ul>
-                        <li><a href="https://gambla.it">← Torna al Sito</a></li>
-                        <li><a href="<?php echo esc_url(home_url('/')); ?>">Home</a></li>
-                        <li><a href="<?php echo esc_url(home_url('/category/calcio')); ?>">Calcio</a></li>
-                        <li><a href="<?php echo esc_url(home_url('/category/basket')); ?>">Basket</a></li>
-                        <li><a href="<?php echo esc_url(home_url('/category/tennis')); ?>">Tennis</a></li>
+                        <li><a href="https://gambla.it" target="_blank">Home</a></li>
+                        <li><a href="https://gambla.it/fantagambla" target="_blank">FantaGambla</a></li>
+                        <li><a href="https://gambla.it/chi-siamo" target="_blank">Chi Siamo</a></li>
+                        <li><a href="https://gambla.it/faq" target="_blank">FAQ</a></li>
+                        <li><a href="https://gambla.it/newsletter" target="_blank">Newsletter</a></li>
+                        <li><a href="https://gambla.it/contatti" target="_blank">Contatti</a></li>
                     </ul>
                 <?php endif; ?>
             </nav>
@@ -58,15 +65,6 @@
             <?php while (have_posts()) : the_post(); ?>
                 <article class="single-post fade-in" id="post-<?php the_ID(); ?>">
                     <header class="post-header">
-                        <?php 
-                        $categories = get_the_category();
-                        if (!empty($categories)) :
-                        ?>
-                            <a href="<?php echo esc_url(get_category_link($categories[0]->term_id)); ?>" class="post-category">
-                                <?php echo esc_html($categories[0]->name); ?>
-                            </a>
-                        <?php endif; ?>
-                        
                         <h1 class="post-title"><?php the_title(); ?></h1>
                         
                         <div class="post-meta" style="justify-content: center; margin: 3rem 0; display: flex; gap: 2rem; flex-wrap: wrap; color: #bbb; font-size: 1.1rem;">
@@ -214,7 +212,7 @@
 <footer class="site-footer" role="contentinfo">
     <div class="container">
         <div class="footer-content">
-            <div class="footer-logo"><?php bloginfo('name'); ?></div>
+            <div class="footer-logo"><?php echo esc_html(get_theme_mod('blog_site_name', 'Gambla')); ?></div>
             
             <?php if (has_nav_menu('footer')) : ?>
                 <nav class="footer-links" aria-label="<?php esc_attr_e('Menu footer', 'blog'); ?>">
@@ -229,10 +227,12 @@
                 </nav>
             <?php else : ?>
                 <div class="footer-links">
-                    <a href="https://gambla.it">Sito Principale</a>
-                    <a href="https://gambla.it/fantagambla">FantaGambla</a>
-                    <a href="https://gambla.it/newsletter">Newsletter</a>
-                    <a href="https://gambla.it/contatti">Contatti</a>
+                    <a href="https://gambla.it" target="_blank">Home</a>
+                    <a href="https://gambla.it/fantagambla" target="_blank">FantaGambla</a>
+                    <a href="https://gambla.it/chi-siamo" target="_blank">Chi Siamo</a>
+                    <a href="https://gambla.it/faq" target="_blank">FAQ</a>
+                    <a href="https://gambla.it/newsletter" target="_blank">Newsletter</a>
+                    <a href="https://gambla.it/contatti" target="_blank">Contatti</a>
                 </div>
             <?php endif; ?>
             
