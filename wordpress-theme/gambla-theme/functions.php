@@ -1,482 +1,229 @@
 
 <?php
-// Theme Setup
-function gambla_setup() {
-    add_theme_support('title-tag');
-    add_theme_support('post-thumbnails');
-    add_theme_support('custom-logo');
-    add_theme_support('html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption'));
-    
-    // Custom image sizes
-    add_image_size('gambla-card', 400, 250, true);
-    add_image_size('gambla-hero', 800, 500, true);
-    add_image_size('gambla-thumbnail', 150, 150, true);
-    
-    // Register navigation menus
-    register_nav_menus(array(
-        'primary' => __('Primary Menu', 'gambla'),
-        'footer' => __('Footer Menu', 'gambla'),
-    ));
-}
-add_action('after_setup_theme', 'gambla_setup');
+// Tema GAMBLA - Functions.php
 
-// Enqueue scripts and styles
+// Supporto per immagini in evidenza
+add_theme_support('post-thumbnails');
+
+// Supporto per titoli automatici
+add_theme_support('title-tag');
+
+// Supporto per HTML5
+add_theme_support('html5', array(
+    'search-form',
+    'comment-form', 
+    'comment-list',
+    'gallery',
+    'caption',
+));
+
+// Supporto per logo personalizzato
+add_theme_support('custom-logo', array(
+    'height'      => 100,
+    'width'       => 400,
+    'flex-height' => true,
+    'flex-width'  => true,
+));
+
+// Enqueue degli stili e script
 function gambla_scripts() {
-    wp_enqueue_style('gambla-style', get_stylesheet_uri(), array(), '2.0.0');
-    wp_enqueue_script('gambla-script', get_template_directory_uri() . '/js/gambla.js', array('jquery'), '2.0.0', true);
+    // Google Fonts
+    wp_enqueue_style('gambla-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800&display=swap', array(), '1.0.0');
     
-    // Load customizer preview script
-    if (is_customize_preview()) {
-        wp_enqueue_script('gambla-customizer', get_template_directory_uri() . '/js/customizer.js', array('jquery', 'customize-preview'), '2.0.0', true);
-    }
+    // Tema principale
+    wp_enqueue_style('gambla-style', get_stylesheet_uri(), array('gambla-fonts'), '3.0.0');
+    
+    // Script JavaScript
+    wp_enqueue_script('gambla-script', get_template_directory_uri() . '/js/gambla.js', array('jquery'), '3.0.0', true);
 }
 add_action('wp_enqueue_scripts', 'gambla_scripts');
 
-// Theme Customizer - Complete Configuration System
+// Registra i menu
+function gambla_menus() {
+    register_nav_menus(array(
+        'primary' => 'Menu Principale',
+        'footer' => 'Menu Footer'
+    ));
+}
+add_action('init', 'gambla_menus');
+
+// Dimensioni personalizzate per le immagini
+if (function_exists('add_image_size')) {
+    add_image_size('gambla-card', 400, 250, true);
+    add_image_size('gambla-large', 800, 500, true);
+}
+
+// Excerpt personalizzato
+function gambla_custom_excerpt($limit = 25) {
+    $excerpt = explode(' ', get_the_excerpt(), $limit);
+    if (count($excerpt) >= $limit) {
+        array_pop($excerpt);
+        $excerpt = implode(" ", $excerpt) . '...';
+    } else {
+        $excerpt = implode(" ", $excerpt);
+    }
+    $excerpt = preg_replace('`\[[^\]]*\]`', '', $excerpt);
+    return $excerpt;
+}
+
+// Tempo di lettura stimato
+function gambla_reading_time() {
+    $content = get_post_field('post_content', get_the_ID());
+    $word_count = str_word_count(strip_tags($content));
+    $reading_time = ceil($word_count / 200);
+    return $reading_time . ' min lettura';
+}
+
+// Supporto per Gutenberg
+add_theme_support('wp-block-styles');
+add_theme_support('align-wide');
+add_theme_support('responsive-embeds');
+
+// Colori personalizzati per Gutenberg
+add_theme_support('editor-color-palette', array(
+    array(
+        'name' => 'GAMBLA Magenta',
+        'slug' => 'gambla-magenta',
+        'color' => '#FF00FF',
+    ),
+    array(
+        'name' => 'GAMBLA Orange',
+        'slug' => 'gambla-orange',
+        'color' => '#FF6600',
+    ),
+    array(
+        'name' => 'GAMBLA Dark',
+        'slug' => 'gambla-dark',
+        'color' => '#0a0a0a',
+    ),
+    array(
+        'name' => 'GAMBLA Gray',
+        'slug' => 'gambla-gray',
+        'color' => '#1a1a1a',
+    ),
+));
+
+// Customizer
 function gambla_customize_register($wp_customize) {
-    
-    // SEZIONE LOGO E BRANDING
-    $wp_customize->add_section('gambla_branding', array(
-        'title' => 'Logo e Branding GAMBLA',
+    // Sezione Logo
+    $wp_customize->add_section('gambla_logo_section', array(
+        'title' => 'Logo GAMBLA',
         'priority' => 30,
     ));
     
-    // Logo piccolo header
+    // Impostazione logo piccolo
     $wp_customize->add_setting('gambla_small_logo', array(
+        'default' => '',
         'sanitize_callback' => 'esc_url_raw',
-        'transport' => 'postMessage',
     ));
+    
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'gambla_small_logo', array(
-        'label' => 'Logo Piccolo Header',
-        'section' => 'gambla_branding',
+        'label' => 'Logo Header (piccolo)',
+        'section' => 'gambla_logo_section',
         'settings' => 'gambla_small_logo',
-        'description' => 'Logo ottimizzato per header (raccomandato: 120x40px)',
     )));
     
-    // Altezza logo
+    // Altezza logo piccolo
     $wp_customize->add_setting('gambla_small_logo_height', array(
         'default' => 40,
         'sanitize_callback' => 'absint',
-        'transport' => 'postMessage',
     ));
+    
     $wp_customize->add_control('gambla_small_logo_height', array(
-        'label' => 'Altezza Logo (px)',
-        'section' => 'gambla_branding',
+        'label' => 'Altezza Logo Header (px)',
+        'section' => 'gambla_logo_section',
         'type' => 'number',
-        'input_attrs' => array('min' => 20, 'max' => 100),
+        'input_attrs' => array(
+            'min' => 20,
+            'max' => 100,
+            'step' => 5,
+        ),
     ));
     
-    // SEZIONE COLORI COMPLETA
-    $wp_customize->add_section('gambla_colors', array(
-        'title' => 'Colori GAMBLA',
-        'priority' => 40,
+    // Sezione Footer
+    $wp_customize->add_section('gambla_footer_section', array(
+        'title' => 'Footer GAMBLA',
+        'priority' => 120,
     ));
     
-    $colors = array(
-        'gambla_primary_color' => array('label' => 'Colore Primario (Magenta)', 'default' => '#FF00FF'),
-        'gambla_secondary_color' => array('label' => 'Colore Secondario (Arancione)', 'default' => '#FF6600'),
-        'gambla_yellow_color' => array('label' => 'Colore Giallo', 'default' => '#FFD700'),
-        'gambla_background_color' => array('label' => 'Sfondo Principale', 'default' => '#0a0a0a'),
-        'gambla_gray_color' => array('label' => 'Sfondo Secondario', 'default' => '#1a1a1a'),
-        'gambla_text_color' => array('label' => 'Colore Testo', 'default' => '#ffffff'),
-    );
-    
-    foreach ($colors as $setting => $config) {
-        $wp_customize->add_setting($setting, array(
-            'default' => $config['default'],
-            'sanitize_callback' => 'sanitize_hex_color',
-            'transport' => 'postMessage',
-        ));
-        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $setting, array(
-            'label' => $config['label'],
-            'section' => 'gambla_colors',
-        )));
-    }
-    
-    // SEZIONE TIPOGRAFIA
-    $wp_customize->add_section('gambla_typography', array(
-        'title' => 'Tipografia',
-        'priority' => 50,
-    ));
-    
-    $fonts = array(
-        'Inter', 'Montserrat', 'Roboto', 'Open Sans', 'Lato', 'Poppins', 'Source Sans Pro', 'Nunito'
-    );
-    
-    $wp_customize->add_setting('gambla_primary_font', array(
-        'default' => 'Inter',
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_primary_font', array(
-        'label' => 'Font Principale',
-        'section' => 'gambla_typography',
-        'type' => 'select',
-        'choices' => array_combine($fonts, $fonts),
-    ));
-    
-    $wp_customize->add_setting('gambla_display_font', array(
-        'default' => 'Montserrat',
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_display_font', array(
-        'label' => 'Font Titoli',
-        'section' => 'gambla_typography',
-        'type' => 'select',
-        'choices' => array_combine($fonts, $fonts),
-    ));
-    
-    $wp_customize->add_setting('gambla_base_font_size', array(
-        'default' => 16,
-        'sanitize_callback' => 'absint',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_base_font_size', array(
-        'label' => 'Dimensione Font Base (px)',
-        'section' => 'gambla_typography',
-        'type' => 'number',
-        'input_attrs' => array('min' => 12, 'max' => 24),
-    ));
-    
-    // SEZIONE LAYOUT
-    $wp_customize->add_section('gambla_layout', array(
-        'title' => 'Layout e Dimensioni',
-        'priority' => 60,
-    ));
-    
-    $wp_customize->add_setting('gambla_header_height', array(
-        'default' => 80,
-        'sanitize_callback' => 'absint',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_header_height', array(
-        'label' => 'Altezza Header (px)',
-        'section' => 'gambla_layout',
-        'type' => 'number',
-        'input_attrs' => array('min' => 60, 'max' => 120),
-    ));
-    
-    $wp_customize->add_setting('gambla_post_image_height', array(
-        'default' => 250,
-        'sanitize_callback' => 'absint',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_post_image_height', array(
-        'label' => 'Altezza Immagini Post (px)',
-        'section' => 'gambla_layout',
-        'type' => 'number',
-        'input_attrs' => array('min' => 150, 'max' => 400),
-    ));
-    
-    // SEZIONE HOMEPAGE
-    $wp_customize->add_section('gambla_homepage', array(
-        'title' => 'Homepage',
-        'priority' => 70,
-    ));
-    
-    // Hero Section
-    $wp_customize->add_setting('gambla_hero_title', array(
-        'default' => 'Ultimi Articoli GAMBLA',
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_hero_title', array(
-        'label' => 'Titolo Hero',
-        'section' => 'gambla_homepage',
-        'type' => 'text',
-    ));
-    
-    $wp_customize->add_setting('gambla_hero_subtitle', array(
-        'default' => 'Le notizie più fresche dal mondo dello sport',
-        'sanitize_callback' => 'sanitize_textarea_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_hero_subtitle', array(
-        'label' => 'Sottotitolo Hero',
-        'section' => 'gambla_homepage',
-        'type' => 'textarea',
-    ));
-    
-    // SEZIONE BLOG
-    $wp_customize->add_section('gambla_blog', array(
-        'title' => 'Pagina Blog',
-        'priority' => 80,
-    ));
-    
-    $wp_customize->add_setting('gambla_blog_title', array(
-        'default' => 'Accendi la Tua Passione Sportiva',
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_blog_title', array(
-        'label' => 'Titolo Pagina Blog',
-        'section' => 'gambla_blog',
-        'type' => 'text',
-    ));
-    
-    $wp_customize->add_setting('gambla_blog_description', array(
-        'default' => 'Unisciti alla community sportiva più dinamica d\'Italia. Notizie live, fantacalcio, discussioni accese e contenuti esclusivi ti aspettano.',
-        'sanitize_callback' => 'sanitize_textarea_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_blog_description', array(
-        'label' => 'Descrizione Pagina Blog',
-        'section' => 'gambla_blog',
-        'type' => 'textarea',
-    ));
-    
-    // SEZIONE SPORT
-    $wp_customize->add_section('gambla_sports', array(
-        'title' => 'Sezione Sport',
-        'priority' => 90,
-    ));
-    
-    $wp_customize->add_setting('gambla_sports_title', array(
-        'default' => 'I Nostri Sport',
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_sports_title', array(
-        'label' => 'Titolo Sezione Sport',
-        'section' => 'gambla_sports',
-    ));
-    
-    $wp_customize->add_setting('gambla_sports_subtitle', array(
-        'default' => 'Copertura completa per tutti gli sport che ami',
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_sports_subtitle', array(
-        'label' => 'Sottotitolo Sezione Sport',
-        'section' => 'gambla_sports',
-    ));
-    
-    // Sport individuali
-    $default_sports = array(
-        array('icon' => '⚽', 'name' => 'Calcio', 'description' => 'Serie A, Champions League, Europa League'),
-        array('icon' => '🏀', 'name' => 'Basket', 'description' => 'NBA, Serie A, Eurolega'),
-        array('icon' => '🎾', 'name' => 'Tennis', 'description' => 'ATP, WTA, Slam'),
-        array('icon' => '🏐', 'name' => 'Volley', 'description' => 'Serie A, Champions League'),
-        array('icon' => '🏎️', 'name' => 'Formula 1', 'description' => 'Campionato mondiale'),
-        array('icon' => '🏆', 'name' => 'Altri Sport', 'description' => 'Olimpiadi, sport vari'),
-    );
-    
-    for ($i = 1; $i <= 6; $i++) {
-        $sport = $default_sports[$i-1];
-        
-        $wp_customize->add_setting("gambla_sport_{$i}_show", array(
-            'default' => true,
-            'sanitize_callback' => 'wp_validate_boolean',
-            'transport' => 'postMessage',
-        ));
-        $wp_customize->add_control("gambla_sport_{$i}_show", array(
-            'label' => "Mostra Sport {$i}",
-            'section' => 'gambla_sports',
-            'type' => 'checkbox',
-        ));
-        
-        $wp_customize->add_setting("gambla_sport_{$i}_icon", array(
-            'default' => $sport['icon'],
-            'sanitize_callback' => 'sanitize_text_field',
-            'transport' => 'postMessage',
-        ));
-        $wp_customize->add_control("gambla_sport_{$i}_icon", array(
-            'label' => "Icona Sport {$i}",
-            'section' => 'gambla_sports',
-            'type' => 'text',
-        ));
-        
-        $wp_customize->add_setting("gambla_sport_{$i}_name", array(
-            'default' => $sport['name'],
-            'sanitize_callback' => 'sanitize_text_field',
-            'transport' => 'postMessage',
-        ));
-        $wp_customize->add_control("gambla_sport_{$i}_name", array(
-            'label' => "Nome Sport {$i}",
-            'section' => 'gambla_sports',
-            'type' => 'text',
-        ));
-        
-        $wp_customize->add_setting("gambla_sport_{$i}_description", array(
-            'default' => $sport['description'],
-            'sanitize_callback' => 'sanitize_text_field',
-            'transport' => 'postMessage',
-        ));
-        $wp_customize->add_control("gambla_sport_{$i}_description", array(
-            'label' => "Descrizione Sport {$i}",
-            'section' => 'gambla_sports',
-            'type' => 'text',
-        ));
-    }
-    
-    // SEZIONE NEWSLETTER
-    $wp_customize->add_section('gambla_newsletter', array(
-        'title' => 'Newsletter',
-        'priority' => 100,
-    ));
-    
-    $wp_customize->add_setting('gambla_newsletter_title', array(
-        'default' => 'Non Perdere Nemmeno una Notizia',
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_newsletter_title', array(
-        'label' => 'Titolo Newsletter',
-        'section' => 'gambla_newsletter',
-    ));
-    
-    $wp_customize->add_setting('gambla_newsletter_subtitle', array(
-        'default' => 'Iscriviti alla nostra newsletter per ricevere le ultime news direttamente nella tua email',
-        'sanitize_callback' => 'sanitize_textarea_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_newsletter_subtitle', array(
-        'label' => 'Sottotitolo Newsletter',
-        'section' => 'gambla_newsletter',
-        'type' => 'textarea',
-    ));
-    
-    // SEZIONE FOOTER
-    $wp_customize->add_section('gambla_footer', array(
-        'title' => 'Footer',
-        'priority' => 110,
-    ));
-    
+    // Testo copyright
     $wp_customize->add_setting('gambla_footer_text', array(
         'default' => '© 2024 GAMBLA. Tutti i diritti riservati.',
         'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'postMessage',
     ));
+    
     $wp_customize->add_control('gambla_footer_text', array(
         'label' => 'Testo Copyright',
-        'section' => 'gambla_footer',
+        'section' => 'gambla_footer_section',
+        'type' => 'text',
     ));
     
-    $wp_customize->add_setting('gambla_footer_about_title', array(
-        'default' => 'Su GAMBLA',
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'postMessage',
-    ));
-    $wp_customize->add_control('gambla_footer_about_title', array(
-        'label' => 'Titolo Sezione About',
-        'section' => 'gambla_footer',
-    ));
+    // Titoli sezioni footer
+    $footer_sections = array(
+        'about' => 'Su GAMBLA',
+        'nav' => 'Navigazione', 
+        'sport' => 'Sport',
+        'community' => 'Community'
+    );
     
+    foreach ($footer_sections as $key => $default) {
+        $wp_customize->add_setting("gambla_footer_{$key}_title", array(
+            'default' => $default,
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        
+        $wp_customize->add_control("gambla_footer_{$key}_title", array(
+            'label' => "Titolo Sezione " . ucfirst($key),
+            'section' => 'gambla_footer_section',
+            'type' => 'text',
+        ));
+    }
+    
+    // Testo about
     $wp_customize->add_setting('gambla_footer_about_text', array(
         'default' => 'La piattaforma italiana dedicata al mondo dello sport. Notizie, analisi, fantacalcio e molto altro per tutti gli appassionati.',
         'sanitize_callback' => 'sanitize_textarea_field',
-        'transport' => 'postMessage',
     ));
+    
     $wp_customize->add_control('gambla_footer_about_text', array(
-        'label' => 'Testo Sezione About',
-        'section' => 'gambla_footer',
+        'label' => 'Testo Descrizione',
+        'section' => 'gambla_footer_section',
         'type' => 'textarea',
     ));
 }
 add_action('customize_register', 'gambla_customize_register');
 
-// Output custom CSS
-function gambla_custom_css() {
-    $primary_color = get_theme_mod('gambla_primary_color', '#FF00FF');
-    $secondary_color = get_theme_mod('gambla_secondary_color', '#FF6600');
-    $yellow_color = get_theme_mod('gambla_yellow_color', '#FFD700');
-    $background_color = get_theme_mod('gambla_background_color', '#0a0a0a');
-    $gray_color = get_theme_mod('gambla_gray_color', '#1a1a1a');
-    $text_color = get_theme_mod('gambla_text_color', '#ffffff');
-    $primary_font = get_theme_mod('gambla_primary_font', 'Inter');
-    $display_font = get_theme_mod('gambla_display_font', 'Montserrat');
-    $base_font_size = get_theme_mod('gambla_base_font_size', 16);
-    $header_height = get_theme_mod('gambla_header_height', 80);
-    $post_image_height = get_theme_mod('gambla_post_image_height', 250);
-    
-    ?>
-    <style type="text/css" id="gambla-custom-css">
-        :root {
-            --gambla-primary: <?php echo esc_html($primary_color); ?>;
-            --gambla-secondary: <?php echo esc_html($secondary_color); ?>;
-            --gambla-yellow: <?php echo esc_html($yellow_color); ?>;
-            --gambla-dark: <?php echo esc_html($background_color); ?>;
-            --gambla-gray: <?php echo esc_html($gray_color); ?>;
-            --font-primary: '<?php echo esc_html($primary_font); ?>', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-display: '<?php echo esc_html($display_font); ?>', sans-serif;
-            --base-font-size: <?php echo esc_html($base_font_size); ?>px;
-            --header-height: <?php echo esc_html($header_height); ?>px;
-            --post-image-height: <?php echo esc_html($post_image_height); ?>px;
-        }
-        
-        body {
-            background-color: <?php echo esc_html($background_color); ?>;
-            color: <?php echo esc_html($text_color); ?>;
-            font-size: <?php echo esc_html($base_font_size); ?>px;
-        }
-        
-        .site-header {
-            height: <?php echo esc_html($header_height); ?>px;
-        }
-        
-        .hero-section, .page-hero {
-            padding-top: calc(<?php echo esc_html($header_height); ?>px + 20px);
-        }
-        
-        .post-image {
-            height: <?php echo esc_html($post_image_height); ?>px;
-        }
-        
-        @import url('https://fonts.googleapis.com/css2?family=<?php echo str_replace(' ', '+', $primary_font); ?>:wght@300;400;500;600;700&family=<?php echo str_replace(' ', '+', $display_font); ?>:wght@400;600;700;800&display=swap');
-    </style>
-    <?php
-}
-add_action('wp_head', 'gambla_custom_css');
+// Rimuovi elementi non necessari dal head
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'rsd_link');
 
-// Create default pages on theme activation
-function gambla_create_default_pages() {
-    $pages = array(
-        'home' => array('title' => 'Home', 'template' => 'page-home.php'),
-        'blog' => array('title' => 'Blog', 'template' => 'page-blog.php'),
-        'fantagambla' => array('title' => 'FantaGambla', 'template' => 'page-fantagambla.php'),
-        'chi-siamo' => array('title' => 'Chi Siamo', 'template' => 'page-chi-siamo.php'),
-        'contatti' => array('title' => 'Contatti', 'template' => 'page-contatti.php'),
-        'newsletter' => array('title' => 'Newsletter', 'template' => 'page-newsletter.php'),
-        'faq' => array('title' => 'FAQ', 'template' => 'page-faq.php'),
-        'unisciti-ora' => array('title' => 'Unisciti Ora', 'template' => 'page-unisciti-ora.php'),
-    );
-    
-    foreach ($pages as $slug => $page) {
-        if (!get_page_by_path($slug)) {
-            $page_id = wp_insert_post(array(
-                'post_title' => $page['title'],
-                'post_name' => $slug,
-                'post_content' => '',
-                'post_status' => 'publish',
-                'post_type' => 'page',
-            ));
-            
-            if ($page_id && isset($page['template'])) {
-                update_post_meta($page_id, '_wp_page_template', $page['template']);
-            }
-        }
-    }
-    
-    // Set home page
-    $home = get_page_by_path('home');
-    if ($home) {
-        update_option('page_on_front', $home->ID);
-        update_option('show_on_front', 'page');
-    }
+// Aggiungi classi CSS personalizzate al body
+function gambla_body_classes($classes) {
+    $classes[] = 'gambla-theme';
+    return $classes;
 }
-add_action('after_switch_theme', 'gambla_create_default_pages');
+add_filter('body_class', 'gambla_body_classes');
 
-// Widget areas
-function gambla_widgets_init() {
-    register_sidebar(array(
-        'name' => 'Blog Sidebar',
-        'id' => 'blog-sidebar',
-        'before_widget' => '<div class="widget %2$s">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3 class="widget-title">',
-        'after_title' => '</h3>',
-    ));
+// Personalizza l'area admin
+function gambla_admin_style() {
+    echo '<style>
+        #adminmenu, #adminmenuback, #adminmenuwrap {
+            background: #0a0a0a;
+        }
+        #adminmenu .wp-has-current-submenu .wp-submenu a,
+        #adminmenu .wp-has-current-submenu .wp-submenu a:focus,
+        #adminmenu .wp-has-current-submenu .wp-submenu a:hover,
+        #adminmenu a.wp-has-current-submenu:focus+.wp-submenu a {
+            color: #FF00FF;
+        }
+    </style>';
 }
-add_action('widgets_init', 'gambla_widgets_init');
+add_action('admin_head', 'gambla_admin_style');
+
+// Enqueue script per il customizer
+function gambla_customize_preview_js() {
+    wp_enqueue_script('gambla-customizer', get_template_directory_uri() . '/js/customizer.js', array('customize-preview'), '3.0.0', true);
+}
+add_action('customize_preview_init', 'gambla_customize_preview_js');
 ?>
