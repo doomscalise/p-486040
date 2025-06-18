@@ -122,24 +122,12 @@ function blog_login_logo() { ?>
 <?php }
 add_action('login_enqueue_scripts', 'blog_login_logo');
 
-// Supporto per il customizer
+// Supporto per il customizer - MOLTO POTENZIATO
 function blog_theme_customize_register($wp_customize) {
-    // Sezione Blog
-    $wp_customize->add_section('blog_theme_section', array(
-        'title' => 'Impostazioni Blog',
+    // Sezione Colori
+    $wp_customize->add_section('blog_colors_section', array(
+        'title' => 'Colori e Gradients',
         'priority' => 30,
-    ));
-    
-    // Tagline del blog
-    $wp_customize->add_setting('blog_theme_tagline', array(
-        'default' => 'Le notizie più fresche dal mondo dello sport, analisi esclusive e approfondimenti dai nostri esperti',
-        'sanitize_callback' => 'sanitize_text_field',
-    ));
-    
-    $wp_customize->add_control('blog_theme_tagline', array(
-        'label' => 'Tagline del Blog',
-        'section' => 'blog_theme_section',
-        'type' => 'textarea',
     ));
     
     // Colore primario
@@ -149,8 +137,8 @@ function blog_theme_customize_register($wp_customize) {
     ));
     
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'blog_primary_color', array(
-        'label' => 'Colore Primario',
-        'section' => 'blog_theme_section',
+        'label' => 'Colore Primario (Magenta)',
+        'section' => 'blog_colors_section',
     )));
     
     // Colore secondario
@@ -160,9 +148,158 @@ function blog_theme_customize_register($wp_customize) {
     ));
     
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'blog_secondary_color', array(
-        'label' => 'Colore Secondario',
-        'section' => 'blog_theme_section',
+        'label' => 'Colore Secondario (Arancione)',
+        'section' => 'blog_colors_section',
     )));
+    
+    // Colore di sfondo
+    $wp_customize->add_setting('blog_bg_color', array(
+        'default' => '#0a0a0a',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'blog_bg_color', array(
+        'label' => 'Colore Sfondo',
+        'section' => 'blog_colors_section',
+    )));
+    
+    // Sezione Typography
+    $wp_customize->add_section('blog_typography_section', array(
+        'title' => 'Tipografia',
+        'priority' => 31,
+    ));
+    
+    // Font principale
+    $wp_customize->add_setting('blog_font_primary', array(
+        'default' => 'Inter',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('blog_font_primary', array(
+        'label' => 'Font Principale',
+        'section' => 'blog_typography_section',
+        'type' => 'select',
+        'choices' => array(
+            'Inter' => 'Inter',
+            'Roboto' => 'Roboto',
+            'Open Sans' => 'Open Sans',
+            'Lato' => 'Lato',
+            'Poppins' => 'Poppins',
+        ),
+    ));
+    
+    // Font titoli
+    $wp_customize->add_setting('blog_font_display', array(
+        'default' => 'Montserrat',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('blog_font_display', array(
+        'label' => 'Font Titoli',
+        'section' => 'blog_typography_section',
+        'type' => 'select',
+        'choices' => array(
+            'Montserrat' => 'Montserrat',
+            'Oswald' => 'Oswald',
+            'Playfair Display' => 'Playfair Display',
+            'Raleway' => 'Raleway',
+            'Source Sans Pro' => 'Source Sans Pro',
+        ),
+    ));
+    
+    // Dimensione font base
+    $wp_customize->add_setting('blog_font_size', array(
+        'default' => '18',
+        'sanitize_callback' => 'absint',
+    ));
+    
+    $wp_customize->add_control('blog_font_size', array(
+        'label' => 'Dimensione Font Base (px)',
+        'section' => 'blog_typography_section',
+        'type' => 'number',
+        'input_attrs' => array(
+            'min' => 14,
+            'max' => 24,
+        ),
+    ));
+    
+    // Sezione Layout
+    $wp_customize->add_section('blog_layout_section', array(
+        'title' => 'Layout e Spaziature',
+        'priority' => 32,
+    ));
+    
+    // Larghezza container
+    $wp_customize->add_setting('blog_container_width', array(
+        'default' => '1200',
+        'sanitize_callback' => 'absint',
+    ));
+    
+    $wp_customize->add_control('blog_container_width', array(
+        'label' => 'Larghezza Container (px)',
+        'section' => 'blog_layout_section',
+        'type' => 'number',
+        'input_attrs' => array(
+            'min' => 960,
+            'max' => 1400,
+        ),
+    ));
+    
+    // Altezza header
+    $wp_customize->add_setting('blog_header_height', array(
+        'default' => '90',
+        'sanitize_callback' => 'absint',
+    ));
+    
+    $wp_customize->add_control('blog_header_height', array(
+        'label' => 'Altezza Header (px)',
+        'section' => 'blog_layout_section',
+        'type' => 'number',
+        'input_attrs' => array(
+            'min' => 60,
+            'max' => 120,
+        ),
+    ));
+    
+    // Sezione Blog
+    $wp_customize->add_section('blog_theme_section', array(
+        'title' => 'Impostazioni Blog',
+        'priority' => 33,
+    ));
+    
+    // Tagline del blog
+    $wp_customize->add_setting('blog_theme_tagline', array(
+        'default' => 'Le notizie più fresche dal mondo dello sport, analisi esclusive e approfondimenti dai nostri esperti',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    
+    $wp_customize->add_control('blog_theme_tagline', array(
+        'label' => 'Tagline del Blog',
+        'section' => 'blog_theme_section',
+        'type' => 'textarea',
+    ));
+    
+    // Numero articoli per pagina
+    $wp_customize->add_setting('blog_posts_per_page', array(
+        'default' => '6',
+        'sanitize_callback' => 'absint',
+    ));
+    
+    $wp_customize->add_control('blog_posts_per_page', array(
+        'label' => 'Articoli per Pagina',
+        'section' => 'blog_theme_section',
+        'type' => 'number',
+        'input_attrs' => array(
+            'min' => 3,
+            'max' => 12,
+        ),
+    ));
+    
+    // Sezione Footer
+    $wp_customize->add_section('blog_footer_section', array(
+        'title' => 'Footer',
+        'priority' => 34,
+    ));
     
     // Testo footer
     $wp_customize->add_setting('blog_footer_text', array(
@@ -171,12 +308,113 @@ function blog_theme_customize_register($wp_customize) {
     ));
     
     $wp_customize->add_control('blog_footer_text', array(
-        'label' => 'Testo Footer',
-        'section' => 'blog_theme_section',
+        'label' => 'Testo Copyright',
+        'section' => 'blog_footer_section',
         'type' => 'text',
+    ));
+    
+    // Link sito principale
+    $wp_customize->add_setting('blog_main_site_url', array(
+        'default' => 'https://gambla.it',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    
+    $wp_customize->add_control('blog_main_site_url', array(
+        'label' => 'URL Sito Principale',
+        'section' => 'blog_footer_section',
+        'type' => 'url',
+    ));
+    
+    // Sezione Social
+    $wp_customize->add_section('blog_social_section', array(
+        'title' => 'Social Media',
+        'priority' => 35,
+    ));
+    
+    // Instagram
+    $wp_customize->add_setting('blog_instagram_url', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    
+    $wp_customize->add_control('blog_instagram_url', array(
+        'label' => 'URL Instagram',
+        'section' => 'blog_social_section',
+        'type' => 'url',
+    ));
+    
+    // YouTube
+    $wp_customize->add_setting('blog_youtube_url', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    
+    $wp_customize->add_control('blog_youtube_url', array(
+        'label' => 'URL YouTube',
+        'section' => 'blog_social_section',
+        'type' => 'url',
+    ));
+    
+    // TikTok
+    $wp_customize->add_setting('blog_tiktok_url', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    
+    $wp_customize->add_control('blog_tiktok_url', array(
+        'label' => 'URL TikTok',
+        'section' => 'blog_social_section',
+        'type' => 'url',
     ));
 }
 add_action('customize_register', 'blog_theme_customize_register');
+
+// Genera CSS personalizzato dal customizer
+function blog_theme_custom_css() {
+    $primary_color = get_theme_mod('blog_primary_color', '#ff2480');
+    $secondary_color = get_theme_mod('blog_secondary_color', '#ff800f');
+    $bg_color = get_theme_mod('blog_bg_color', '#0a0a0a');
+    $font_primary = get_theme_mod('blog_font_primary', 'Inter');
+    $font_display = get_theme_mod('blog_font_display', 'Montserrat');
+    $font_size = get_theme_mod('blog_font_size', '18');
+    $container_width = get_theme_mod('blog_container_width', '1200');
+    $header_height = get_theme_mod('blog_header_height', '90');
+    
+    ?>
+    <style type="text/css">
+        :root {
+            --gambla-magenta: <?php echo $primary_color; ?>;
+            --gambla-orange: <?php echo $secondary_color; ?>;
+            --gambla-dark: <?php echo $bg_color; ?>;
+            --font-primary: '<?php echo $font_primary; ?>', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: '<?php echo $font_display; ?>', sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            font-size: <?php echo $font_size; ?>px;
+            background: var(--gambla-dark);
+        }
+        
+        .container {
+            max-width: <?php echo $container_width; ?>px;
+        }
+        
+        .main-content {
+            padding-top: <?php echo $header_height; ?>px;
+        }
+        
+        h1, h2, h3, h4, h5, h6,
+        .page-title,
+        .post-title,
+        .site-logo,
+        .footer-logo {
+            font-family: var(--font-display);
+        }
+    </style>
+    <?php
+}
+add_action('wp_head', 'blog_theme_custom_css');
 
 // Aggiungi editor styles
 function blog_theme_add_editor_styles() {

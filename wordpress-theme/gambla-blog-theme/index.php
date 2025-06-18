@@ -142,8 +142,10 @@
                 </nav>
             <?php else : ?>
                 <div class="footer-links">
-                    <a href="https://gambla.it">Sito Principale</a>
+                    <a href="https://gambla.it">Home</a>
                     <a href="https://gambla.it/fantagambla">FantaGambla</a>
+                    <a href="https://gambla.it/chi-siamo">Chi Siamo</a>
+                    <a href="https://gambla.it/faq">FAQ</a>
                     <a href="https://gambla.it/newsletter">Newsletter</a>
                     <a href="https://gambla.it/contatti">Contatti</a>
                 </div>
