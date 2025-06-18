@@ -123,7 +123,7 @@ const Navbar = () => {
                     }`}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 )
               ))}
               <div className="px-3 py-2">
