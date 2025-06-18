@@ -121,7 +121,7 @@ function blog_login_logo() { ?>
 <?php }
 add_action('login_enqueue_scripts', 'blog_login_logo');
 
-// Supporto per il customizer - POTENZIATO con nuove opzioni
+// Supporto per il customizer - ESTESO con nuove opzioni per BLOG
 function blog_theme_customize_register($wp_customize) {
     // Sezione Branding
     $wp_customize->add_section('blog_branding_section', array(
@@ -141,15 +141,16 @@ function blog_theme_customize_register($wp_customize) {
         'type' => 'text',
     ));
     
-    // Logo header
+    // Logo header (piccolo per il nav)
     $wp_customize->add_setting('blog_header_logo', array(
         'default' => '',
         'sanitize_callback' => 'esc_url_raw',
     ));
     
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'blog_header_logo', array(
-        'label' => 'Logo Header (piccolo)',
+        'label' => 'Logo Header (piccolo per navigation)',
         'section' => 'blog_branding_section',
+        'description' => 'Logo piccolo che appare nella barra di navigazione (24x24px)',
     )));
     
     // Logo principale
@@ -161,6 +162,7 @@ function blog_theme_customize_register($wp_customize) {
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'blog_main_logo', array(
         'label' => 'Logo Principale (grande)',
         'section' => 'blog_branding_section',
+        'description' => 'Logo grande che appare sopra al nome del sito (50x50px)',
     )));
     
     // Titolo pagina BLOG
@@ -170,9 +172,50 @@ function blog_theme_customize_register($wp_customize) {
     ));
     
     $wp_customize->add_control('blog_page_title', array(
-        'label' => 'Titolo Pagina BLOG',
+        'label' => 'Titolo Sezione BLOG',
         'section' => 'blog_branding_section',
         'type' => 'text',
+        'description' => 'Il titolo principale che appare con gradient animato',
+    ));
+    
+    // Sezione Blog Layout
+    $wp_customize->add_section('blog_layout_section', array(
+        'title' => 'Layout Sezione BLOG',
+        'priority' => 32,
+    ));
+    
+    // Struttura BLOG
+    $wp_customize->add_setting('blog_structure_style', array(
+        'default' => 'professional',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('blog_structure_style', array(
+        'label' => 'Stile Struttura BLOG',
+        'section' => 'blog_layout_section',
+        'type' => 'select',
+        'choices' => array(
+            'professional' => 'Professionale (BLOG sopra, descrizione sotto)',
+            'centered' => 'Centrato (tutto insieme)',
+            'minimal' => 'Minimale (solo titolo BLOG)',
+        ),
+    ));
+    
+    // Dimensione titolo BLOG
+    $wp_customize->add_setting('blog_title_size', array(
+        'default' => '4.5',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('blog_title_size', array(
+        'label' => 'Dimensione Titolo BLOG (rem)',
+        'section' => 'blog_layout_section',
+        'type' => 'number',
+        'input_attrs' => array(
+            'min' => 3,
+            'max' => 6,
+            'step' => 0.1,
+        ),
     ));
     
     // Sezione Colori
@@ -274,48 +317,49 @@ function blog_theme_customize_register($wp_customize) {
         ),
     ));
     
-    // Sezione Layout
-    $wp_customize->add_section('blog_layout_section', array(
-        'title' => 'Layout e Spaziature',
-        'priority' => 32,
+    // Sezione Menu e Navigation
+    $wp_customize->add_section('blog_navigation_section', array(
+        'title' => 'Navigation e Menu',
+        'priority' => 33,
     ));
     
-    // Larghezza container
-    $wp_customize->add_setting('blog_container_width', array(
-        'default' => '1200',
-        'sanitize_callback' => 'absint',
+    // Dimensione font menu
+    $wp_customize->add_setting('blog_menu_font_size', array(
+        'default' => '0.8',
+        'sanitize_callback' => 'sanitize_text_field',
     ));
     
-    $wp_customize->add_control('blog_container_width', array(
-        'label' => 'Larghezza Container (px)',
-        'section' => 'blog_layout_section',
+    $wp_customize->add_control('blog_menu_font_size', array(
+        'label' => 'Dimensione Font Menu (rem)',
+        'section' => 'blog_navigation_section',
         'type' => 'number',
         'input_attrs' => array(
-            'min' => 960,
-            'max' => 1400,
+            'min' => 0.6,
+            'max' => 1.2,
+            'step' => 0.05,
         ),
     ));
     
     // Altezza header
     $wp_customize->add_setting('blog_header_height', array(
-        'default' => '70',
+        'default' => '60',
         'sanitize_callback' => 'absint',
     ));
     
     $wp_customize->add_control('blog_header_height', array(
         'label' => 'Altezza Header (px)',
-        'section' => 'blog_layout_section',
+        'section' => 'blog_navigation_section',
         'type' => 'number',
         'input_attrs' => array(
-            'min' => 60,
-            'max' => 120,
+            'min' => 50,
+            'max' => 80,
         ),
     ));
     
     // Sezione Blog
     $wp_customize->add_section('blog_theme_section', array(
         'title' => 'Impostazioni Blog',
-        'priority' => 33,
+        'priority' => 34,
     ));
     
     // Tagline del blog
@@ -328,6 +372,7 @@ function blog_theme_customize_register($wp_customize) {
         'label' => 'Tagline del Blog',
         'section' => 'blog_theme_section',
         'type' => 'textarea',
+        'description' => 'Testo descrittivo che appare sotto il nome Gambla',
     ));
     
     // Numero articoli per pagina
@@ -349,7 +394,7 @@ function blog_theme_customize_register($wp_customize) {
     // Sezione Footer
     $wp_customize->add_section('blog_footer_section', array(
         'title' => 'Footer',
-        'priority' => 34,
+        'priority' => 35,
     ));
     
     // URL sito principale
@@ -362,6 +407,7 @@ function blog_theme_customize_register($wp_customize) {
         'label' => 'URL Sito Principale',
         'section' => 'blog_footer_section',
         'type' => 'url',
+        'description' => 'URL del sito principale per i link del footer',
     ));
     
     // Testo footer
@@ -379,7 +425,7 @@ function blog_theme_customize_register($wp_customize) {
     // Sezione Social
     $wp_customize->add_section('blog_social_section', array(
         'title' => 'Social Media',
-        'priority' => 35,
+        'priority' => 36,
     ));
     
     // Instagram
@@ -452,8 +498,9 @@ function blog_theme_custom_css() {
     $font_display = get_theme_mod('blog_font_display', 'Montserrat');
     $font_size = get_theme_mod('blog_font_size', '18');
     $container_width = get_theme_mod('blog_container_width', '1200');
-    $header_height = get_theme_mod('blog_header_height', '70');
-    $menu_font_size = get_theme_mod('blog_menu_font_size', '0.85');
+    $header_height = get_theme_mod('blog_header_height', '60');
+    $menu_font_size = get_theme_mod('blog_menu_font_size', '0.8');
+    $blog_title_size = get_theme_mod('blog_title_size', '4.5');
     
     ?>
     <style type="text/css">
@@ -481,6 +528,10 @@ function blog_theme_custom_css() {
         
         .main-nav a {
             font-size: <?php echo $menu_font_size; ?>rem;
+        }
+        
+        .page-title {
+            font-size: <?php echo $blog_title_size; ?>rem;
         }
         
         h1, h2, h3, h4, h5, h6,

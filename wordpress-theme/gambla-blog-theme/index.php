@@ -36,15 +36,15 @@
                 ));
                 ?>
                 
-                <!-- Menu di fallback se non è impostato un menu -->
+                <!-- Menu di fallback con link esterni corretti -->
                 <?php if (!has_nav_menu('primary')) : ?>
                     <ul>
-                        <li><a href="https://gambla.it">Home</a></li>
-                        <li><a href="https://gambla.it/fantagambla">FantaGambla</a></li>
-                        <li><a href="https://gambla.it/chi-siamo">Chi Siamo</a></li>
-                        <li><a href="https://gambla.it/faq">FAQ</a></li>
-                        <li><a href="https://gambla.it/newsletter">Newsletter</a></li>
-                        <li><a href="https://gambla.it/contatti">Contatti</a></li>
+                        <li><a href="https://gambla.it" target="_blank">Home</a></li>
+                        <li><a href="https://gambla.it/fantagambla" target="_blank">FantaGambla</a></li>
+                        <li><a href="https://gambla.it/chi-siamo" target="_blank">Chi Siamo</a></li>
+                        <li><a href="https://gambla.it/faq" target="_blank">FAQ</a></li>
+                        <li><a href="https://gambla.it/newsletter" target="_blank">Newsletter</a></li>
+                        <li><a href="https://gambla.it/contatti" target="_blank">Contatti</a></li>
                     </ul>
                 <?php endif; ?>
             </nav>
@@ -70,7 +70,10 @@
                 </p>
             </div>
             
-            <h2 class="page-title"><?php echo esc_html(get_theme_mod('blog_page_title', 'BLOG')); ?></h2>
+            <!-- Struttura professionale per la sezione BLOG -->
+            <div class="blog-header-section">
+                <h2 class="page-title"><?php echo esc_html(get_theme_mod('blog_page_title', 'BLOG')); ?></h2>
+            </div>
         </div>
         
         <?php if (have_posts()) : ?>
@@ -160,13 +163,14 @@
                     ?>
                 </nav>
             <?php else : ?>
+                <!-- Link footer corretti al sito principale -->
                 <div class="footer-links">
-                    <a href="<?php echo esc_url(get_theme_mod('blog_main_site_url', 'https://gambla.it')); ?>">Home</a>
-                    <a href="<?php echo esc_url(get_theme_mod('blog_main_site_url', 'https://gambla.it')); ?>/fantagambla">FantaGambla</a>
-                    <a href="<?php echo esc_url(get_theme_mod('blog_main_site_url', 'https://gambla.it')); ?>/chi-siamo">Chi Siamo</a>
-                    <a href="<?php echo esc_url(get_theme_mod('blog_main_site_url', 'https://gambla.it')); ?>/faq">FAQ</a>
-                    <a href="<?php echo esc_url(get_theme_mod('blog_main_site_url', 'https://gambla.it')); ?>/newsletter">Newsletter</a>
-                    <a href="<?php echo esc_url(get_theme_mod('blog_main_site_url', 'https://gambla.it')); ?>/contatti">Contatti</a>
+                    <a href="https://gambla.it" target="_blank">Home</a>
+                    <a href="https://gambla.it/fantagambla" target="_blank">FantaGambla</a>
+                    <a href="https://gambla.it/chi-siamo" target="_blank">Chi Siamo</a>
+                    <a href="https://gambla.it/faq" target="_blank">FAQ</a>
+                    <a href="https://gambla.it/newsletter" target="_blank">Newsletter</a>
+                    <a href="https://gambla.it/contatti" target="_blank">Contatti</a>
                 </div>
             <?php endif; ?>
             
