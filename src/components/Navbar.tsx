@@ -33,8 +33,13 @@ const Navbar = () => {
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo con PNG */}
-          <Link to="/" className="flex items-center space-x-3 group">
+          {/* Logo con PNG collegato a blog.gambla.it */}
+          <a 
+            href="https://blog.gambla.it" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center space-x-3 group"
+          >
             <div className="w-10 h-10 bg-gambla-gradient rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <img 
                 src="/lovable-uploads/3440b5bf-cc6b-4e15-a97e-8c44c35f3558.png" 
@@ -45,7 +50,7 @@ const Navbar = () => {
             <span className="text-2xl font-display font-bold text-transparent bg-clip-text bg-gambla-gradient">
               GAMBLA
             </span>
-          </Link>
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
